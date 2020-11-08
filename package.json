@@ -1,0 +1,19 @@
+{
+  "name": "snake",
+  "version": "0.0.1",
+  "description": "A snake game using JS and canvas",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yakirgot/snake.git"
+  },
+  "author": "Yakir Gottesman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yakirgot/snake/issues"
+  },
+  "homepage": "https://github.com/yakirgot/snake#readme"
+}
