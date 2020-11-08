@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/yakirgot/snake/issues"
   },
-  "homepage": "https://github.com/yakirgot/snake#readme"
+  "homepage": "https://github.com/yakirgot/snake#readme",
+  "devDependencies": {
+    "prettier": "^2.1.2"
+  }
 }
