@@ -1,3 +1,4 @@
 {
-  "*.{js,css,md}": "prettier --write"
+  "*.{js,ts,md,html,css}": "prettier --write",
+  "*.js": ["cross-env NODE_ENV=test jest --bail --findRelatedTests"]
 }
