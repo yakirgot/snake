@@ -1,0 +1,30 @@
+:root {
+  --saffron: #e1bc29;
+  --carolina-blue: #4d9de0;
+  --indian-red: #e15554;
+  --medium-sea-green: #3bb273;
+  --blue-violet-crayola: #7768ae;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--carolina-blue);
+  display: grid;
+  margin: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  padding: 16px;
+  place-items: center;
+}
+
+#snake-canvas {
+  background: var(--medium-sea-green);
+  border-radius: 4px;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  height: 400px;
+  width: 600px;
+}

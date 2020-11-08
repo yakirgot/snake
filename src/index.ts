@@ -1,6 +1,9 @@
-export default function hello(): void {
-  console.log("Hello!");
+import "./assets/styles.css";
+
+function initCanvas() {
+  const canvas = document.createElement("canvas");
+  canvas.id = "snake-canvas";
+  document.body.appendChild(canvas);
 }
 
-hello();
-hello();
+initCanvas();
