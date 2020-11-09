@@ -1,5 +1,0 @@
-{
-  "*.{js,ts,md,html,css}": "prettier --write",
-  "*.js": ["cross-env NODE_ENV=test jest --bail --findRelatedTests"],
-  "*.css": "stylelint"
-}
