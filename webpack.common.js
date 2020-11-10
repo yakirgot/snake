@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const isProductionMode = process.env.NODE_ENV === "production";
 
 module.exports = {
   entry: "./src/index.ts",
@@ -18,15 +19,19 @@ module.exports = {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: isProductionMode ? "[name].[contenthash].css" : "[name].css",
     }),
   ],
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
-      },
+        use: [
+          isProductionMode ? MiniCssExtractPlugin.loader : "style-loader",
+          "css-loader",
+          "postcss-loader,
+        ,
+      ,
     ],
   },
   optimization: {
