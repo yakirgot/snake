@@ -29,9 +29,9 @@ module.exports = {
         use: [
           isProductionMode ? MiniCssExtractPlugin.loader : "style-loader",
           "css-loader",
-          "postcss-loader,
-        ,
-      ,
+          "postcss-loader",
+        ],
+      },
     ],
   },
   optimization: {
