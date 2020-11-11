@@ -1,9 +1,11 @@
 name: Release
 on:
-  push:
-    branches: [$default-branch]
+push:
+  branches:
+    - main
   pull_request:
-    branches: [$default-branch]
+    branches:
+      - main
 jobs:
   build:
     name: Build
