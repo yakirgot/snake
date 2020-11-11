@@ -1,9 +1,10 @@
 import "./assets/styles.css";
+import { Canvas } from "./setup-dom";
 
-function initCanvas() {
-  const canvas = document.createElement("canvas");
-  canvas.id = "snake-canvas";
-  document.body.appendChild(canvas);
+const canvas = new Canvas();
+const context = canvas.getCanvasContext();
+
+if (context) {
+  context.fillStyle = "green";
+  context.fillRect(10, 10, 150, 100);
 }
-
-initCanvas();
