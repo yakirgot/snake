@@ -5,10 +5,12 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.ts",
+  target: "web",
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "Snake",
+      favicon: "src/assets/favicon.ico",
     }),
     new ForkTsCheckerWebpackPlugin({
       eslint: {
