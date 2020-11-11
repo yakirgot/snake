@@ -26,7 +26,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Test
-        run: npm test -- --bail
+        run: npm test -- --bail --passWithNoTests
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
