@@ -47,11 +47,11 @@ module.exports = {
           name: "styles",
           test: /\.css$/,
           chunks: "all",
-          enforce: tue,
+          enforce: true,
         },
       },
     },
-    runtimeChunk: "singe",
+    runtimeChunk: "single",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
