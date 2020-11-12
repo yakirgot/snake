@@ -8,19 +8,41 @@ export class Snake {
   private readonly canvas: Canvas;
   private readonly snakeDataArray: SnakeRectData[];
   private snakeDirection: SnakeDirectionType;
+  private moveSnakeInterval: number | undefined;
 
   constructor() {
     this.canvas = container.resolve<Canvas>(Canvas);
 
     this.snakeDataArray = [];
-
     this.snakeDirection = "right";
 
     this.setupSnake();
 
-    setInterval(() => this.moveSnake(), Configuration.movementDelayInMs);
+    this.startGame();
 
     addEventListener("keyup", this.changeSnakeDirection.bind(this));
+  }
+
+  private static isOutOfBoard(snakeRectData: SnakeRectData): boolean {
+    const outRight: boolean =
+      snakeRectData.xPosition >
+      Configuration.boardWidthInPixels - Configuration.snakePieceSizeInPixels;
+    const outLeft: boolean = snakeRectData.xPosition < 0;
+    const outDown: boolean =
+      snakeRectData.yPosition >
+      Configuration.boardHeightInPixels - Configuration.snakePieceSizeInPixels;
+    const outUp: boolean = snakeRectData.yPosition < 0;
+
+    return outRight || outLeft || outDown || outUp;
+  }
+
+  private startGame(): void {
+    this.snakeDirection = "right";
+
+    this.moveSnakeInterval = window.setInterval(
+      () => this.moveSnake(),
+      Configuration.movementDelayInMs
+    );
   }
 
   private changeSnakeDirection(keyboardEvent: KeyboardEvent): void {
@@ -52,17 +74,14 @@ export class Snake {
     }
   }
 
-  private moveSnake(): void {
-    const firstSnakeData = this.snakeDataArray[this.snakeDataArray.length - 1];
-    const nextSnakeData: SnakeRectData = this.getNextSnakeData(firstSnakeData);
-
-    this.snakeDataArray.push(nextSnakeData);
-    this.canvas.fillRect(nextSnakeData);
-
-    const lastSnakeData = this.snakeDataArray.shift();
-    if (lastSnakeData) {
-      this.canvas.clearRect(lastSnakeData);
+  private endgame(): void {
+    if (this.moveSnakeInterval) {
+      clearInterval(this.moveSnakeInterval);
     }
+
+    this.canvas.resetBoard();
+
+    console.log("Game over!");
   }
 
   private getNextSnakeData(snakeRectData: SnakeRectData): SnakeRectData {
@@ -104,6 +123,26 @@ export class Snake {
     }
 
     return nextSnakeData;
+  }
+
+  private moveSnake(): void {
+    const firstSnakeData = this.snakeDataArray[this.snakeDataArray.length - 1];
+    const nextSnakeData: SnakeRectData = this.getNextSnakeData(firstSnakeData);
+
+    const isOutOfBoard = Snake.isOutOfBoard(nextSnakeData);
+    if (isOutOfBoard) {
+      this.endgame();
+
+      return;
+    }
+
+    this.snakeDataArray.push(nextSnakeData);
+    this.canvas.fillRect(nextSnakeData);
+
+    const lastSnakeData = this.snakeDataArray.shift();
+    if (lastSnakeData) {
+      this.canvas.clearRect(lastSnakeData);
+    }
   }
 
   private setupSnake(): void {

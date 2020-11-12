@@ -34,6 +34,19 @@ export class Canvas {
     this.fillRectOnCanvas(snakeRectData, color);
   }
 
+  public resetBoard(): void {
+    const context = this.getCanvasContext();
+
+    if (context) {
+      context.clearRect(
+        0,
+        0,
+        Configuration.boardWidthInPixels,
+        Configuration.boardHeightInPixels
+      );
+    }
+  }
+
   private fillRectOnCanvas(snakeRectData: SnakeRectData, color: string): void {
     const context = this.getCanvasContext();
 
