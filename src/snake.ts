@@ -130,7 +130,9 @@ export class Snake {
     const nextSnakeData: SnakeRectData = this.getNextSnakeData(firstSnakeData);
 
     const isOutOfBoard = Snake.isOutOfBoard(nextSnakeData);
-    if (isOutOfBoard) {
+    const isSelfHit = this.isSelfHit(nextSnakeData);
+
+    if (isOutOfBoard || isSelfHit) {
       this.endgame();
 
       return;
@@ -164,5 +166,20 @@ export class Snake {
           Configuration.snakePieceSizeInPixels + Configuration.snakeRectGap;
       }
     }
+  }
+
+  private isSelfHit(nextSnakeData: SnakeRectData): boolean {
+    const isSelfHit = this.snakeDataArray.some(
+      (snakeRectData: SnakeRectData) => {
+        const isSameXValue: boolean =
+          nextSnakeData.xPosition === snakeRectData.xPosition;
+        const isSameYValue: boolean =
+          nextSnakeData.yPosition === snakeRectData.yPosition;
+
+        return isSameXValue && isSameYValue;
+      }
+    );
+
+    return isSelfHit;
   }
 }
