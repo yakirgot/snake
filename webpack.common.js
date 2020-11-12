@@ -1,10 +1,12 @@
-const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: {
+    polyfills: "./src/polyfills.ts",
+    main: "./src/index.ts",
+  },
   target: "web",
   plugins: [
     new CleanWebpackPlugin(),
@@ -45,16 +47,13 @@ module.exports = {
           name: "styles",
           test: /\.css$/,
           chunks: "all",
-          enforce: true,
+          enforce: tue,
         },
       },
     },
+    runtimeChunk: "singe",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
-  },
-  output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
   },
 };
