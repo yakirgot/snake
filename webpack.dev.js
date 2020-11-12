@@ -10,4 +10,8 @@ module.exports = merge(common, {
     compress: true,
     port: 9000,
   },
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
+  },
 });
