@@ -2,17 +2,57 @@ import { container } from "tsyringe";
 import { Canvas } from "./canvas";
 import { SnakeRectData } from "./snake-rect-data";
 import { Configuration } from "./configuration";
+import { SnakeDirectionType } from "./_types/snake-direction.type";
 
 export class Snake {
-  private canvas: Canvas;
-  private snakeDataArray: SnakeRectData[];
+  private readonly canvas: Canvas;
+  private readonly snakeDataArray: SnakeRectData[];
+  private snakeDirection: SnakeDirectionType;
 
   constructor() {
     this.canvas = container.resolve<Canvas>(Canvas);
 
     this.snakeDataArray = [];
 
+    this.snakeDirection = "right";
+
     this.setupSnake();
+
+    setInterval(() => this.moveSnake(), Configuration.movementDelayInMs);
+  }
+
+  private moveSnake(): void {
+    const { xPosition, yPosition } = this.snakeDataArray[
+      this.snakeDataArray.length - 1
+    ];
+    const nextSnakeData: SnakeRectData = new SnakeRectData(
+      xPosition,
+      yPosition
+    );
+
+    switch (this.snakeDirection) {
+      case "right":
+        nextSnakeData.xPosition =
+          xPosition +
+          Configuration.snakePieceSizeInPixels +
+          Configuration.snakeRectGap;
+
+        break;
+      case "left":
+        break;
+      case "up":
+        break;
+      case "down":
+        break;
+    }
+
+    this.snakeDataArray.push(nextSnakeData);
+    this.canvas.fillRect(nextSnakeData);
+
+    const lastSnakeData = this.snakeDataArray.shift();
+    if (lastSnakeData) {
+      this.canvas.clearRect(lastSnakeData);
+    }
   }
 
   private setupSnake(): void {
@@ -25,7 +65,6 @@ export class Snake {
       const snakeData = new SnakeRectData(xPosition, yPosition);
 
       this.snakeDataArray.push(snakeData);
-
       this.canvas.fillRect(snakeData);
 
       const isLast: boolean = i === snakeStartRects - 1;

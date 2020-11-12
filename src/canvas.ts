@@ -25,7 +25,7 @@ export class Canvas {
   }
 
   public clearRect(snakeRectData: SnakeRectData): void {
-    const colorVar = "--carolina-blue";
+    const colorVar = "--medium-sea-green";
 
     const color: string = getComputedStyle(
       document.documentElement
