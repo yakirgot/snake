@@ -22,9 +22,20 @@ export class Snake {
   }
 
   private moveSnake(): void {
-    const { xPosition, yPosition } = this.snakeDataArray[
-      this.snakeDataArray.length - 1
-    ];
+    const firstSnakeData = this.snakeDataArray[this.snakeDataArray.length - 1];
+    const nextSnakeData: SnakeRectData = this.getNextSnakeData(firstSnakeData);
+
+    this.snakeDataArray.push(nextSnakeData);
+    this.canvas.fillRect(nextSnakeData);
+
+    const lastSnakeData = this.snakeDataArray.shift();
+    if (lastSnakeData) {
+      this.canvas.clearRect(lastSnakeData);
+    }
+  }
+
+  private getNextSnakeData(snakeRectData: SnakeRectData): SnakeRectData {
+    const { xPosition, yPosition } = snakeRectData;
     const nextSnakeData: SnakeRectData = new SnakeRectData(
       xPosition,
       yPosition
@@ -61,13 +72,7 @@ export class Snake {
         break;
     }
 
-    this.snakeDataArray.push(nextSnakeData);
-    this.canvas.fillRect(nextSnakeData);
-
-    const lastSnakeData = this.snakeDataArray.shift();
-    if (lastSnakeData) {
-      this.canvas.clearRect(lastSnakeData);
-    }
+    return nextSnakeData;
   }
 
   private setupSnake(): void {
