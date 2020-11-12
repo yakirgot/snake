@@ -22,6 +22,7 @@ body {
 
 #snake-canvas {
   background: var(--medium-sea-green);
+  border: 5px solid var(--medium-sea-green);
   border-radius: 4px;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
 }

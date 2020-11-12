@@ -19,6 +19,29 @@ export class Snake {
     this.setupSnake();
 
     setInterval(() => this.moveSnake(), Configuration.movementDelayInMs);
+
+    addEventListener("keyup", this.changeSnakeDirection.bind(this));
+  }
+
+  private changeSnakeDirection(keyboardEvent: KeyboardEvent): void {
+    switch (keyboardEvent.key) {
+      case "ArrowRight":
+        this.snakeDirection = "right";
+
+        break;
+      case "ArrowLeft":
+        this.snakeDirection = "left";
+
+        break;
+      case "ArrowUp":
+        this.snakeDirection = "up";
+
+        break;
+      case "ArrowDown":
+        this.snakeDirection = "down";
+
+        break;
+    }
   }
 
   private moveSnake(): void {
@@ -78,8 +101,8 @@ export class Snake {
   private setupSnake(): void {
     const snakeStartRects = 3;
 
-    let xPosition = Configuration.boardWidthInPixels / 4;
-    const yPosition = Configuration.boardHeightInPixels / 2;
+    let xPosition = Math.round(Configuration.boardWidthInPixels / 4);
+    const yPosition = Math.round(Configuration.boardHeightInPixels / 2);
 
     for (let i = 0; i < snakeStartRects; i++) {
       const snakeData = new SnakeRectData(xPosition, yPosition);
