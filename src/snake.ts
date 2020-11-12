@@ -16,13 +16,24 @@ export class Snake {
   }
 
   private setupSnake(): void {
-    const snakeData = new SnakeRectData(
-      Configuration.boardWidthInPixels / 4,
-      Configuration.boardHeightInPixels / 2
-    );
+    const snakeStartRects = 3;
 
-    this.snakeDataArray.push(snakeData);
+    let xPosition = Configuration.boardWidthInPixels / 4;
+    const yPosition = Configuration.boardHeightInPixels / 2;
 
-    this.canvas.fillRect(snakeData);
+    for (let i = 0; i < snakeStartRects; i++) {
+      const snakeData = new SnakeRectData(xPosition, yPosition);
+
+      this.snakeDataArray.push(snakeData);
+
+      this.canvas.fillRect(snakeData);
+
+      const isLast: boolean = i === snakeStartRects - 1;
+
+      if (!isLast) {
+        xPosition +=
+          Configuration.snakePieceSizeInPixels + Configuration.snakeRectGap;
+      }
+    }
   }
 }

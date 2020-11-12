@@ -3,4 +3,5 @@ export class Configuration {
   static boardHeightInPixels = 400;
   static snakePieceSizeInPixels = 20;
   static movementDelayInMs = 50;
+  static snakeRectGap = 5;
 }
