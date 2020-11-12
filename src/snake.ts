@@ -1,41 +1,28 @@
 import { container } from "tsyringe";
-import { Configuration } from "./configuration";
 import { Canvas } from "./canvas";
+import { SnakeRectData } from "./snake-rect-data";
+import { Configuration } from "./configuration";
 
 export class Snake {
-  xPosition: number;
-  yPosition: number;
+  private canvas: Canvas;
+  private snakeDataArray: SnakeRectData[];
 
   constructor() {
-    this.xPosition = Configuration.boardWidthInPixels / 4;
-    this.yPosition = Configuration.boardHeightInPixels / 2;
+    this.canvas = container.resolve<Canvas>(Canvas);
+
+    this.snakeDataArray = [];
 
     this.setupSnake();
   }
 
-  private static getSnakeColor(): string {
-    const colorVar = "--indian-red";
-
-    const color: string = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue(colorVar);
-
-    return color;
-  }
-
   private setupSnake(): void {
-    const canvas: Canvas = container.resolve<Canvas>(Canvas);
-    const context = canvas.getCanvasContext();
+    const snakeData = new SnakeRectData(
+      Configuration.boardWidthInPixels / 4,
+      Configuration.boardHeightInPixels / 2
+    );
 
-    if (context) {
-      context.fillStyle = Snake.getSnakeColor();
+    this.snakeDataArray.push(snakeData);
 
-      context.fillRect(
-        this.xPosition,
-        this.yPosition,
-        Configuration.snakePieceSizeInPixels,
-        Configuration.snakePieceSizeInPixels
-      );
-    }
+    this.canvas.fillRect(snakeData);
   }
 }
