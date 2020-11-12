@@ -1,10 +1,4 @@
 import "./assets/styles.css";
-import { Canvas } from "./setup-dom";
+import { Snake } from "./snake";
 
-const canvas = new Canvas();
-const context = canvas.getCanvasContext();
-
-if (context) {
-  context.fillStyle = "green";
-  context.fillRect(10, 10, 150, 100);
-}
+new Snake();
