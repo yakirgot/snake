@@ -26,19 +26,27 @@ export class Snake {
   private changeSnakeDirection(keyboardEvent: KeyboardEvent): void {
     switch (keyboardEvent.key) {
       case "ArrowRight":
-        this.snakeDirection = "right";
+        if (this.snakeDirection !== "left") {
+          this.snakeDirection = "right";
+        }
 
         break;
       case "ArrowLeft":
-        this.snakeDirection = "left";
+        if (this.snakeDirection !== "right") {
+          this.snakeDirection = "left";
+        }
 
         break;
       case "ArrowUp":
-        this.snakeDirection = "up";
+        if (this.snakeDirection !== "down") {
+          this.snakeDirection = "up";
+        }
 
         break;
       case "ArrowDown":
-        this.snakeDirection = "down";
+        if (this.snakeDirection !== "up") {
+          this.snakeDirection = "down";
+        }
 
         break;
     }
