@@ -39,10 +39,25 @@ export class Snake {
 
         break;
       case "left":
+        nextSnakeData.xPosition =
+          xPosition -
+          Configuration.snakePieceSizeInPixels -
+          Configuration.snakeRectGap;
+
         break;
       case "up":
+        nextSnakeData.yPosition =
+          yPosition -
+          Configuration.snakePieceSizeInPixels -
+          Configuration.snakeRectGap;
+
         break;
       case "down":
+        nextSnakeData.yPosition =
+          yPosition +
+          Configuration.snakePieceSizeInPixels +
+          Configuration.snakeRectGap;
+
         break;
     }
 
