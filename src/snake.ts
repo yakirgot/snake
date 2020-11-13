@@ -8,6 +8,11 @@ export class Snake {
   private readonly canvas: Canvas;
   private readonly snakeDataArray: SnakeRectData[];
   private snakeDirection: SnakeDirectionType;
+  /**
+   * prevents the snake from going to the opposite direction on fast clicks
+   */
+  private hasSnakeDirectionChanged: boolean;
+
   private moveSnakeInterval: number | undefined;
 
   constructor() {
@@ -15,6 +20,7 @@ export class Snake {
 
     this.snakeDataArray = [];
     this.snakeDirection = "right";
+    this.hasSnakeDirectionChanged = false;
 
     this.setupSnake();
 
@@ -38,36 +44,50 @@ export class Snake {
 
   private startGame(): void {
     this.snakeDirection = "right";
+    this.hasSnakeDirectionChanged = false;
 
-    this.moveSnakeInterval = window.setInterval(
-      () => this.moveSnake(),
-      Configuration.movementDelayInMs
-    );
+    this.moveSnakeInterval = window.setInterval(() => {
+      this.moveSnake();
+
+      this.hasSnakeDirectionChanged = false;
+    }, Configuration.movementDelayInMs);
   }
 
   private changeSnakeDirection(keyboardEvent: KeyboardEvent): void {
+    if (this.hasSnakeDirectionChanged) {
+      return;
+    }
+
     switch (keyboardEvent.key) {
       case "ArrowRight":
         if (this.snakeDirection !== "left") {
           this.snakeDirection = "right";
+
+          this.hasSnakeDirectionChanged = true;
         }
 
         break;
       case "ArrowLeft":
         if (this.snakeDirection !== "right") {
           this.snakeDirection = "left";
+
+          this.hasSnakeDirectionChanged = true;
         }
 
         break;
       case "ArrowUp":
         if (this.snakeDirection !== "down") {
           this.snakeDirection = "up";
+
+          this.hasSnakeDirectionChanged = true;
         }
 
         break;
       case "ArrowDown":
         if (this.snakeDirection !== "up") {
           this.snakeDirection = "down";
+
+          this.hasSnakeDirectionChanged = true;
         }
 
         break;
