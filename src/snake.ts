@@ -110,34 +110,27 @@ export class Snake {
       xPosition,
       yPosition
     );
+    const { snakePieceSizeInPixels, snakeRectGap } = Configuration;
 
     switch (this.snakeDirection) {
       case "right":
         nextSnakeData.xPosition =
-          xPosition +
-          Configuration.snakePieceSizeInPixels +
-          Configuration.snakeRectGap;
+          xPosition + snakePieceSizeInPixels + snakeRectGap;
 
         break;
       case "left":
         nextSnakeData.xPosition =
-          xPosition -
-          Configuration.snakePieceSizeInPixels -
-          Configuration.snakeRectGap;
+          xPosition - snakePieceSizeInPixels - snakeRectGap;
 
         break;
       case "up":
         nextSnakeData.yPosition =
-          yPosition -
-          Configuration.snakePieceSizeInPixels -
-          Configuration.snakeRectGap;
+          yPosition - snakePieceSizeInPixels - snakeRectGap;
 
         break;
       case "down":
         nextSnakeData.yPosition =
-          yPosition +
-          Configuration.snakePieceSizeInPixels +
-          Configuration.snakeRectGap;
+          yPosition + snakePieceSizeInPixels + snakeRectGap;
 
         break;
     }
