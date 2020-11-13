@@ -114,7 +114,7 @@ export class Snake {
 
     this.canvas.resetBoard();
 
-    console.log("Game over!");
+    console.log(`Game over! ${this.snakeDataArray.length} points :-)`);
   }
 
   private getNextSnakeData(snakeRectData: SnakeRectData): SnakeRectData {
