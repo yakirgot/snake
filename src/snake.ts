@@ -6,7 +6,7 @@ import { SnakeDirectionType } from "./_types/snake-direction.type";
 
 export class Snake {
   private readonly canvas: Canvas;
-  private readonly snakeDataArray: SnakeRectData[];
+  private snakeDataArray: SnakeRectData[];
   private snakeDirection: SnakeDirectionType;
   /**
    * prevents the snake from going to the opposite direction on fast clicks
@@ -22,11 +22,16 @@ export class Snake {
     this.snakeDirection = "right";
     this.hasSnakeDirectionChanged = false;
 
-    this.setupSnake();
-
     this.startGame();
 
     addEventListener("keyup", this.changeSnakeDirection.bind(this));
+    addEventListener("keyup", (keyboardEvent: KeyboardEvent) => {
+      if (keyboardEvent.code === "Space") {
+        this.endgame();
+
+        this.startGame();
+      }
+    });
   }
 
   private static isOutOfBoard(snakeRectData: SnakeRectData): boolean {
@@ -51,6 +56,8 @@ export class Snake {
   private startGame(): void {
     this.snakeDirection = "right";
     this.hasSnakeDirectionChanged = false;
+
+    this.setupSnake();
 
     this.moveSnakeInterval = window.setInterval(() => {
       this.moveSnake();
@@ -167,6 +174,8 @@ export class Snake {
   }
 
   private setupSnake(): void {
+    this.snakeDataArray = [];
+
     const snakeStartRects = 3;
 
     let xPosition = Math.round(Configuration.boardWidthInPixels / 4);
