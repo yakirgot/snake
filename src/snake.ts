@@ -1,6 +1,6 @@
 import { container } from "tsyringe";
 import { Canvas } from "./canvas";
-import { RectPosition } from "./rect-position";
+import { RectPosition } from "./_models/rect-position";
 import { Configuration } from "./configuration";
 import { SnakeDirectionType } from "./_types/snake-direction.type";
 

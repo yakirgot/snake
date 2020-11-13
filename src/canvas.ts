@@ -1,6 +1,6 @@
 import { Configuration } from "./configuration";
 import { singleton } from "tsyringe";
-import { RectPosition } from "./rect-position";
+import { RectPosition } from "./_models/rect-position";
 
 @singleton<Canvas>()
 export class Canvas {
