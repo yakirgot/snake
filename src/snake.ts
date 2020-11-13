@@ -30,16 +30,22 @@ export class Snake {
   }
 
   private static isOutOfBoard(snakeRectData: SnakeRectData): boolean {
+    const {
+      boardWidthInPixels,
+      boardHeightInPixels,
+      snakePieceSizeInPixels,
+    } = Configuration;
+
     const outRight: boolean =
-      snakeRectData.xPosition >
-      Configuration.boardWidthInPixels - Configuration.snakePieceSizeInPixels;
+      snakeRectData.xPosition > boardWidthInPixels - snakePieceSizeInPixels;
     const outLeft: boolean = snakeRectData.xPosition < 0;
     const outDown: boolean =
-      snakeRectData.yPosition >
-      Configuration.boardHeightInPixels - Configuration.snakePieceSizeInPixels;
+      snakeRectData.yPosition > boardHeightInPixels - snakePieceSizeInPixels;
     const outUp: boolean = snakeRectData.yPosition < 0;
 
-    return outRight || outLeft || outDown || outUp;
+    const isOutOfBoard: boolean = outRight || outLeft || outDown || outUp;
+
+    return isOutOfBoard;
   }
 
   private startGame(): void {
