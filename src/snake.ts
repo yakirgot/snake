@@ -1,12 +1,12 @@
 import { container } from "tsyringe";
 import { Canvas } from "./canvas";
-import { SnakeRectData } from "./snake-rect-data";
+import { RectPosition } from "./rect-position";
 import { Configuration } from "./configuration";
 import { SnakeDirectionType } from "./_types/snake-direction.type";
 
 export class Snake {
   private readonly canvas: Canvas;
-  private snakeDataArray: SnakeRectData[];
+  private rectPositions: RectPosition[];
   private snakeDirection: SnakeDirectionType;
   /**
    * prevents the snake from going to the opposite direction on fast clicks
@@ -18,7 +18,7 @@ export class Snake {
   constructor() {
     this.canvas = container.resolve<Canvas>(Canvas);
 
-    this.snakeDataArray = [];
+    this.rectPositions = [];
     this.snakeDirection = "right";
     this.hasSnakeDirectionChanged = false;
 
@@ -34,19 +34,20 @@ export class Snake {
     });
   }
 
-  private static isOutOfBoard(snakeRectData: SnakeRectData): boolean {
+  private static isOutOfBoard(rectPosition: RectPosition): boolean {
     const {
       boardWidthInPixels,
       boardHeightInPixels,
       snakePieceSizeInPixels,
     } = Configuration;
+    const { xPosition, yPosition } = rectPosition;
 
     const outRight: boolean =
-      snakeRectData.xPosition > boardWidthInPixels - snakePieceSizeInPixels;
-    const outLeft: boolean = snakeRectData.xPosition < 0;
+      xPosition > boardWidthInPixels - snakePieceSizeInPixels;
+    const outLeft: boolean = xPosition < 0;
     const outDown: boolean =
-      snakeRectData.yPosition > boardHeightInPixels - snakePieceSizeInPixels;
-    const outUp: boolean = snakeRectData.yPosition < 0;
+      yPosition > boardHeightInPixels - snakePieceSizeInPixels;
+    const outUp: boolean = yPosition < 0;
 
     const isOutOfBoard: boolean = outRight || outLeft || outDown || outUp;
 
@@ -114,15 +115,12 @@ export class Snake {
 
     this.canvas.resetBoard();
 
-    console.log(`Game over! ${this.snakeDataArray.length} points :-)`);
+    console.log(`Game over! ${this.rectPositions.length} points :-)`);
   }
 
-  private getNextSnakeData(snakeRectData: SnakeRectData): SnakeRectData {
-    const { xPosition, yPosition } = snakeRectData;
-    const nextSnakeData: SnakeRectData = new SnakeRectData(
-      xPosition,
-      yPosition
-    );
+  private getNextSnakeData(rectPosition: RectPosition): RectPosition {
+    const { xPosition, yPosition } = rectPosition;
+    const nextSnakeData: RectPosition = new RectPosition(xPosition, yPosition);
     const { snakePieceSizeInPixels, snakeRectGap } = Configuration;
 
     switch (this.snakeDirection) {
@@ -152,8 +150,8 @@ export class Snake {
   }
 
   private moveSnake(): void {
-    const firstSnakeData = this.snakeDataArray[this.snakeDataArray.length - 1];
-    const nextSnakeData: SnakeRectData = this.getNextSnakeData(firstSnakeData);
+    const firstSnakeData = this.rectPositions[this.rectPositions.length - 1];
+    const nextSnakeData: RectPosition = this.getNextSnakeData(firstSnakeData);
 
     const isOutOfBoard = Snake.isOutOfBoard(nextSnakeData);
     const isSelfHit = this.isSelfHit(nextSnakeData);
@@ -164,17 +162,17 @@ export class Snake {
       return;
     }
 
-    this.snakeDataArray.push(nextSnakeData);
+    this.rectPositions.push(nextSnakeData);
     this.canvas.fillRect(nextSnakeData);
 
-    const lastSnakeData = this.snakeDataArray.shift();
+    const lastSnakeData = this.rectPositions.shift();
     if (lastSnakeData) {
       this.canvas.clearRect(lastSnakeData);
     }
   }
 
   private setupSnake(): void {
-    this.snakeDataArray = [];
+    this.rectPositions = [];
 
     const snakeStartRects = 3;
 
@@ -182,9 +180,9 @@ export class Snake {
     const yPosition = Math.round(Configuration.boardHeightInPixels / 2);
 
     for (let i = 0; i < snakeStartRects; i++) {
-      const snakeData = new SnakeRectData(xPosition, yPosition);
+      const snakeData = new RectPosition(xPosition, yPosition);
 
-      this.snakeDataArray.push(snakeData);
+      this.rectPositions.push(snakeData);
       this.canvas.fillRect(snakeData);
 
       const isLast: boolean = i === snakeStartRects - 1;
@@ -196,17 +194,16 @@ export class Snake {
     }
   }
 
-  private isSelfHit(nextSnakeData: SnakeRectData): boolean {
-    const isSelfHit = this.snakeDataArray.some(
-      (snakeRectData: SnakeRectData) => {
-        const isSameXValue: boolean =
-          nextSnakeData.xPosition === snakeRectData.xPosition;
-        const isSameYValue: boolean =
-          nextSnakeData.yPosition === snakeRectData.yPosition;
+  private isSelfHit(nextSnakeData: RectPosition): boolean {
+    const isSelfHitPredictor = (rectPosition: RectPosition) => {
+      const { xPosition, yPosition } = rectPosition;
+      const isSameXValue: boolean = nextSnakeData.xPosition === xPosition;
+      const isSameYValue: boolean = nextSnakeData.yPosition === yPosition;
 
-        return isSameXValue && isSameYValue;
-      }
-    );
+      return isSameXValue && isSameYValue;
+    };
+
+    const isSelfHit = this.rectPositions.some(isSelfHitPredictor);
 
     return isSelfHit;
   }

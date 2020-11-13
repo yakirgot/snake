@@ -1,6 +1,6 @@
 import { Configuration } from "./configuration";
 import { singleton } from "tsyringe";
-import { SnakeRectData } from "./snake-rect-data";
+import { RectPosition } from "./rect-position";
 
 @singleton<Canvas>()
 export class Canvas {
@@ -14,51 +14,44 @@ export class Canvas {
     document.body.appendChild(this.canvasElement);
   }
 
-  public fillRect(snakeRectData: SnakeRectData): void {
+  public fillRect(rectPosition: RectPosition): void {
     const colorVar = "--indian-red";
 
     const color: string = getComputedStyle(
       document.documentElement
     ).getPropertyValue(colorVar);
 
-    this.fillRectOnCanvas(snakeRectData, color);
+    this.fillRectOnCanvas(rectPosition, color);
   }
 
-  public clearRect(snakeRectData: SnakeRectData): void {
+  public clearRect(rectPosition: RectPosition): void {
     const colorVar = "--medium-sea-green";
 
     const color: string = getComputedStyle(
       document.documentElement
     ).getPropertyValue(colorVar);
 
-    this.fillRectOnCanvas(snakeRectData, color);
+    this.fillRectOnCanvas(rectPosition, color);
   }
 
   public resetBoard(): void {
     const context = this.getCanvasContext();
+    const { boardWidthInPixels, boardHeightInPixels } = Configuration;
 
     if (context) {
-      context.clearRect(
-        0,
-        0,
-        Configuration.boardWidthInPixels,
-        Configuration.boardHeightInPixels
-      );
+      context.clearRect(0, 0, boardWidthInPixels, boardHeightInPixels);
     }
   }
 
-  private fillRectOnCanvas(snakeRectData: SnakeRectData, color: string): void {
+  private fillRectOnCanvas(rectPosition: RectPosition, color: string): void {
     const context = this.getCanvasContext();
 
     if (context) {
       context.fillStyle = color;
 
-      context.fillRect(
-        snakeRectData.xPosition,
-        snakeRectData.yPosition,
-        Configuration.snakePieceSizeInPixels,
-        Configuration.snakePieceSizeInPixels
-      );
+      const { xPosition, yPosition } = rectPosition;
+      const rectSize = Configuration.snakePieceSizeInPixels;
+      context.fillRect(xPosition, yPosition, rectSize, rectSize);
     }
   }
 
@@ -67,8 +60,10 @@ export class Canvas {
   }
 
   private configureCanvasElement() {
+    const { boardWidthInPixels, boardHeightInPixels } = Configuration;
+
     this.canvasElement.id = "snake-canvas";
-    this.canvasElement.width = Configuration.boardWidthInPixels;
-    this.canvasElement.height = Configuration.boardHeightInPixels;
+    this.canvasElement.width = boardWidthInPixels;
+    this.canvasElement.height = boardHeightInPixels;
   }
 }
