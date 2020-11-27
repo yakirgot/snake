@@ -8,8 +8,6 @@
 
 Development environment
 
->
-
 ```sh
 $ npm install
 $ npm start
@@ -22,8 +20,6 @@ $ npm run build
 ```
 
 ## Testing
-
->
 
 ```sh
 $ npm run test
