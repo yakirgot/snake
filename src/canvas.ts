@@ -1,4 +1,4 @@
-import { Configuration } from "./configuration";
+import { GameConfiguration } from "./configuration";
 import { singleton } from "tsyringe";
 import { RectPosition } from "./_models/rect-position";
 
@@ -40,7 +40,7 @@ export class Canvas {
 
   public resetBoard(): void {
     const context = this.getCanvasContext();
-    const { boardWidthInPixels, boardHeightInPixels } = Configuration;
+    const { boardWidthInPixels, boardHeightInPixels } = GameConfiguration;
 
     if (context) {
       context.clearRect(0, 0, boardWidthInPixels, boardHeightInPixels);
@@ -54,7 +54,7 @@ export class Canvas {
       context.fillStyle = color;
 
       const { xPosition, yPosition } = rectPosition;
-      const rectSize = Configuration.snakePieceSizeInPixels;
+      const rectSize = GameConfiguration.snakePieceSizeInPixels;
       context.fillRect(xPosition, yPosition, rectSize, rectSize);
     }
   }
@@ -64,7 +64,7 @@ export class Canvas {
   }
 
   private configureCanvasElement() {
-    const { boardWidthInPixels, boardHeightInPixels } = Configuration;
+    const { boardWidthInPixels, boardHeightInPixels } = GameConfiguration;
 
     this.canvasElement.id = "snake-canvas";
     this.canvasElement.width = boardWidthInPixels;

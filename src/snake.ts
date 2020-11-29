@@ -1,5 +1,5 @@
 import { RectPosition } from "./_models/rect-position";
-import { Configuration } from "./configuration";
+import { GameConfiguration } from "./configuration";
 import { SnakeDirectionType } from "./_types/snake-direction.type";
 
 export class Snake {
@@ -8,7 +8,7 @@ export class Snake {
       boardWidthInPixels,
       boardHeightInPixels,
       snakePieceSizeInPixels,
-    } = Configuration;
+    } = GameConfiguration;
     const { xPosition, yPosition } = rectPosition;
 
     const outRight: boolean =
@@ -76,7 +76,7 @@ export class Snake {
     rectPosition: RectPosition,
     snakeDirection: SnakeDirectionType
   ): RectPosition {
-    const { snakePieceSizeInPixels, snakeRectGap } = Configuration;
+    const { snakePieceSizeInPixels, snakeRectGap } = GameConfiguration;
     const { xPosition, yPosition } = rectPosition;
     const nextSnakeData: RectPosition = { xPosition, yPosition };
 
@@ -112,18 +112,18 @@ export class Snake {
       boardHeightInPixels,
       snakePieceSizeInPixels,
       snakeRectGap,
-    } = Configuration;
+    } = GameConfiguration;
     const snakeRectPositions: RectPosition[] = [];
 
     let xPosition = Math.round(boardWidthInPixels / 4);
     const yPosition = Math.round(boardHeightInPixels / 2);
 
-    for (let i = 0; i < Configuration.snakeStartRects; i++) {
+    for (let i = 0; i < GameConfiguration.snakeStartRects; i++) {
       const snakeData = { xPosition, yPosition };
 
       snakeRectPositions.push(snakeData);
 
-      const isLast: boolean = i === Configuration.snakeStartRects - 1;
+      const isLast: boolean = i === GameConfiguration.snakeStartRects - 1;
 
       if (!isLast) {
         xPosition += snakePieceSizeInPixels + snakeRectGap;

@@ -1,27 +1,32 @@
 import { Canvas } from "./canvas";
 import { RectPosition } from "./_models/rect-position";
 import { container } from "tsyringe";
-import { Configuration } from "./configuration";
+import { GameConfiguration } from "./configuration";
 import { Snake } from "./snake";
 import { GameModel } from "./_models/game.model";
 import { SnakeDirectionType } from "./_types/snake-direction.type";
+import { Food } from "./food";
 
 export class Game {
   private readonly canvas: Canvas;
   private readonly game: GameModel;
   private readonly snake: Snake;
+  private readonly food: Food;
   /**
    * prevents the snake from going to the opposite direction on fast clicks
    */
   private hasSnakeDirectionChanged: boolean;
+  private snakePartsToGrow: number;
   private moveSnakeInterval: number | undefined;
 
   constructor() {
     this.canvas = container.resolve<Canvas>(Canvas);
     this.game = new GameModel();
     this.snake = new Snake();
+    this.food = new Food();
 
     this.hasSnakeDirectionChanged = false;
+    this.snakePartsToGrow = 0;
 
     this.startGame();
 
@@ -35,19 +40,6 @@ export class Game {
         this.startGame();
       }
     });
-  }
-
-  private startGame(): void {
-    this.game.snakeDirection = "right";
-    this.hasSnakeDirectionChanged = false;
-
-    this.setupSnake();
-
-    this.moveSnakeInterval = window.setInterval(() => {
-      this.moveSnake();
-
-      this.hasSnakeDirectionChanged = false;
-    }, Configuration.movementDelayInMs);
   }
 
   private changeSnakeDirection(keyboardEvent: KeyboardEvent): void {
@@ -67,6 +59,22 @@ export class Game {
 
       this.hasSnakeDirectionChanged = true;
     }
+  }
+
+  private startGame(): void {
+    this.game.snakeDirection = "right";
+    this.hasSnakeDirectionChanged = false;
+
+    this.game.freeRectPositions = this.food.getAllPossibleFreeRectPositions();
+
+    this.setupSnake();
+    this.placeFoodOnBoard();
+
+    this.moveSnakeInterval = window.setInterval(() => {
+      this.moveSnake();
+
+      this.hasSnakeDirectionChanged = false;
+    }, GameConfiguration.movementDelayInMs);
   }
 
   private endgame(): void {
@@ -99,11 +107,24 @@ export class Game {
     }
 
     this.game.snakeRectPositions.push(nextSnakeData);
-    this.canvas.snakeFillRect(nextSnakeData);
+    this.addSnakeRectPosition(nextSnakeData);
 
-    const lastSnakeData = this.game.snakeRectPositions.shift();
-    if (lastSnakeData) {
-      this.canvas.clearRect(lastSnakeData);
+    const isNextMoveFood: boolean =
+      this.game.foodRectPosition.xPosition === nextSnakeData.xPosition &&
+      this.game.foodRectPosition.yPosition === nextSnakeData.yPosition;
+    if (isNextMoveFood) {
+      this.snakePartsToGrow += GameConfiguration.snakePartsToGrow;
+
+      this.placeFoodOnBoard();
+    }
+
+    if (this.snakePartsToGrow === 0) {
+      const lastSnakeData = this.game.snakeRectPositions.shift();
+      if (lastSnakeData) {
+        this.removeSnakeRectPosition(lastSnakeData);
+      }
+    } else {
+      this.snakePartsToGrow--;
     }
   }
 
@@ -111,7 +132,28 @@ export class Game {
     this.game.snakeRectPositions = this.snake.getSetupSnakeRectPositions();
 
     this.game.snakeRectPositions.forEach((rectPosition: RectPosition) => {
-      this.canvas.snakeFillRect(rectPosition);
+      this.addSnakeRectPosition(rectPosition);
     });
+  }
+
+  private addSnakeRectPosition(rectPosition: RectPosition): void {
+    this.canvas.snakeFillRect(rectPosition);
+
+    this.game.freeRectPositions.delete(JSON.stringify(rectPosition));
+  }
+
+  private removeSnakeRectPosition(rectPosition: RectPosition): void {
+    this.canvas.clearRect(rectPosition);
+
+    this.game.freeRectPositions.add(JSON.stringify(rectPosition));
+  }
+
+  private placeFoodOnBoard(): void {
+    const randomFreeRectPosition: RectPosition = this.food.getRandomFreeRectPosition(
+      this.game.freeRectPositions
+    );
+
+    this.game.foodRectPosition = randomFreeRectPosition;
+    this.canvas.foodFillRect(randomFreeRectPosition);
   }
 }
