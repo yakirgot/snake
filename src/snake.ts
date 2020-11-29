@@ -1,40 +1,9 @@
-import { container } from "tsyringe";
-import { Canvas } from "./canvas";
 import { RectPosition } from "./_models/rect-position";
 import { Configuration } from "./configuration";
 import { SnakeDirectionType } from "./_types/snake-direction.type";
 
 export class Snake {
-  private readonly canvas: Canvas;
-  private rectPositions: RectPosition[];
-  private snakeDirection: SnakeDirectionType;
-  /**
-   * prevents the snake from going to the opposite direction on fast clicks
-   */
-  private hasSnakeDirectionChanged: boolean;
-
-  private moveSnakeInterval: number | undefined;
-
-  constructor() {
-    this.canvas = container.resolve<Canvas>(Canvas);
-
-    this.rectPositions = [];
-    this.snakeDirection = "right";
-    this.hasSnakeDirectionChanged = false;
-
-    this.startGame();
-
-    addEventListener("keyup", this.changeSnakeDirection.bind(this));
-    addEventListener("keyup", (keyboardEvent: KeyboardEvent) => {
-      if (keyboardEvent.code === "Space") {
-        this.endgame();
-
-        this.startGame();
-      }
-    });
-  }
-
-  private static isOutOfBoard(rectPosition: RectPosition): boolean {
+  isSnakeOutOfBoard(rectPosition: RectPosition): boolean {
     const {
       boardWidthInPixels,
       boardHeightInPixels,
@@ -54,76 +23,64 @@ export class Snake {
     return isOutOfBoard;
   }
 
-  private startGame(): void {
-    this.snakeDirection = "right";
-    this.hasSnakeDirectionChanged = false;
+  isSelfHit(
+    nextSnakeData: RectPosition,
+    snakeRectPositions: RectPosition[]
+  ): boolean {
+    const isSelfHitPredictor = (rectPosition: RectPosition) => {
+      const { xPosition, yPosition } = rectPosition;
+      const isSameXValue: boolean = nextSnakeData.xPosition === xPosition;
+      const isSameYValue: boolean = nextSnakeData.yPosition === yPosition;
 
-    this.setupSnake();
+      return isSameXValue && isSameYValue;
+    };
 
-    this.moveSnakeInterval = window.setInterval(() => {
-      this.moveSnake();
+    const isSelfHit = snakeRectPositions.some(isSelfHitPredictor);
 
-      this.hasSnakeDirectionChanged = false;
-    }, Configuration.movementDelayInMs);
+    return isSelfHit;
   }
 
-  private changeSnakeDirection(keyboardEvent: KeyboardEvent): void {
-    if (this.hasSnakeDirectionChanged) {
-      return;
-    }
-
-    switch (keyboardEvent.key) {
+  getNewSnakeDirection(
+    key: string,
+    snakeDirection: SnakeDirectionType
+  ): SnakeDirectionType | undefined {
+    switch (key) {
       case "ArrowRight":
-        if (this.snakeDirection !== "left") {
-          this.snakeDirection = "right";
-
-          this.hasSnakeDirectionChanged = true;
+        if (snakeDirection !== "left") {
+          return "right";
         }
 
         break;
       case "ArrowLeft":
-        if (this.snakeDirection !== "right") {
-          this.snakeDirection = "left";
-
-          this.hasSnakeDirectionChanged = true;
+        if (snakeDirection !== "right") {
+          return "left";
         }
 
         break;
       case "ArrowUp":
-        if (this.snakeDirection !== "down") {
-          this.snakeDirection = "up";
-
-          this.hasSnakeDirectionChanged = true;
+        if (snakeDirection !== "down") {
+          return "up";
         }
 
         break;
       case "ArrowDown":
-        if (this.snakeDirection !== "up") {
-          this.snakeDirection = "down";
-
-          this.hasSnakeDirectionChanged = true;
+        if (snakeDirection !== "up") {
+          return "down";
         }
 
         break;
     }
   }
 
-  private endgame(): void {
-    if (this.moveSnakeInterval) {
-      clearInterval(this.moveSnakeInterval);
-    }
-
-    this.canvas.resetBoard();
-
-    console.log(`Game over! ${this.rectPositions.length} points :-)`);
-  }
-
-  private getNextSnakeData(rectPosition: RectPosition): RectPosition {
-    const { xPosition, yPosition } = rectPosition;
-    const nextSnakeData: RectPosition = new RectPosition(xPosition, yPosition);
+  getNextSnakeData(
+    rectPosition: RectPosition,
+    snakeDirection: SnakeDirectionType
+  ): RectPosition {
     const { snakePieceSizeInPixels, snakeRectGap } = Configuration;
+    const { xPosition, yPosition } = rectPosition;
+    const nextSnakeData: RectPosition = { xPosition, yPosition };
 
-    switch (this.snakeDirection) {
+    switch (snakeDirection) {
       case "right":
         nextSnakeData.xPosition =
           xPosition + snakePieceSizeInPixels + snakeRectGap;
@@ -149,62 +106,30 @@ export class Snake {
     return nextSnakeData;
   }
 
-  private moveSnake(): void {
-    const firstSnakeData = this.rectPositions[this.rectPositions.length - 1];
-    const nextSnakeData: RectPosition = this.getNextSnakeData(firstSnakeData);
+  getSetupSnakeRectPositions(): RectPosition[] {
+    const {
+      boardWidthInPixels,
+      boardHeightInPixels,
+      snakePieceSizeInPixels,
+      snakeRectGap,
+    } = Configuration;
+    const snakeRectPositions: RectPosition[] = [];
 
-    const isOutOfBoard = Snake.isOutOfBoard(nextSnakeData);
-    const isSelfHit = this.isSelfHit(nextSnakeData);
+    let xPosition = Math.round(boardWidthInPixels / 4);
+    const yPosition = Math.round(boardHeightInPixels / 2);
 
-    if (isOutOfBoard || isSelfHit) {
-      this.endgame();
+    for (let i = 0; i < Configuration.snakeStartRects; i++) {
+      const snakeData = { xPosition, yPosition };
 
-      return;
-    }
+      snakeRectPositions.push(snakeData);
 
-    this.rectPositions.push(nextSnakeData);
-    this.canvas.fillRect(nextSnakeData);
-
-    const lastSnakeData = this.rectPositions.shift();
-    if (lastSnakeData) {
-      this.canvas.clearRect(lastSnakeData);
-    }
-  }
-
-  private setupSnake(): void {
-    this.rectPositions = [];
-
-    const snakeStartRects = 3;
-
-    let xPosition = Math.round(Configuration.boardWidthInPixels / 4);
-    const yPosition = Math.round(Configuration.boardHeightInPixels / 2);
-
-    for (let i = 0; i < snakeStartRects; i++) {
-      const snakeData = new RectPosition(xPosition, yPosition);
-
-      this.rectPositions.push(snakeData);
-      this.canvas.fillRect(snakeData);
-
-      const isLast: boolean = i === snakeStartRects - 1;
+      const isLast: boolean = i === Configuration.snakeStartRects - 1;
 
       if (!isLast) {
-        xPosition +=
-          Configuration.snakePieceSizeInPixels + Configuration.snakeRectGap;
+        xPosition += snakePieceSizeInPixels + snakeRectGap;
       }
     }
-  }
 
-  private isSelfHit(nextSnakeData: RectPosition): boolean {
-    const isSelfHitPredictor = (rectPosition: RectPosition) => {
-      const { xPosition, yPosition } = rectPosition;
-      const isSameXValue: boolean = nextSnakeData.xPosition === xPosition;
-      const isSameYValue: boolean = nextSnakeData.yPosition === yPosition;
-
-      return isSameXValue && isSameYValue;
-    };
-
-    const isSelfHit = this.rectPositions.some(isSelfHitPredictor);
-
-    return isSelfHit;
+    return snakeRectPositions;
   }
 }

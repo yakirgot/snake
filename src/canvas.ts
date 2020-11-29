@@ -14,22 +14,26 @@ export class Canvas {
     document.body.appendChild(this.canvasElement);
   }
 
-  public fillRect(rectPosition: RectPosition): void {
-    const colorVar = "--indian-red";
-
+  public snakeFillRect(rectPosition: RectPosition): void {
     const color: string = getComputedStyle(
       document.documentElement
-    ).getPropertyValue(colorVar);
+    ).getPropertyValue("--indian-red");
+
+    this.fillRectOnCanvas(rectPosition, color);
+  }
+
+  public foodFillRect(rectPosition: RectPosition): void {
+    const color: string = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--saffron");
 
     this.fillRectOnCanvas(rectPosition, color);
   }
 
   public clearRect(rectPosition: RectPosition): void {
-    const colorVar = "--medium-sea-green";
-
     const color: string = getComputedStyle(
       document.documentElement
-    ).getPropertyValue(colorVar);
+    ).getPropertyValue("--medium-sea-green");
 
     this.fillRectOnCanvas(rectPosition, color);
   }

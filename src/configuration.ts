@@ -4,6 +4,7 @@ export class Configuration {
   static snakePieceSizeInPixels = 20;
   static movementDelayInMs = 250;
   static snakeRectGap = 5;
+  static snakeStartRects = 3;
 
   static get boardWidthInPixels(): number {
     const { snakePieceSizeWithGap, boardWidthInSnakeUnits } = Configuration;

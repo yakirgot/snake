@@ -1,4 +1,4 @@
 import "./assets/styles.css";
-import { Snake } from "./snake";
+import { Game } from "./game";
 
-new Snake();
+new Game();

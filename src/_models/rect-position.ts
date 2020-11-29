@@ -1,3 +1,4 @@
-export class RectPosition {
-  constructor(public xPosition: number, public yPosition: number) {}
+export interface RectPosition {
+  xPosition: number;
+  yPosition: number;
 }
