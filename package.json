@@ -1,0 +1,44 @@
+{
+	"name": "@yakirgot/snake",
+	"version": "0.0.0",
+	"type": "module",
+	"author": "Yakir Gottesman",
+	"prettier": "./node_modules/@yakirgot/linters/prettier/prettier-defaults.json",
+	"scripts": {
+		"dev": "vite",
+		"test": "vitest",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"prepare": "husky install",
+		"lint:scripts": "npx eslint . --ext .js,.ts,.json",
+		"lint:styles": "npx stylelint \"**/*.{css,scss}\""
+	},
+	"devDependencies": {
+		"@commitlint/cli": "~17.1.0",
+		"@commitlint/config-conventional": "~17.1.0",
+		"@typescript-eslint/eslint-plugin": "~5.41.0",
+		"@typescript-eslint/parser": "~5.41.0",
+		"@yakirgot/linters": "1.0.0",
+		"eslint": "~8.20.0",
+		"eslint-config-prettier": "~8.5.0",
+		"eslint-plugin-json": "~3.1.0",
+		"eslint-plugin-prettier": "~4.2.0",
+		"husky": "~8.0.1",
+		"postcss-html": "~1.5.0",
+		"postcss-scss": "~4.0.0",
+		"prettier": "~2.7.1",
+		"stylelint": "~14.9.1",
+		"stylelint-config-html": "~1.1.0",
+		"stylelint-config-prettier": "~9.0.3",
+		"stylelint-config-standard-scss": "~5.0.0",
+		"stylelint-order": "~5.0.0",
+		"stylelint-prettier": "~2.0.0",
+		"stylelint-use-logical-spec": "~4.1.0",
+		"typescript": "~4.8.4",
+		"vite": "~3.2.0",
+		"vitest": "~0.24.3"
+	},
+	"engines": {
+		"node": ">=16"
+	}
+}

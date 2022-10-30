@@ -1,0 +1,12 @@
+.idea
+.vscode
+.github
+.husky
+.browserslistrc
+.commitlintrc.json
+.editorconfig
+.eslintrc.json
+.gitignore
+.stylelintrc.json
+tsconfig.json
+vitest.config.ts
