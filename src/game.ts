@@ -1,23 +1,31 @@
-let canvasContext: CanvasRenderingContext2D | null | undefined;
+import { cleanUpBoard } from "@/board";
+import { placeSnakePart } from "@/snake";
 
-export function setupGame() {
-	setCanvasContext();
+const startButton = document.querySelector("[data-snake-game-start-button]");
+
+export function initGame() {
+	if (!startButton) {
+		return;
+	}
+
+	startButton.addEventListener("click", () => {
+		startButton.classList.add("game-in-progress");
+
+		startGame();
+
+		setTimeout(endGame, 3000);
+	});
 }
 
-function setCanvasContext() {
-	const canvas: HTMLCanvasElement | null =
-		document.querySelector("[data-snake-game]");
+export function startGame() {
+	placeSnakePart(0, 0);
+}
 
-	if (!canvas) {
+function endGame() {
+	if (!startButton) {
 		return;
 	}
 
-	canvasContext = canvas.getContext("2d");
-
-	if (!canvasContext) {
-		return;
-	}
-
-	canvasContext.fillStyle = "blue";
-	canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+	startButton.classList.remove("game-in-progress");
+	cleanUpBoard();
 }

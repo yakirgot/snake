@@ -1,15 +1,30 @@
-export function setupBoard() {
-	const appElement = document.querySelector<HTMLDivElement>("#app");
+export let canvas: HTMLCanvasElement;
+export let canvasContext: CanvasRenderingContext2D;
 
-	if (!appElement) {
+export function setupBoard() {
+	const possibleCanvas =
+		document.querySelector<HTMLCanvasElement>("[data-snake-game]");
+
+	if (!possibleCanvas) {
 		return;
 	}
 
-	appElement.innerHTML = `
-  <div class="snake-game-container">
-    <h1 class="snake-game-title">Snake Game</h1>
+	canvas = possibleCanvas;
 
-    <canvas data-snake-game class="snake-game-canvas"></canvas>
-  </div>
-`;
+	const possibleCanvasContext = canvas.getContext("2d");
+
+	if (!possibleCanvasContext) {
+		return;
+	}
+
+	canvasContext = possibleCanvasContext;
+
+	cleanUpBoard();
+}
+
+export function cleanUpBoard() {
+	canvasContext.fillStyle = window
+		.getComputedStyle(document.documentElement)
+		.getPropertyValue("--color-maize-crayola");
+	canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 }
