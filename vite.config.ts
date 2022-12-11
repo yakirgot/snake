@@ -7,4 +7,9 @@ export default defineConfig({
 			"@": resolve(__dirname, "src"),
 		},
 	},
+	root: "src",
+	publicDir: "../public",
+	build: {
+		outDir: "../dist",
+	},
 });
