@@ -23,12 +23,52 @@ body {
 .snake-game-title {
 	color: var(--color-dark-slate-gray);
 	font-size: 30rem;
-	margin-block-end: 20rem;
+	margin-block-end: 30rem;
 	text-align: center;
 }
 
 .snake-game-canvas {
-	background-color: var(--color-maize-crayola);
 	border: 1rem dashed var(--color-metallic-sunburst);
 	inline-size: 100%;
+}
+
+.snake-game-start-button-container {
+	display: flex;
+	justify-content: center;
+	margin-block-start: 30rem;
+}
+
+.snake-game-start-button {
+	background-color: var(--color-dark-slate-gray);
+	border-radius: 3rem;
+	color: var(--color-eggshell);
+	padding-block: 10rem;
+	padding-inline: 25rem;
+	transition: background-color 80ms ease, box-shadow 80ms ease,
+		opacity 200ms linear, scale 200ms ease-in-out;
+
+	&:focus-visible {
+		outline: 2rem dashed var(--color-metallic-sunburst);
+		outline-offset: 2rem;
+	}
+
+	@media (hover: hover) {
+		&:hover {
+			background-color: var(--color-metallic-sunburst);
+		}
+	}
+
+	// stylelint-disable-next-line order/order
+	&:active {
+		box-shadow: 0 0 6rem rgb(0 0 0 / 50%);
+	}
+
+	&:disabled {
+		opacity: 0.6;
+	}
+}
+
+.snake-game-start-button.game-in-progress {
+	opacity: 0.3;
+	scale: 0.8;
 }
