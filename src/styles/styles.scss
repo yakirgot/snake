@@ -28,8 +28,11 @@ body {
 }
 
 .snake-game-canvas {
-	border: 1rem dashed var(--color-metallic-sunburst);
+	background-color: var(--color-maize-crayola);
+	border: 2rem dashed var(--color-metallic-sunburst);
+	border-radius: 3rem;
 	inline-size: 100%;
+	padding: 3rem;
 }
 
 .snake-game-start-button-container {
@@ -47,18 +50,17 @@ body {
 	transition: background-color 80ms ease, box-shadow 80ms ease,
 		opacity 200ms linear, scale 200ms ease-in-out;
 
-	&:focus-visible {
-		outline: 2rem dashed var(--color-metallic-sunburst);
-		outline-offset: 2rem;
-	}
-
 	@media (hover: hover) {
 		&:hover {
 			background-color: var(--color-metallic-sunburst);
 		}
 	}
 
-	// stylelint-disable-next-line order/order
+	&:focus-visible {
+		outline: 2rem dashed var(--color-metallic-sunburst);
+		outline-offset: 2rem;
+	}
+
 	&:active {
 		box-shadow: 0 0 6rem rgb(0 0 0 / 50%);
 	}
