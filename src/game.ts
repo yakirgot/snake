@@ -1,12 +1,18 @@
 import { cleanUpBoard } from "@/board";
 import { placeSnakePart } from "@/snake";
 
-const startButton = document.querySelector("[data-snake-game-start-button]");
+let startButton: Element;
 
 export function initGame() {
-	if (!startButton) {
+	const possibleStartButton = document.querySelector(
+		"[data-snake-game-start-button]",
+	);
+
+	if (!possibleStartButton) {
 		return;
 	}
+
+	startButton = possibleStartButton;
 
 	startButton.addEventListener("click", () => {
 		startButton.classList.add("game-in-progress");
@@ -22,10 +28,7 @@ export function startGame() {
 }
 
 function endGame() {
-	if (!startButton) {
-		return;
-	}
-
 	startButton.classList.remove("game-in-progress");
+
 	cleanUpBoard();
 }
