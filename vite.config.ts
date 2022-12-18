@@ -1,0 +1,16 @@
+import { defineConfig } from "vite";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+export default defineConfig({
+	resolve: {
+		alias: {
+			"@": resolve(dirname(fileURLToPath(import.meta.url)), "src"),
+		},
+	},
+	root: "src",
+	publicDir: "../public",
+	build: {
+		outDir: "../dist",
+	},
+});
