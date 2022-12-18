@@ -1,4 +1,6 @@
-export let canvas: HTMLCanvasElement;
+import settings from "@/settings/settings";
+
+export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;
 
 export function setupBoard() {
@@ -9,9 +11,9 @@ export function setupBoard() {
 		return;
 	}
 
-	canvas = possibleCanvas;
+	canvasElement = possibleCanvas;
 
-	const possibleCanvasContext = canvas.getContext("2d");
+	const possibleCanvasContext = canvasElement.getContext("2d");
 
 	if (!possibleCanvasContext) {
 		return;
@@ -19,12 +21,24 @@ export function setupBoard() {
 
 	canvasContext = possibleCanvasContext;
 
+	setBoardSize();
+
 	cleanUpBoard();
+}
+
+function setBoardSize() {
+	const { boardWidth, boardHeight, snakePartSizeInPx } = settings;
+
+	canvasElement.width = boardWidth * snakePartSizeInPx;
+	canvasElement.style.width = `${canvasElement.width}px`;
+
+	canvasElement.height = boardHeight * snakePartSizeInPx;
+	canvasElement.style.height = `${canvasElement.height}px`;
 }
 
 export function cleanUpBoard() {
 	canvasContext.fillStyle = window
 		.getComputedStyle(document.documentElement)
 		.getPropertyValue("--color-maize-crayola");
-	canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+	canvasContext.fillRect(0, 0, canvasElement.width, canvasElement.height);
 }

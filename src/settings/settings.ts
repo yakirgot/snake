@@ -1,9 +1,9 @@
 import { SettingsInterface } from "@/settings/settings.interface";
 
 const settings: SettingsInterface = {
-	boardWidth: 50,
-	boardHeight: 50,
-	snakePartSizeInPx: 5,
+	boardWidth: 44,
+	boardHeight: 30,
+	snakePartSizeInPx: 14,
 };
 
 export default settings;

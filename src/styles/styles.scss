@@ -16,8 +16,8 @@ body {
 
 .snake-game-container {
 	margin-inline: auto;
-	max-inline-size: 600rem;
 	padding: 16rem;
+	text-align: center;
 }
 
 .snake-game-title {
@@ -31,7 +31,6 @@ body {
 	background-color: var(--color-maize-crayola);
 	border: 2rem dashed var(--color-metallic-sunburst);
 	border-radius: 3rem;
-	inline-size: 100%;
 	padding: 3rem;
 }
 
