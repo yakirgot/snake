@@ -22,6 +22,8 @@ export function initGame() {
 
 export function startGame() {
 	placeSnakeOnStartingPoint();
+
+	setTimeout(endGame, 5000);
 }
 
 function endGame() {
