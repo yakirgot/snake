@@ -20,7 +20,7 @@ export function initGame() {
 	});
 }
 
-export function startGame() {
+function startGame() {
 	placeSnakeOnStartingPoint();
 
 	setTimeout(endGame, 5000);
