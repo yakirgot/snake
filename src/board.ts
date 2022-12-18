@@ -1,4 +1,5 @@
 import settings from "@/settings/settings";
+import { placeSnakePart } from "@/snake";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;
@@ -41,4 +42,22 @@ export function cleanUpBoard() {
 		.getComputedStyle(document.documentElement)
 		.getPropertyValue("--color-maize-crayola");
 	canvasContext.fillRect(0, 0, canvasElement.width, canvasElement.height);
+}
+
+export function placeSnakeOnStartingPoint() {
+	const { boardWidth, boardHeight, snakePartSizeInPx } = settings;
+	const halfSnakeSize = snakePartSizeInPx / 2;
+
+	const boardWidthInPx = boardWidth * snakePartSizeInPx;
+	const quarterScreenX = boardWidthInPx / 4;
+	const xCoordinate = quarterScreenX - halfSnakeSize;
+
+	const boardHeightInPx = boardHeight * snakePartSizeInPx;
+	const middleScreenY = boardHeightInPx / 2;
+	const yCoordinate = middleScreenY - halfSnakeSize;
+
+	const normalizedX = Math.floor(xCoordinate);
+	const normalizedY = Math.floor(yCoordinate);
+
+	placeSnakePart(normalizedX, normalizedY);
 }

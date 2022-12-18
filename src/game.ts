@@ -1,5 +1,4 @@
-import { cleanUpBoard } from "@/board";
-import { placeSnakePart } from "@/snake";
+import { cleanUpBoard, placeSnakeOnStartingPoint } from "@/board";
 
 let startButton: Element;
 
@@ -18,13 +17,11 @@ export function initGame() {
 		startButton.classList.add("game-in-progress");
 
 		startGame();
-
-		setTimeout(endGame, 3000);
 	});
 }
 
 export function startGame() {
-	placeSnakePart(0, 0);
+	placeSnakeOnStartingPoint();
 }
 
 function endGame() {
