@@ -1,4 +1,4 @@
-import settings from "@/settings/settings";
+import settings from "@/settings";
 import { placeSnakePart } from "@/snake";
 
 export let canvasElement: HTMLCanvasElement;

@@ -1,4 +1,4 @@
-import settings from "@/settings/settings";
+import settings from "@/settings";
 import { canvasContext } from "@/board";
 
 const canvasFillStyle = window
