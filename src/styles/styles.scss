@@ -1,10 +1,6 @@
-:root {
-	--color-dark-slate-gray: hsl(178deg 41% 25%);
-	--color-teal-blue: hsl(196deg 36% 41%);
-	--color-eggshell: hsl(53deg 44% 88%);
-	--color-metallic-sunburst: hsl(40deg 43% 46%);
-	--color-maize-crayola: hsl(43deg 92% 63%);
+@use "colors";
 
+:root {
 	font-size: 6.25%;
 }
 
