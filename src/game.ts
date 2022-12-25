@@ -1,4 +1,5 @@
 import { cleanUpBoard, placeSnakeOnStartingPoint } from "@/board";
+import { resetSnake } from "@/snake";
 
 const gameInProgressClass = "game-in-progress";
 let startButton: Element;
@@ -30,5 +31,6 @@ function startGame() {
 function endGame() {
 	startButton.classList.remove(gameInProgressClass);
 
+	resetSnake();
 	cleanUpBoard();
 }
