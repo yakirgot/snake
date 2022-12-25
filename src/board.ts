@@ -1,9 +1,11 @@
 import settings from "@/settings";
-import { SnakePosition } from "@/snake-position.type";
-import { addSnakePart, drawSnakeOnBoard } from "@/snake";
+import { SnakePosition } from "@/types/snake-position";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;
+const canvasFillStyle = window
+	.getComputedStyle(document.documentElement)
+	.getPropertyValue("--color-dark-slate-gray");
 
 export function setupBoard() {
 	const possibleCanvas =
@@ -25,7 +27,7 @@ export function setupBoard() {
 
 	setBoardSize();
 
-	cleanUpBoard();
+	cleanBoard();
 }
 
 function setBoardSize() {
@@ -38,33 +40,14 @@ function setBoardSize() {
 	canvasElement.style.height = `${canvasElement.height}px`;
 }
 
-export function cleanUpBoard() {
+export function cleanBoard() {
 	canvasContext.fillStyle = window
 		.getComputedStyle(document.documentElement)
 		.getPropertyValue("--color-maize-crayola");
 	canvasContext.fillRect(0, 0, canvasElement.width, canvasElement.height);
 }
 
-export function placeSnakeOnStartingPoint() {
-	const { snakeInitialLength, snakeSizeWithGap } = settings;
-	const snakeStartingPosition = getStartingPoint();
-
-	for (let index = 0; index < snakeInitialLength; index++) {
-		const xPositionCompensation = index * snakeSizeWithGap;
-		const snakeXPosition = snakeStartingPosition[0] + xPositionCompensation;
-
-		const snakePosition: SnakePosition = [
-			snakeXPosition,
-			snakeStartingPosition[1],
-		];
-
-		addSnakePart(snakePosition);
-	}
-
-	drawSnakeOnBoard();
-}
-
-function getStartingPoint(): SnakePosition {
+export function getSnakeStartingPoint(): SnakePosition {
 	const { boardWidth, boardHeight, snakeSizeWithGap } = settings;
 
 	const boardWidthInPx = boardWidth * snakeSizeWithGap;
@@ -81,4 +64,27 @@ function getStartingPoint(): SnakePosition {
 	const snakeStartingPosition: SnakePosition = [normalizedX, normalizedY];
 
 	return snakeStartingPosition;
+}
+
+export function drawSnakePart(snakePosition: SnakePosition) {
+	const { snakePartSizeInPx } = settings;
+
+	canvasContext.fillStyle = canvasFillStyle;
+	canvasContext.fillRect(
+		snakePosition[0],
+		snakePosition[1],
+		snakePartSizeInPx,
+		snakePartSizeInPx,
+	);
+}
+
+export function eraseSnakePart(snakePosition: SnakePosition) {
+	const { snakePartSizeInPx } = settings;
+
+	canvasContext.clearRect(
+		snakePosition[0],
+		snakePosition[1],
+		snakePartSizeInPx,
+		snakePartSizeInPx,
+	);
 }

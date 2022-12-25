@@ -41,5 +41,5 @@ function endGame() {
 	moveSnakeIntervalId = undefined;
 
 	resetSnake();
-	cleanUpBoard();
+	cleanBoard();
 }
