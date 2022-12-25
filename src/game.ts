@@ -1,5 +1,6 @@
 import { cleanUpBoard, placeSnakeOnStartingPoint } from "@/board";
 
+const gameInProgressClass = "game-in-progress";
 let startButton: Element;
 
 export function initGame() {
@@ -14,7 +15,7 @@ export function initGame() {
 	startButton = possibleStartButton;
 
 	startButton.addEventListener("click", () => {
-		startButton.classList.add("game-in-progress");
+		startButton.classList.add(gameInProgressClass);
 
 		startGame();
 	});
@@ -27,7 +28,7 @@ function startGame() {
 }
 
 function endGame() {
-	startButton.classList.remove("game-in-progress");
+	startButton.classList.remove(gameInProgressClass);
 
 	cleanUpBoard();
 }
