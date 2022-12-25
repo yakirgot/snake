@@ -13,6 +13,7 @@ const settings = {
 	get snakeSizeWithGap() {
 		return this.snakePartSizeInPx + this.snakeGapInPx;
 	},
+	snakeIntervalInMs: 250,
 } as const;
 
 export default settings;
