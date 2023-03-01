@@ -12,6 +12,6 @@
 	},
 	"extends": [
 		"plugin:@typescript-eslint/recommended",
-		"./node_modules/@yakirgot/linters/eslint/eslint-defaults.json"
+		"./node_modules/@better-front-end/linters/eslint/eslint-defaults.json"
 	]
 }

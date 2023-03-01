@@ -1,9 +1,9 @@
 {
-	"name": "@yakirgot/snake",
+	"name": "@better-front-end/snake",
 	"version": "0.0.0",
 	"type": "module",
 	"author": "Yakir Gottesman",
-	"prettier": "./node_modules/@yakirgot/linters/prettier/prettier-defaults.json",
+	"prettier": "./node_modules/@better-front-end/linters/prettier/prettier-defaults.json",
 	"scripts": {
 		"dev": "vite",
 		"test": "vitest --passWithNoTests",
@@ -17,11 +17,11 @@
 		"the-new-css-reset": "~1.8.2"
 	},
 	"devDependencies": {
+		"@better-front-end/linters": "1.3.0",
 		"@commitlint/cli": "~17.3.0",
 		"@commitlint/config-conventional": "~17.3.0",
 		"@typescript-eslint/eslint-plugin": "~5.46.1",
 		"@typescript-eslint/parser": "~5.46.1",
-		"@yakirgot/linters": "1.2.4",
 		"eslint": "~8.30.0",
 		"eslint-config-prettier": "~8.5.0",
 		"eslint-plugin-json": "~3.1.0",
