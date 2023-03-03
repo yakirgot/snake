@@ -1,6 +1,9 @@
 import settings from "@/settings";
 import { drawSnakePart, eraseSnakePart, getSnakeStartingPoint } from "@/board";
 import { SnakePosition } from "@/types/snake-position";
+import { SnakeDirection } from "@/types/snake-direction";
+
+export let snakeDirection: SnakeDirection = "right";
 
 let snakePositions: SnakePosition[] = [];
 
@@ -12,15 +15,43 @@ function addSnakePart(snakePosition: SnakePosition) {
 
 export function resetSnake() {
 	snakePositions = [];
+	snakeDirection = "right";
 }
 
 function addSnakeHead() {
 	const snakeHeadPosition = snakePositions.at(-1) as SnakePosition;
-	const nextSnakePositionX = snakeHeadPosition[0] + settings.snakeSizeWithGap;
-	const nextSnakeHeadPosition: SnakePosition = [
-		nextSnakePositionX,
-		snakeHeadPosition[1],
-	];
+	let nextSnakeHeadPosition: SnakePosition;
+
+	switch (snakeDirection) {
+		case "right": {
+			nextSnakeHeadPosition = [
+				snakeHeadPosition[0] + settings.snakeSizeWithGap,
+				snakeHeadPosition[1],
+			];
+			break;
+		}
+		case "left": {
+			nextSnakeHeadPosition = [
+				snakeHeadPosition[0] - settings.snakeSizeWithGap,
+				snakeHeadPosition[1],
+			];
+			break;
+		}
+		case "up": {
+			nextSnakeHeadPosition = [
+				snakeHeadPosition[0],
+				snakeHeadPosition[1] - settings.snakeSizeWithGap,
+			];
+			break;
+		}
+		case "down": {
+			nextSnakeHeadPosition = [
+				snakeHeadPosition[0],
+				snakeHeadPosition[1] + settings.snakeSizeWithGap,
+			];
+			break;
+		}
+	}
 
 	addSnakePart(nextSnakeHeadPosition);
 }
@@ -51,4 +82,28 @@ export function placeSnakeOnStartingPoint() {
 
 		addSnakePart(snakePosition);
 	}
+}
+
+export function maybeChangeSnakeDirection(direction: SnakeDirection) {
+	if (snakeDirection === direction) {
+		return;
+	}
+
+	if (snakeDirection === "up" && direction === "down") {
+		return;
+	}
+
+	if (snakeDirection === "down" && direction === "up") {
+		return;
+	}
+
+	if (snakeDirection === "left" && direction === "right") {
+		return;
+	}
+
+	if (snakeDirection === "right" && direction === "left") {
+		return;
+	}
+
+	snakeDirection = direction;
 }
