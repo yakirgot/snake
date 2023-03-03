@@ -17,41 +17,29 @@ export function resetSnake() {
 }
 
 function addSnakeHead() {
-	const snakeHeadPosition = snakePositions.at(-1) as SnakePosition;
-	let nextSnakeHeadPosition: SnakePosition;
+	const currentPosition = snakePositions.at(-1) as SnakePosition;
+	const nextPosition: SnakePosition = [...currentPosition];
 
 	switch (snakeDirection) {
 		case "right": {
-			nextSnakeHeadPosition = [
-				snakeHeadPosition[0] + settings.snakeSizeWithGap,
-				snakeHeadPosition[1],
-			];
+			nextPosition[0] = currentPosition[0] + settings.snakeSizeWithGap;
 			break;
 		}
 		case "left": {
-			nextSnakeHeadPosition = [
-				snakeHeadPosition[0] - settings.snakeSizeWithGap,
-				snakeHeadPosition[1],
-			];
+			nextPosition[0] = currentPosition[0] - settings.snakeSizeWithGap;
 			break;
 		}
 		case "up": {
-			nextSnakeHeadPosition = [
-				snakeHeadPosition[0],
-				snakeHeadPosition[1] - settings.snakeSizeWithGap,
-			];
+			nextPosition[1] = currentPosition[1] - settings.snakeSizeWithGap;
 			break;
 		}
 		case "down": {
-			nextSnakeHeadPosition = [
-				snakeHeadPosition[0],
-				snakeHeadPosition[1] + settings.snakeSizeWithGap,
-			];
+			nextPosition[1] = currentPosition[1] + settings.snakeSizeWithGap;
 			break;
 		}
 	}
 
-	addSnakePart(nextSnakeHeadPosition);
+	addSnakePart(nextPosition);
 }
 
 function eraseSnakeTail() {
