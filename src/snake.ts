@@ -1,9 +1,7 @@
 import settings from "@/settings";
 import { drawSnakePart, eraseSnakePart, getSnakeStartingPoint } from "@/board";
 import { SnakePosition } from "@/types/snake-position";
-import { SnakeDirection } from "@/types/snake-direction";
-
-export let snakeDirection: SnakeDirection = "right";
+import { resetSnakeDirection, snakeDirection } from "@/snake-direction";
 
 let snakePositions: SnakePosition[] = [];
 
@@ -15,7 +13,7 @@ function addSnakePart(snakePosition: SnakePosition) {
 
 export function resetSnake() {
 	snakePositions = [];
-	snakeDirection = "right";
+	resetSnakeDirection();
 }
 
 function addSnakeHead() {
@@ -86,28 +84,4 @@ export function placeSnakeOnStartingPoint() {
 
 		addSnakePart(snakePosition);
 	}
-}
-
-export function maybeChangeSnakeDirection(direction: SnakeDirection) {
-	if (snakeDirection === direction) {
-		return;
-	}
-
-	if (snakeDirection === "up" && direction === "down") {
-		return;
-	}
-
-	if (snakeDirection === "down" && direction === "up") {
-		return;
-	}
-
-	if (snakeDirection === "left" && direction === "right") {
-		return;
-	}
-
-	if (snakeDirection === "right" && direction === "left") {
-		return;
-	}
-
-	snakeDirection = direction;
 }

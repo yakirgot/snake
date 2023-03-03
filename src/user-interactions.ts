@@ -1,5 +1,5 @@
 import { SnakeDirection } from "@/types/snake-direction";
-import { maybeChangeSnakeDirection } from "@/snake";
+import { maybeChangeSnakeDirection } from "@/snake-direction";
 
 export function listenToUserArrowKeys() {
 	addEventListener("keydown", handleKeyboardEvent);
