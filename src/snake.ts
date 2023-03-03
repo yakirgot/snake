@@ -10,17 +10,11 @@ function addSnakePart(snakePosition: SnakePosition) {
 	drawSnakePart(snakePosition);
 }
 
-function popFirstSnakePart() {
-	const firstSnakePart = snakePositions.shift() as SnakePosition;
-
-	eraseSnakePart(firstSnakePart);
-}
-
 export function resetSnake() {
 	snakePositions = [];
 }
 
-export function moveSnake() {
+function addSnakeHead() {
 	const snakeHeadPosition = snakePositions.at(-1) as SnakePosition;
 	const nextSnakePositionX = snakeHeadPosition[0] + settings.snakeSizeWithGap;
 	const nextSnakeHeadPosition: SnakePosition = [
@@ -29,8 +23,17 @@ export function moveSnake() {
 	];
 
 	addSnakePart(nextSnakeHeadPosition);
+}
 
-	popFirstSnakePart();
+function eraseSnakeTail() {
+	const snakeTail = snakePositions.shift() as SnakePosition;
+
+	eraseSnakePart(snakeTail);
+}
+
+export function moveSnake() {
+	addSnakeHead();
+	eraseSnakeTail();
 }
 
 export function placeSnakeOnStartingPoint() {
