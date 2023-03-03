@@ -63,6 +63,10 @@ function eraseSnakeTail() {
 }
 
 export function moveSnake() {
+	if (snakePositions.length === 0) {
+		return;
+	}
+
 	addSnakeHead();
 	eraseSnakeTail();
 }
