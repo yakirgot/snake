@@ -45,27 +45,27 @@ body {
 	transition: background-color 80ms ease, box-shadow 80ms ease,
 		opacity 200ms linear, scale 200ms ease-in-out;
 
-	@media (hover: hover) {
-		&:hover {
-			background-color: var(--color-metallic-sunburst);
+	&:disabled {
+		opacity: 0.3;
+		scale: 0.8;
+	}
+
+	&:not(:disabled) {
+		cursor: pointer;
+
+		@media (hover: hover) {
+			&:hover {
+				background-color: var(--color-metallic-sunburst);
+			}
+		}
+
+		&:focus-visible {
+			outline: 2rem dashed var(--color-metallic-sunburst);
+			outline-offset: 2rem;
+		}
+
+		&:active {
+			box-shadow: 0 0 6rem rgb(0 0 0 / 50%);
 		}
 	}
-
-	&:focus-visible {
-		outline: 2rem dashed var(--color-metallic-sunburst);
-		outline-offset: 2rem;
-	}
-
-	&:active {
-		box-shadow: 0 0 6rem rgb(0 0 0 / 50%);
-	}
-
-	&:disabled {
-		opacity: 0.6;
-	}
-}
-
-.snake-game-start-button.game-in-progress {
-	opacity: 0.3;
-	scale: 0.8;
 }

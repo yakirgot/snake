@@ -2,14 +2,13 @@ import { cleanBoard } from "@/board";
 import { moveSnake, placeSnakeOnStartingPoint, resetSnake } from "@/snake";
 import settings from "@/settings";
 
-const gameInProgressClass = "game-in-progress";
-let startButton: Element;
+let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;
 
 export function initGame() {
 	const possibleStartButton = document.querySelector(
 		"[data-snake-game-start-button]",
-	);
+	) as HTMLButtonElement | undefined;
 
 	if (!possibleStartButton) {
 		return;
@@ -18,7 +17,7 @@ export function initGame() {
 	startButton = possibleStartButton;
 
 	startButton.addEventListener("click", () => {
-		startButton.classList.add(gameInProgressClass);
+		startButton.disabled = true;
 
 		startGame();
 	});
@@ -36,7 +35,7 @@ function startGame() {
 }
 
 function endGame() {
-	startButton.classList.remove(gameInProgressClass);
+	startButton.disabled = false;
 	window.clearInterval(moveSnakeIntervalId);
 	moveSnakeIntervalId = undefined;
 
