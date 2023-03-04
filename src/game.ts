@@ -1,10 +1,11 @@
 import { cleanBoard } from "@/board";
-import { moveSnake, placeSnakeOnStartingPoint, resetSnake } from "@/snake";
+import { moveSnake, resetSnake } from "@/snake";
 import settings from "@/settings";
 import {
 	cancelListenToUserArrowKeys,
 	listenToUserArrowKeys,
 } from "@/user-interactions";
+import { placeSnakeOnStartingPoint } from "@/snake-positions";
 
 let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;
