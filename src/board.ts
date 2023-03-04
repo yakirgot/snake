@@ -31,12 +31,13 @@ export function setupBoard() {
 }
 
 function setBoardSize() {
-	const { boardWidth, boardHeight, snakeSizeWithGap } = settings;
+	const { boardWidthInSnakeParts, boardHeightInSnakeParts, snakeSizeWithGap } =
+		settings;
 
-	canvasElement.width = boardWidth * snakeSizeWithGap;
+	canvasElement.width = boardWidthInSnakeParts * snakeSizeWithGap;
 	canvasElement.style.width = `${canvasElement.width}px`;
 
-	canvasElement.height = boardHeight * snakeSizeWithGap;
+	canvasElement.height = boardHeightInSnakeParts * snakeSizeWithGap;
 	canvasElement.style.height = `${canvasElement.height}px`;
 }
 
