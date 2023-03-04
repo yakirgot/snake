@@ -31,21 +31,22 @@ export function setupBoard() {
 }
 
 function setBoardSize() {
-	const { boardWidthInSnakeParts, boardHeightInSnakeParts, snakeSizeWithGap } =
-		settings;
+	const { canvasWidthInPx, canvasHeightInPx } = settings;
 
-	canvasElement.width = boardWidthInSnakeParts * snakeSizeWithGap;
-	canvasElement.style.width = `${canvasElement.width}px`;
+	canvasElement.width = canvasWidthInPx;
+	canvasElement.style.width = `${canvasWidthInPx}px`;
 
-	canvasElement.height = boardHeightInSnakeParts * snakeSizeWithGap;
-	canvasElement.style.height = `${canvasElement.height}px`;
+	canvasElement.height = canvasHeightInPx;
+	canvasElement.style.height = `${canvasHeightInPx}px`;
 }
 
 export function cleanBoard() {
+	const { canvasWidthInPx, canvasHeightInPx } = settings;
+
 	canvasContext.fillStyle = window
 		.getComputedStyle(document.documentElement)
 		.getPropertyValue("--color-maize-crayola");
-	canvasContext.fillRect(0, 0, canvasElement.width, canvasElement.height);
+	canvasContext.fillRect(0, 0, canvasWidthInPx, canvasHeightInPx);
 }
 
 export function drawSnakePart(snakePosition: SnakePosition) {
