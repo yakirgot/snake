@@ -36,11 +36,9 @@ function startGame() {
 	}, settings.snakeIntervalInMs);
 
 	listenToUserArrowKeys();
-
-	setTimeout(endGame, 5000);
 }
 
-function endGame() {
+export function endGame() {
 	startButton.disabled = false;
 	window.clearInterval(moveSnakeIntervalId);
 	moveSnakeIntervalId = undefined;

@@ -2,6 +2,7 @@ import settings from "@/settings";
 import { drawSnakePart, eraseSnakePart } from "@/board";
 import { SnakePosition } from "@/types/snake-position";
 import { resetSnakeDirection, snakeDirection } from "@/snake-direction";
+import { endGame } from "@/game";
 
 let snakePositions: SnakePosition[] = [];
 
@@ -16,7 +17,7 @@ export function resetSnake() {
 	resetSnakeDirection();
 }
 
-function addSnakeHead() {
+function getNextHeadPosition() {
 	const currentPosition = snakePositions.at(-1) as SnakePosition;
 	const nextPosition: SnakePosition = [...currentPosition];
 
@@ -39,10 +40,10 @@ function addSnakeHead() {
 		}
 	}
 
-	addSnakePart(nextPosition);
+	return nextPosition;
 }
 
-function eraseSnakeTail() {
+function eraseTail() {
 	const snakeTail = snakePositions.shift() as SnakePosition;
 
 	eraseSnakePart(snakeTail);
@@ -53,6 +54,35 @@ export function moveSnake() {
 		return;
 	}
 
-	addSnakeHead();
-	eraseSnakeTail();
+	const nextHeadPosition = getNextHeadPosition();
+
+	const isCollision = detectCollision(nextHeadPosition);
+
+	if (isCollision) {
+		endGame();
+	}
+
+	addSnakePart(nextHeadPosition);
+
+	eraseTail();
+}
+
+function detectCollision(position: SnakePosition) {
+	return detectWallCollision(position);
+}
+
+function detectWallCollision(position: SnakePosition) {
+	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } = settings;
+
+	const [positionX, positionY] = position;
+
+	if (positionX < 0 || positionY < 0) {
+		return true;
+	}
+
+	if (positionX + snakeSizeWithGap > canvasWidthInPx) {
+		return true;
+	}
+
+	return positionY + snakeSizeWithGap > canvasHeightInPx;
 }
