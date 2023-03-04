@@ -1,4 +1,4 @@
-const settings = {
+const settings = Object.freeze({
 	boardHeightInSnakeParts: 30,
 	boardWidthInSnakeParts: 44,
 	snakeGapInPx: 2,
@@ -14,6 +14,6 @@ const settings = {
 		return this.boardHeightInSnakeParts * this.snakeSizeWithGap;
 	},
 	snakeIntervalInMs: 250,
-} as const;
+} as const);
 
 export default settings;
