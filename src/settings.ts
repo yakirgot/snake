@@ -7,6 +7,12 @@ const settings = {
 	get snakeSizeWithGap() {
 		return this.snakePartSizeInPx + this.snakeGapInPx;
 	},
+	get canvasWidthInPx() {
+		return this.boardWidthInSnakeParts * this.snakeSizeWithGap;
+	},
+	get canvasHeightInPx() {
+		return this.boardHeightInSnakeParts * this.snakeSizeWithGap;
+	},
 	snakeIntervalInMs: 250,
 } as const;
 
