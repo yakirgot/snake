@@ -32,7 +32,11 @@ function startGame() {
 	placeSnakeOnStartingPoint();
 
 	moveSnakeIntervalId = window.setInterval(() => {
-		requestAnimationFrame(moveSnake);
+		const hasCollisionOccurred = moveSnake();
+
+		if (hasCollisionOccurred) {
+			endGame();
+		}
 	}, settings.snakeIntervalInMs);
 
 	listenToUserArrowKeys();
