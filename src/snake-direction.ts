@@ -21,14 +21,16 @@ export function maybeChangeSnakeDirection(userInputDirection: SnakeDirection) {
 }
 
 export function getSnakeDirectionOrFromQueue() {
-	if (snakeDirectionQueue.length > 0) {
-		updateSnakeDirectionFromQueue();
-	}
+	maybeUpdateSnakeDirectionFromQueue();
 
 	return snakeDirection;
 }
 
-function updateSnakeDirectionFromQueue() {
+function maybeUpdateSnakeDirectionFromQueue() {
+	if (snakeDirectionQueue.length === 0) {
+		return;
+	}
+
 	const nextDirection = snakeDirectionQueue.shift() as SnakeDirection;
 
 	if (!isNextDirectionOpposite(nextDirection)) {
