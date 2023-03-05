@@ -1,6 +1,7 @@
 import { SnakeDirection } from "@/types/snake-direction";
+import settings from "@/settings";
 
-let snakeDirection: SnakeDirection = "right";
+let snakeDirection: SnakeDirection = settings.snakeStartingDirection;
 const snakeDirectionQueue: SnakeDirection[] = [];
 
 export function maybeChangeSnakeDirection(userInputDirection: SnakeDirection) {
@@ -36,7 +37,7 @@ function updateSnakeDirectionFromQueue() {
 }
 
 export function resetSnakeDirection() {
-	snakeDirection = "right";
+	snakeDirection = settings.snakeStartingDirection;
 	snakeDirectionQueue.length = 0;
 }
 
