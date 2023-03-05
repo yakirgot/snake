@@ -7,17 +7,9 @@ const snakeDirectionQueue: SnakeDirection[] = [];
 export function maybeChangeSnakeDirection(userInputDirection: SnakeDirection) {
 	if (snakeDirectionQueue.length > 0) {
 		snakeDirectionQueue[1] = userInputDirection;
-
-		return;
+	} else {
+		snakeDirectionQueue.push(userInputDirection);
 	}
-
-	const nextDirection = snakeDirectionQueue.shift() as SnakeDirection;
-
-	if (isNextDirectionOpposite(nextDirection)) {
-		return;
-	}
-
-	snakeDirectionQueue[0] = userInputDirection;
 }
 
 export function getSnakeDirectionOrFromQueue() {
