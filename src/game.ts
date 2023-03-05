@@ -5,7 +5,7 @@ import {
 	cancelListenToUserArrowKeys,
 	listenToUserArrowKeys,
 } from "@/user-interactions";
-import { placeSnakeOnStartingPoint } from "@/snake-positions";
+import { placeSnakeOnStartingPoint } from "@/snake-start-position";
 
 let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;
