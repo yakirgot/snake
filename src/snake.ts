@@ -5,7 +5,7 @@ import {
 	getSnakeDirectionOrFromQueue,
 	resetSnakeDirection,
 } from "@/snake-direction";
-import { detectCollisions } from "@/snake-collisions";
+import { detectCollisions } from "@/snake-collisions-detection";
 
 export let snakePositions: SnakePosition[] = [];
 
