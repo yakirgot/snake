@@ -4,7 +4,7 @@ import settings from "@/settings";
 let snakeDirection: SnakeDirection = settings.snakeStartingDirection;
 const snakeDirectionQueue: SnakeDirection[] = [];
 
-export function maybeChangeSnakeDirection(userInputDirection: SnakeDirection) {
+export function addSnakeDirectionToQueue(userInputDirection: SnakeDirection) {
 	if (snakeDirectionQueue.length > 0) {
 		snakeDirectionQueue[1] = userInputDirection;
 	} else {
@@ -25,11 +25,6 @@ export function getSnakeDirectionOrFromQueue() {
 	return snakeDirection;
 }
 
-export function resetSnakeDirection() {
-	snakeDirection = settings.snakeStartingDirection;
-	snakeDirectionQueue.length = 0;
-}
-
 function isNextDirectionOpposite(nextDirection: SnakeDirection) {
 	return (
 		snakeDirection === nextDirection ||
@@ -38,4 +33,9 @@ function isNextDirectionOpposite(nextDirection: SnakeDirection) {
 		(snakeDirection === "left" && nextDirection === "right") ||
 		(snakeDirection === "right" && nextDirection === "left")
 	);
+}
+
+export function resetSnakeDirection() {
+	snakeDirection = settings.snakeStartingDirection;
+	snakeDirectionQueue.length = 0;
 }
