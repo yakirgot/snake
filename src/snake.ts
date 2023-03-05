@@ -1,7 +1,10 @@
 import settings from "@/settings";
 import { drawSnakePart, eraseSnakePart } from "@/board";
 import { SnakePosition } from "@/types/snake-position";
-import { resetSnakeDirection, snakeDirection } from "@/snake-direction";
+import {
+	getSnakeDirectionOrFromQueue,
+	resetSnakeDirection,
+} from "@/snake-direction";
 import { detectCollisions } from "@/snake-collisions";
 
 export let snakePositions: SnakePosition[] = [];
@@ -18,24 +21,24 @@ export function resetSnake() {
 }
 
 function getNextHeadPosition() {
-	const currentPosition = snakePositions.at(-1) as SnakePosition;
-	const nextPosition: SnakePosition = [...currentPosition];
+	const currentHeadPosition = snakePositions.at(-1) as SnakePosition;
+	const nextPosition: SnakePosition = [...currentHeadPosition];
 
-	switch (snakeDirection) {
+	switch (getSnakeDirectionOrFromQueue()) {
 		case "right": {
-			nextPosition[0] = currentPosition[0] + settings.snakeSizeWithGap;
+			nextPosition[0] = currentHeadPosition[0] + settings.snakeSizeWithGap;
 			break;
 		}
 		case "left": {
-			nextPosition[0] = currentPosition[0] - settings.snakeSizeWithGap;
+			nextPosition[0] = currentHeadPosition[0] - settings.snakeSizeWithGap;
 			break;
 		}
 		case "up": {
-			nextPosition[1] = currentPosition[1] - settings.snakeSizeWithGap;
+			nextPosition[1] = currentHeadPosition[1] - settings.snakeSizeWithGap;
 			break;
 		}
 		case "down": {
-			nextPosition[1] = currentPosition[1] + settings.snakeSizeWithGap;
+			nextPosition[1] = currentHeadPosition[1] + settings.snakeSizeWithGap;
 			break;
 		}
 	}

@@ -1,31 +1,51 @@
 import { SnakeDirection } from "@/types/snake-direction";
 
-export let snakeDirection: SnakeDirection = "right";
+let snakeDirection: SnakeDirection = "right";
+const snakeDirectionQueue: SnakeDirection[] = [];
 
-export function maybeChangeSnakeDirection(direction: SnakeDirection) {
-	if (snakeDirection === direction) {
+export function maybeChangeSnakeDirection(userInputDirection: SnakeDirection) {
+	if (snakeDirectionQueue.length > 0) {
+		snakeDirectionQueue[1] = userInputDirection;
+
 		return;
 	}
 
-	if (snakeDirection === "up" && direction === "down") {
+	const nextDirection = snakeDirectionQueue.shift() as SnakeDirection;
+
+	if (isNextDirectionOpposite(nextDirection)) {
 		return;
 	}
 
-	if (snakeDirection === "down" && direction === "up") {
-		return;
+	snakeDirectionQueue[0] = userInputDirection;
+}
+
+export function getSnakeDirectionOrFromQueue() {
+	if (snakeDirectionQueue.length > 0) {
+		updateSnakeDirectionFromQueue();
 	}
 
-	if (snakeDirection === "left" && direction === "right") {
-		return;
-	}
+	return snakeDirection;
+}
 
-	if (snakeDirection === "right" && direction === "left") {
-		return;
-	}
+function updateSnakeDirectionFromQueue() {
+	const nextDirection = snakeDirectionQueue.shift() as SnakeDirection;
 
-	snakeDirection = direction;
+	if (!isNextDirectionOpposite(nextDirection)) {
+		snakeDirection = nextDirection;
+	}
 }
 
 export function resetSnakeDirection() {
 	snakeDirection = "right";
+	snakeDirectionQueue.length = 0;
+}
+
+function isNextDirectionOpposite(nextDirection: SnakeDirection) {
+	return (
+		snakeDirection === nextDirection ||
+		(snakeDirection === "up" && nextDirection === "down") ||
+		(snakeDirection === "down" && nextDirection === "up") ||
+		(snakeDirection === "left" && nextDirection === "right") ||
+		(snakeDirection === "right" && nextDirection === "left")
+	);
 }
