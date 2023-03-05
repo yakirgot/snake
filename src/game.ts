@@ -1,5 +1,5 @@
 import { cleanBoard } from "@/board";
-import { moveSnake, resetSnake } from "@/snake";
+import { moveSnakeAndDetectCollisions, resetSnake } from "@/snake";
 import settings from "@/settings";
 import {
 	cancelListenToUserArrowKeys,
@@ -32,7 +32,7 @@ function startGame() {
 	placeSnakeOnStartingPoint();
 
 	moveSnakeIntervalId = window.setInterval(() => {
-		const hasCollisionOccurred = moveSnake();
+		const hasCollisionOccurred = moveSnakeAndDetectCollisions();
 
 		if (hasCollisionOccurred) {
 			endGame();

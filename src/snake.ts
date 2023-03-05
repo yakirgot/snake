@@ -52,7 +52,7 @@ function eraseTail() {
 /**
  * @return a collision has occurred
  */
-export function moveSnake() {
+export function moveSnakeAndDetectCollisions() {
 	const nextHeadPosition = getNextHeadPosition();
 
 	const isCollision = detectCollisions(nextHeadPosition);
