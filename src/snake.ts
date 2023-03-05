@@ -7,7 +7,7 @@ import {
 } from "@/snake-direction";
 import { detectCollisions } from "@/snake-collisions-detection";
 
-export let snakePositions: PartPosition[] = [];
+export const snakePositions: PartPosition[] = [];
 
 export function addSnakePart(snakePosition: PartPosition) {
 	snakePositions.push(snakePosition);
@@ -16,7 +16,7 @@ export function addSnakePart(snakePosition: PartPosition) {
 }
 
 export function resetSnake() {
-	snakePositions = [];
+	snakePositions.length = 0;
 	resetSnakeDirection();
 }
 
