@@ -5,9 +5,9 @@ const settings = Object.freeze({
 	boardWidthInSnakeParts: 44,
 	snakeGapInPx: 2,
 	snakeInitialLength: 3,
-	snakePartSizeInPx: 14,
+	partSizeInPx: 14,
 	get snakeSizeWithGap() {
-		return this.snakePartSizeInPx + this.snakeGapInPx;
+		return this.partSizeInPx + this.snakeGapInPx;
 	},
 	get canvasWidthInPx() {
 		return this.boardWidthInSnakeParts * this.snakeSizeWithGap;

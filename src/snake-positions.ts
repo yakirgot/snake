@@ -1,5 +1,5 @@
 import settings from "@/settings";
-import { SnakePosition } from "@/types/snake-position";
+import { PartPosition } from "@/types/part-position";
 import { addSnakePart } from "@/snake";
 
 export function placeSnakeOnStartingPoint() {
@@ -10,13 +10,13 @@ export function placeSnakeOnStartingPoint() {
 		const xPositionCompensation = index * snakeSizeWithGap;
 		const snakeXPosition = xStartingPosition + xPositionCompensation;
 
-		const snakePosition: SnakePosition = [snakeXPosition, yStartingPosition];
+		const snakePosition: PartPosition = [snakeXPosition, yStartingPosition];
 
 		addSnakePart(snakePosition);
 	}
 }
 
-function getSnakeStartingPoint(): SnakePosition {
+function getSnakeStartingPoint() {
 	const { boardWidthInSnakeParts, boardHeightInSnakeParts, snakeSizeWithGap } =
 		settings;
 
@@ -31,7 +31,7 @@ function getSnakeStartingPoint(): SnakePosition {
 	const normalizedX = Math.floor(quarterScreenX);
 	const normalizedY = Math.floor(yCoordinate);
 
-	const snakeStartingPosition: SnakePosition = [normalizedX, normalizedY];
+	const snakeStartingPosition: PartPosition = [normalizedX, normalizedY];
 
 	return snakeStartingPosition;
 }

@@ -1,15 +1,15 @@
 import settings from "@/settings";
-import { drawSnakePart, eraseSnakePart } from "@/board";
-import { SnakePosition } from "@/types/snake-position";
+import { drawSnakePart, erasePart } from "@/board";
+import { PartPosition } from "@/types/part-position";
 import {
 	getSnakeDirectionOrFromQueue,
 	resetSnakeDirection,
 } from "@/snake-direction";
 import { detectCollisions } from "@/snake-collisions-detection";
 
-export let snakePositions: SnakePosition[] = [];
+export let snakePositions: PartPosition[] = [];
 
-export function addSnakePart(snakePosition: SnakePosition) {
+export function addSnakePart(snakePosition: PartPosition) {
 	snakePositions.push(snakePosition);
 
 	drawSnakePart(snakePosition);
@@ -21,10 +21,11 @@ export function resetSnake() {
 }
 
 function getNextHeadPosition() {
-	const currentHeadPosition = snakePositions.at(-1) as SnakePosition;
-	const nextPosition: SnakePosition = [...currentHeadPosition];
+	const currentHeadPosition = snakePositions.at(-1) as PartPosition;
+	const nextPosition: PartPosition = [...currentHeadPosition];
+	const direction = getSnakeDirectionOrFromQueue();
 
-	switch (getSnakeDirectionOrFromQueue()) {
+	switch (direction) {
 		case "right": {
 			nextPosition[0] = currentHeadPosition[0] + settings.snakeSizeWithGap;
 			break;
@@ -47,9 +48,9 @@ function getNextHeadPosition() {
 }
 
 function eraseTail() {
-	const snakeTail = snakePositions.shift() as SnakePosition;
+	const snakeTail = snakePositions.shift() as PartPosition;
 
-	eraseSnakePart(snakeTail);
+	erasePart(snakeTail);
 }
 
 /**

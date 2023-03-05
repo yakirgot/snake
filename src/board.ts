@@ -1,11 +1,14 @@
 import settings from "@/settings";
-import { SnakePosition } from "@/types/snake-position";
+import { PartPosition } from "@/types/part-position";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;
-const canvasFillStyle = window
+const snakeColor = window
 	.getComputedStyle(document.documentElement)
 	.getPropertyValue("--color-dark-slate-gray");
+const foodColor = window
+	.getComputedStyle(document.documentElement)
+	.getPropertyValue("--color-teal-blue");
 
 export function setupBoard() {
 	const possibleCanvas =
@@ -49,25 +52,33 @@ export function cleanBoard() {
 	canvasContext.fillRect(0, 0, canvasWidthInPx, canvasHeightInPx);
 }
 
-export function drawSnakePart(snakePosition: SnakePosition) {
-	const { snakePartSizeInPx } = settings;
+export function drawSnakePart(snakePosition: PartPosition) {
+	drawPart(snakePosition, snakeColor);
+}
 
-	canvasContext.fillStyle = canvasFillStyle;
+export function drawFoodPart(foodPosition: PartPosition) {
+	drawPart(foodPosition, foodColor);
+}
+
+function drawPart(snakePosition: PartPosition, color: string) {
+	const { partSizeInPx } = settings;
+
+	canvasContext.fillStyle = color;
 	canvasContext.fillRect(
 		snakePosition[0],
 		snakePosition[1],
-		snakePartSizeInPx,
-		snakePartSizeInPx,
+		partSizeInPx,
+		partSizeInPx,
 	);
 }
 
-export function eraseSnakePart(snakePosition: SnakePosition) {
-	const { snakePartSizeInPx } = settings;
+export function erasePart(partPosition: PartPosition) {
+	const { partSizeInPx } = settings;
 
 	canvasContext.clearRect(
-		snakePosition[0],
-		snakePosition[1],
-		snakePartSizeInPx,
-		snakePartSizeInPx,
+		partPosition[0],
+		partPosition[1],
+		partSizeInPx,
+		partSizeInPx,
 	);
 }
