@@ -24,9 +24,7 @@ function getSnakeStartingPoint() {
 	const quarterScreenX = boardWidthInPx / 4;
 
 	const boardHeightInPx = boardHeightInSnakeParts * snakeSizeWithGap;
-	const middleScreenY = boardHeightInPx / 2;
-	const halfSnakeSize = snakeSizeWithGap / 2;
-	const yCoordinate = middleScreenY - halfSnakeSize;
+	const yCoordinate = boardHeightInPx / 2;
 
 	const normalizedX = Math.floor(quarterScreenX);
 	const normalizedY = Math.floor(yCoordinate);
