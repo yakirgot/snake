@@ -1,4 +1,4 @@
-import { cleanBoard } from "@/board";
+import { cleanBoard, setupBoard } from "@/board";
 import { moveSnakeAndDetectCollisions, resetSnake } from "@/snake";
 import settings from "@/settings";
 import {
@@ -6,11 +6,31 @@ import {
 	listenToUserArrowKeys,
 } from "@/user-interactions";
 import { placeSnakeOnStartingPoint } from "@/snake-start-position";
+import { initFood, resetFood } from "@/food";
+import { updateAllPartsPositions } from "@/parts-positions";
 
 let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;
 
-export function initGame() {
+export async function initGame() {
+	setupBoard();
+
+	updateStartButton();
+
+	startButton.disabled = true;
+
+	await updateAllPartsPositions();
+
+	startButton.disabled = false;
+
+	startButton.addEventListener("click", () => {
+		startButton.disabled = true;
+
+		startGame();
+	});
+}
+
+function updateStartButton() {
 	const possibleStartButton = document.querySelector(
 		"[data-snake-game-start-button]",
 	) as HTMLButtonElement | undefined;
@@ -20,16 +40,11 @@ export function initGame() {
 	}
 
 	startButton = possibleStartButton;
-
-	startButton.addEventListener("click", () => {
-		startButton.disabled = true;
-
-		startGame();
-	});
 }
 
 function startGame() {
 	placeSnakeOnStartingPoint();
+	initFood();
 
 	moveSnakeIntervalId = window.setInterval(() => {
 		const hasCollisionOccurred = moveSnakeAndDetectCollisions();
@@ -49,5 +64,6 @@ export function endGame() {
 
 	cancelListenToUserArrowKeys();
 	resetSnake();
+	resetFood();
 	cleanBoard();
 }
