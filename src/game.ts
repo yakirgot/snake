@@ -1,4 +1,4 @@
-import { cleanBoard, setupBoard } from "@/board";
+import { cleanBoard, createSnakeSnapshot, setupBoard } from "@/board";
 import {
 	currentSnakeHeadPosition,
 	getNextHeadPosition,
@@ -48,6 +48,7 @@ export async function initGame() {
 }
 
 function startGame() {
+	cleanBoard();
 	placeSnakeOnStartingPoint();
 	initFood();
 	listenToUserArrowKeys();
@@ -89,8 +90,9 @@ function endGame() {
 
 	startButton.disabled = false;
 
+	cleanBoard();
+	createSnakeSnapshot();
 	resetSnake();
 	resetFood();
-	cleanBoard();
 	cancelListenToUserArrowKeys();
 }

@@ -1,5 +1,6 @@
 import settings from "@/settings";
 import { PartPosition } from "@/types/part-position";
+import { getSnakePositions } from "@/snake";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;
@@ -47,6 +48,30 @@ export function drawSnakePart(snakePosition: PartPosition) {
 
 export function drawFoodPart(foodPosition: PartPosition) {
 	drawPart(foodPosition, foodColor, settings.partSizeInPx / 3);
+}
+
+export function createSnakeSnapshot() {
+	const { partSizeInPx } = settings;
+
+	canvasContext.strokeStyle = snakeColor;
+	canvasContext.shadowColor = snakeColor;
+	canvasContext.shadowBlur = partSizeInPx / 3;
+
+	for (const snakePosition of getSnakePositions()) {
+		canvasContext.beginPath();
+
+		canvasContext.roundRect(
+			snakePosition[0],
+			snakePosition[1],
+			partSizeInPx,
+			partSizeInPx,
+			[3],
+		);
+		canvasContext.closePath();
+		canvasContext.stroke();
+	}
+
+	canvasContext.shadowBlur = 0;
 }
 
 function drawPart(snakePosition: PartPosition, color: string, radii = 0) {
