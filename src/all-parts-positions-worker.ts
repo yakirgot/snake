@@ -5,7 +5,7 @@ onmessage = (messageEvent) => {
 
 	for (let height = 0; height < canvasHeightInPx; height += snakeSizeWithGap) {
 		for (let width = 0; width < canvasWidthInPx; width += snakeSizeWithGap) {
-			partPositions.push([width + snakeSizeWithGap, height + snakeSizeWithGap]);
+			partPositions.push([width, height]);
 		}
 	}
 
