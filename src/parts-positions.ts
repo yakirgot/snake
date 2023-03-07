@@ -3,7 +3,7 @@ import settings from "@/settings";
 import { isFoodPosition } from "@/food";
 import { detectSnakeCollision } from "@/collision-detection";
 
-let partsPositions: PartPosition[] = [];
+let allPartsPositions: PartPosition[] = [];
 
 const partWorker = new Worker(
 	new URL("all-parts-positions-worker.ts", import.meta.url),
@@ -15,7 +15,7 @@ export function updateAllPartsPositions() {
 		partWorker.addEventListener(
 			"message",
 			(results: MessageEvent<PartPosition[]>) => {
-				partsPositions = results.data;
+				allPartsPositions = results.data;
 
 				resolve();
 			},
@@ -30,7 +30,7 @@ export function updateAllPartsPositions() {
 }
 
 export function getAllAvailablePositions() {
-	const availablePositions = partsPositions.filter(
+	const availablePositions = allPartsPositions.filter(
 		(partPosition: PartPosition) => {
 			const isSnakePart = detectSnakeCollision(partPosition);
 
