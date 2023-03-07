@@ -14,7 +14,7 @@ export function updateAllPartsPositions() {
 	const promise = new Promise<void>((resolve) => {
 		partWorker.addEventListener(
 			"message",
-			(results) => {
+			(results: MessageEvent<PartPosition[]>) => {
 				partsPositions = results.data;
 
 				resolve();
