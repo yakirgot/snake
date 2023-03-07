@@ -8,8 +8,6 @@ const foodPositions: PartPosition[] = [];
 
 function addFoodPart(foodPosition: PartPosition) {
 	foodPositions.push(foodPosition);
-
-	drawFoodPart(foodPosition);
 }
 
 export function removeFoodPart(partPosition: PartPosition) {
@@ -39,7 +37,10 @@ export function placeFoodOnBoard() {
 		Math.random() * (availablePositions.length - 1),
 	);
 
-	addFoodPart(availablePositions[randomIndex]);
+	const foodPosition: PartPosition = availablePositions[randomIndex];
+
+	addFoodPart(foodPosition);
+	drawFoodPart(foodPosition);
 }
 
 export function initFood() {
