@@ -8,7 +8,7 @@ import {
 import {
 	detectSnakeCollision,
 	detectWallCollision,
-} from "@/collisions-detection";
+} from "@/collision-detection";
 
 export const snakePositions: PartPosition[] = [];
 

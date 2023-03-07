@@ -2,7 +2,7 @@ import { PartPosition } from "@/types/part-position";
 import { getAllAvailablePositions } from "@/parts-positions";
 import settings from "@/settings";
 import { drawFoodPart } from "@/board";
-import { detectPartCollision } from "@/collisions-detection";
+import { detectPartCollision } from "@/collision-detection";
 
 const foodPositions: PartPosition[] = [];
 
