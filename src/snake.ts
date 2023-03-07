@@ -10,7 +10,7 @@ import {
 	detectWallCollision,
 } from "@/collision-detection";
 
-export const snakePositions: PartPosition[] = [];
+const snakePositions: PartPosition[] = [];
 let snakeGrowMoves = 0;
 
 export function addSnakePart(snakePosition: PartPosition) {

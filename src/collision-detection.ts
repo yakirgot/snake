@@ -1,6 +1,6 @@
 import { PartPosition } from "@/types/part-position";
 import settings from "@/settings";
-import { snakePositions } from "@/snake";
+import { getSnakePositions } from "@/snake";
 
 export function detectWallCollision(partPosition: PartPosition) {
 	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } = settings;
@@ -19,7 +19,7 @@ export function detectWallCollision(partPosition: PartPosition) {
 }
 
 export function detectSnakeCollision(partPosition: PartPosition) {
-	const isCollision = snakePositions.some((snakePosition) =>
+	const isCollision = getSnakePositions().some((snakePosition) =>
 		detectPartCollision(partPosition, snakePosition),
 	);
 
