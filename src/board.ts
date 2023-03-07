@@ -53,23 +53,27 @@ export function cleanBoard() {
 }
 
 export function drawSnakePart(snakePosition: PartPosition) {
-	drawPart(snakePosition, snakeColor);
+	drawPart(snakePosition, snakeColor, 3);
 }
 
 export function drawFoodPart(foodPosition: PartPosition) {
-	drawPart(foodPosition, foodColor);
+	drawPart(foodPosition, foodColor, settings.partSizeInPx / 3);
 }
 
-function drawPart(snakePosition: PartPosition, color: string) {
+function drawPart(snakePosition: PartPosition, color: string, radii = 0) {
 	const { partSizeInPx } = settings;
 
 	canvasContext.fillStyle = color;
-	canvasContext.fillRect(
+
+	canvasContext.beginPath();
+	canvasContext.roundRect(
 		snakePosition[0],
 		snakePosition[1],
 		partSizeInPx,
 		partSizeInPx,
+		[radii],
 	);
+	canvasContext.fill();
 }
 
 export function erasePart(partPosition: PartPosition) {
