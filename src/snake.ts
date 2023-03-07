@@ -65,10 +65,8 @@ export function moveSnakeAndDetectCollisions() {
 		return true;
 	}
 
-	requestAnimationFrame(() => {
-		addSnakePart(nextHeadPosition);
-		eraseTail();
-	});
+	addSnakePart(nextHeadPosition);
+	eraseTail();
 
 	return false;
 }
