@@ -1,23 +1,49 @@
 import { PartPosition } from "@/types/part-position";
+import { getAllAvailablePositions } from "@/parts-positions";
+import settings from "@/settings";
+import { drawFoodPart } from "@/board";
+import { detectPartCollision } from "@/collisions-detection";
 
-const foodPositions: Set<PartPosition> = new Set();
+const foodPositions: PartPosition[] = [];
 
 function addFoodPart(foodPosition: PartPosition) {
-	foodPositions.add(foodPosition);
+	foodPositions.push(foodPosition);
+
+	drawFoodPart(foodPosition);
 }
 
-function removeFoodPart(foodPosition: PartPosition) {
-	foodPositions.delete(foodPosition);
+export function removeFoodPart(partPosition: PartPosition) {
+	const index = foodPositions.findIndex((foodPosition) =>
+		detectPartCollision(partPosition, foodPosition),
+	);
+
+	foodPositions.splice(index, 1);
 }
 
 export function resetFood() {
-	foodPositions.clear();
+	foodPositions.length = 0;
 }
 
-function isEatingFood(snakePosition: PartPosition) {
-	return foodPositions.has(snakePosition);
+export function isFoodPosition(partPosition: PartPosition) {
+	const isPosition = foodPositions.some((foodPosition) =>
+		detectPartCollision(partPosition, foodPosition),
+	);
+
+	return isPosition;
 }
 
-function placeFoodOnBoard() {}
+export function placeFoodOnBoard() {
+	const availablePositions = getAllAvailablePositions();
 
-export function initFood() {}
+	const randomIndex = Math.floor(
+		Math.random() * (availablePositions.length - 1),
+	);
+
+	addFoodPart(availablePositions[randomIndex]);
+}
+
+export function initFood() {
+	for (let index = 1; index <= settings.foodPartsOnBoard; index++) {
+		placeFoodOnBoard();
+	}
+}
