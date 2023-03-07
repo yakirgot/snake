@@ -7,15 +7,21 @@ export function detectWallCollision(partPosition: PartPosition) {
 
 	const [positionX, positionY] = partPosition;
 
-	if (positionX < 0 || positionY < 0) {
+	const isLeftOrTopOutsideOfBoard = positionX < 0 || positionY < 0;
+
+	if (isLeftOrTopOutsideOfBoard) {
 		return true;
 	}
 
-	if (positionX + snakeSizeWithGap > canvasWidthInPx) {
+	const isBottomOutsideOfBoard = positionX + snakeSizeWithGap > canvasWidthInPx;
+
+	if (isBottomOutsideOfBoard) {
 		return true;
 	}
 
-	return positionY + snakeSizeWithGap > canvasHeightInPx;
+	const isRightOutsideOfBoard = positionY + snakeSizeWithGap > canvasHeightInPx;
+
+	return isRightOutsideOfBoard;
 }
 
 export function detectSnakeCollision(partPosition: PartPosition) {
@@ -27,11 +33,11 @@ export function detectSnakeCollision(partPosition: PartPosition) {
 }
 
 export function detectPartCollision(
-	partPosition: PartPosition,
-	itemPosition: PartPosition,
+	partPositionA: PartPosition,
+	partPositionB: PartPosition,
 ) {
-	const xCollision = partPosition[0] === itemPosition[0];
-	const yCollision = partPosition[1] === itemPosition[1];
+	const xAxisCollision = partPositionA[0] === partPositionB[0];
+	const yAxisCollision = partPositionA[1] === partPositionB[1];
 
-	return xCollision && yCollision;
+	return xAxisCollision && yAxisCollision;
 }
