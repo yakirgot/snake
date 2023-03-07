@@ -6,6 +6,7 @@ const settings = Object.freeze({
 	foodPartsOnBoard: 3,
 	snakeGapInPx: 2,
 	snakeInitialLength: 3,
+	snakePartsGrowth: 3,
 	partSizeInPx: 14,
 	get snakeSizeWithGap() {
 		return this.partSizeInPx + this.snakeGapInPx;
