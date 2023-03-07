@@ -11,6 +11,7 @@ import {
 } from "@/collision-detection";
 
 export const snakePositions: PartPosition[] = [];
+let snakeGrowMoves = 0;
 
 export function addSnakePart(snakePosition: PartPosition) {
 	snakePositions.push(snakePosition);
@@ -21,6 +22,10 @@ export function addSnakePart(snakePosition: PartPosition) {
 export function resetSnake() {
 	snakePositions.length = 0;
 	resetSnakeDirection();
+}
+
+export function growSnake() {
+	snakeGrowMoves += settings.snakePartsGrowth;
 }
 
 export function currentSnakeHeadPosition() {
@@ -67,13 +72,12 @@ export function isSnakeCollision(headPosition: PartPosition) {
 	return isWallCollision || isSelfCollision;
 }
 
-export function moveSnake(
-	headPosition: PartPosition,
-	shouldEraseTail: boolean,
-) {
+export function moveSnake(headPosition: PartPosition) {
 	addSnakePart(headPosition);
 
-	if (shouldEraseTail) {
+	if (snakeGrowMoves === 0) {
 		eraseTail();
+	} else {
+		snakeGrowMoves--;
 	}
 }
