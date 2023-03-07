@@ -21,12 +21,14 @@ import {
 	resetFood,
 } from "@/food";
 import { updateAllPartsPositions } from "@/parts-positions";
+import { initGamePoints, updateGamePointsBySnakeParts } from "@/game-points";
 
 let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;
 
 export async function initGame() {
 	setupBoard();
+	initGamePoints();
 
 	startButton = document.querySelector(
 		"[data-snake-game-start-button]",
@@ -49,6 +51,7 @@ function startGame() {
 	placeSnakeOnStartingPoint();
 	initFood();
 	listenToUserArrowKeys();
+	updateGamePointsBySnakeParts();
 
 	moveSnakeIntervalId = window.setInterval(
 		makeGameMove,
@@ -76,6 +79,8 @@ function makeGameMove() {
 
 		growSnake();
 	}
+
+	updateGamePointsBySnakeParts();
 }
 
 function endGame() {

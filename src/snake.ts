@@ -28,6 +28,14 @@ export function growSnake() {
 	snakeGrowMoves += settings.snakePartsGrowth;
 }
 
+export function getSnakePartsCount() {
+	return snakePositions.length;
+}
+
+export function getSnakePositions() {
+	return snakePositions;
+}
+
 export function currentSnakeHeadPosition() {
 	return snakePositions.at(-1) as PartPosition;
 }
