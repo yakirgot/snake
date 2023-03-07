@@ -5,7 +5,10 @@ import {
 	getSnakeDirectionOrFromQueue,
 	resetSnakeDirection,
 } from "@/snake-direction";
-import { detectCollisions } from "@/snake-collisions-detection";
+import {
+	detectSnakeCollision,
+	detectWallCollision,
+} from "@/collisions-detection";
 
 export const snakePositions: PartPosition[] = [];
 
@@ -25,25 +28,25 @@ export function currentSnakeHeadPosition() {
 }
 
 function getNextHeadPosition() {
-	const currentHeadPosition = snakePositions.at(-1) as PartPosition;
-	const nextPosition: PartPosition = [...currentHeadPosition];
+	const nextPosition: PartPosition = [...currentSnakeHeadPosition()];
 	const direction = getSnakeDirectionOrFromQueue();
+	const { snakeSizeWithGap } = settings;
 
 	switch (direction) {
 		case "right": {
-			nextPosition[0] = currentHeadPosition[0] + settings.snakeSizeWithGap;
+			nextPosition[0] += snakeSizeWithGap;
 			break;
 		}
 		case "left": {
-			nextPosition[0] = currentHeadPosition[0] - settings.snakeSizeWithGap;
+			nextPosition[0] -= snakeSizeWithGap;
 			break;
 		}
 		case "up": {
-			nextPosition[1] = currentHeadPosition[1] - settings.snakeSizeWithGap;
+			nextPosition[1] -= snakeSizeWithGap;
 			break;
 		}
 		case "down": {
-			nextPosition[1] = currentHeadPosition[1] + settings.snakeSizeWithGap;
+			nextPosition[1] += snakeSizeWithGap;
 			break;
 		}
 	}
