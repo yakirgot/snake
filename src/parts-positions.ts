@@ -5,12 +5,12 @@ import { detectSnakeCollision } from "@/collision-detection";
 
 let partsPositions: PartPosition[] = [];
 
-export function updateAllPartsPositions() {
-	const partWorker = new Worker(
-		new URL("all-parts-positions-worker.ts", import.meta.url),
-		{ type: "module" },
-	);
+const partWorker = new Worker(
+	new URL("all-parts-positions-worker.ts", import.meta.url),
+	{ type: "module" },
+);
 
+export function updateAllPartsPositions() {
 	const promise = new Promise<void>((resolve) => {
 		partWorker.addEventListener(
 			"message",
