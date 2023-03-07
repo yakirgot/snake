@@ -27,7 +27,7 @@ export function currentSnakeHeadPosition() {
 	return snakePositions.at(-1) as PartPosition;
 }
 
-function getNextHeadPosition() {
+export function getNextHeadPosition() {
 	const nextPosition: PartPosition = [...currentSnakeHeadPosition()];
 	const direction = getSnakeDirectionOrFromQueue();
 	const { snakeSizeWithGap } = settings;
@@ -60,21 +60,15 @@ function eraseTail() {
 	erasePart(snakeTail);
 }
 
-/**
- * @return a collision has occurred
- */
-export function moveSnakeAndDetectCollisions() {
-	const nextHeadPosition = getNextHeadPosition();
+export function isSnakeCollision(headPosition: PartPosition) {
+	const isWallCollision = detectWallCollision(headPosition);
+	const isSelfCollision = detectSnakeCollision(headPosition);
 
-	const isWallCollision = detectWallCollision(nextHeadPosition);
-	const isSelfCollision = detectSnakeCollision(nextHeadPosition);
+	return isWallCollision || isSelfCollision;
+}
 
-	if (isWallCollision || isSelfCollision) {
-		return true;
-	}
+export function moveSnake(headPosition: PartPosition) {
+	addSnakePart(headPosition);
 
-	addSnakePart(nextHeadPosition);
 	eraseTail();
-
-	return false;
 }

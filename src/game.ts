@@ -1,7 +1,9 @@
 import { cleanBoard, setupBoard } from "@/board";
 import {
 	currentSnakeHeadPosition,
-	moveSnakeAndDetectCollisions,
+	getNextHeadPosition,
+	isSnakeCollision,
+	moveSnake,
 	resetSnake,
 } from "@/snake";
 import settings from "@/settings";
@@ -64,13 +66,16 @@ function startGame() {
 }
 
 function makeGameMove() {
-	const hasCollisionOccurred = moveSnakeAndDetectCollisions();
+	const nextHeadPosition = getNextHeadPosition();
+	const hasCollisionOccurred = isSnakeCollision(nextHeadPosition);
 
 	if (hasCollisionOccurred) {
 		endGame();
 
 		return;
 	}
+
+	moveSnake(nextHeadPosition);
 
 	const hasEaten = isFoodPosition(currentSnakeHeadPosition());
 
