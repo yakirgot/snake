@@ -80,7 +80,7 @@ function makeGameMove() {
 	}
 }
 
-export function endGame() {
+function endGame() {
 	window.clearInterval(moveSnakeIntervalId);
 	moveSnakeIntervalId = undefined;
 
