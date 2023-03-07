@@ -67,8 +67,13 @@ export function isSnakeCollision(headPosition: PartPosition) {
 	return isWallCollision || isSelfCollision;
 }
 
-export function moveSnake(headPosition: PartPosition) {
+export function moveSnake(
+	headPosition: PartPosition,
+	shouldEraseTail: boolean,
+) {
 	addSnakePart(headPosition);
 
-	eraseTail();
+	if (shouldEraseTail) {
+		eraseTail();
+	}
 }

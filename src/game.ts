@@ -23,6 +23,7 @@ import { updateAllPartsPositions } from "@/parts-positions";
 
 let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;
+let snakeGrowMoves = 0;
 
 export async function initGame() {
 	setupBoard();
@@ -75,13 +76,19 @@ function makeGameMove() {
 		return;
 	}
 
-	moveSnake(nextHeadPosition);
+	moveSnake(nextHeadPosition, snakeGrowMoves === 0);
 
 	const hasEaten = isFoodPosition(currentSnakeHeadPosition());
 
 	if (hasEaten) {
 		removeFoodPart(currentSnakeHeadPosition());
 		placeFoodOnBoard();
+
+		snakeGrowMoves += settings.snakePartsGrowth;
+	}
+
+	if (snakeGrowMoves > 0) {
+		snakeGrowMoves--;
 	}
 }
 
