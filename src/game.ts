@@ -28,7 +28,9 @@ let moveSnakeIntervalId: number | undefined;
 export async function initGame() {
 	setupBoard();
 
-	updateStartButton();
+	startButton = document.querySelector(
+		"[data-snake-game-start-button]",
+	) as HTMLButtonElement;
 
 	startButton.disabled = true;
 
@@ -41,18 +43,6 @@ export async function initGame() {
 
 		startGame();
 	});
-}
-
-function updateStartButton() {
-	const possibleStartButton = document.querySelector(
-		"[data-snake-game-start-button]",
-	) as HTMLButtonElement | undefined;
-
-	if (!possibleStartButton) {
-		return;
-	}
-
-	startButton = possibleStartButton;
 }
 
 function startGame() {
