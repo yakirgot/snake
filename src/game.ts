@@ -55,34 +55,39 @@ function updateStartButton() {
 function startGame() {
 	placeSnakeOnStartingPoint();
 	initFood();
-
-	moveSnakeIntervalId = window.setInterval(() => {
-		const hasCollisionOccurred = moveSnakeAndDetectCollisions();
-
-		if (hasCollisionOccurred) {
-			endGame();
-
-			return;
-		}
-
-		const hasEaten = isFoodPosition(currentSnakeHeadPosition());
-
-		if (hasEaten) {
-			removeFoodPart(currentSnakeHeadPosition());
-			placeFoodOnBoard();
-		}
-	}, settings.snakeIntervalInMs);
-
 	listenToUserArrowKeys();
+
+	moveSnakeIntervalId = window.setInterval(
+		makeGameMove,
+		settings.snakeIntervalInMs,
+	);
+}
+
+function makeGameMove() {
+	const hasCollisionOccurred = moveSnakeAndDetectCollisions();
+
+	if (hasCollisionOccurred) {
+		endGame();
+
+		return;
+	}
+
+	const hasEaten = isFoodPosition(currentSnakeHeadPosition());
+
+	if (hasEaten) {
+		removeFoodPart(currentSnakeHeadPosition());
+		placeFoodOnBoard();
+	}
 }
 
 export function endGame() {
-	startButton.disabled = false;
 	window.clearInterval(moveSnakeIntervalId);
 	moveSnakeIntervalId = undefined;
 
-	cancelListenToUserArrowKeys();
+	startButton.disabled = false;
+
 	resetSnake();
 	resetFood();
 	cleanBoard();
+	cancelListenToUserArrowKeys();
 }
