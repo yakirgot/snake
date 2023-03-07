@@ -21,6 +21,7 @@ export function addSnakePart(snakePosition: PartPosition) {
 
 export function resetSnake() {
 	snakePositions.length = 0;
+	snakeGrowMoves = 0;
 	resetSnakeDirection();
 }
 
