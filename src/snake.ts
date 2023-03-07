@@ -63,9 +63,10 @@ function eraseTail() {
 export function moveSnakeAndDetectCollisions() {
 	const nextHeadPosition = getNextHeadPosition();
 
-	const isCollision = detectCollisions(nextHeadPosition);
+	const isWallCollision = detectWallCollision(nextHeadPosition);
+	const isSelfCollision = detectSnakeCollision(nextHeadPosition);
 
-	if (isCollision) {
+	if (isWallCollision || isSelfCollision) {
 		return true;
 	}
 
