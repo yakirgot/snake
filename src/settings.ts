@@ -3,6 +3,7 @@ import { SnakeDirection } from "@/types/snake-direction";
 const settings = Object.freeze({
 	boardHeightInSnakeParts: 30,
 	boardWidthInSnakeParts: 44,
+	foodPartsOnBoard: 3,
 	snakeGapInPx: 2,
 	snakeInitialLength: 3,
 	partSizeInPx: 14,
