@@ -20,6 +20,10 @@ export function resetSnake() {
 	resetSnakeDirection();
 }
 
+export function currentSnakeHeadPosition() {
+	return snakePositions.at(-1) as PartPosition;
+}
+
 function getNextHeadPosition() {
 	const currentHeadPosition = snakePositions.at(-1) as PartPosition;
 	const nextPosition: PartPosition = [...currentHeadPosition];
