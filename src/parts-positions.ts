@@ -1,5 +1,7 @@
 import { PartPosition } from "@/types/part-position";
 import settings from "@/settings";
+import { isFoodPosition } from "@/food";
+import { detectSnakeCollision } from "@/collisions-detection";
 
 let partsPositions: PartPosition[] = [];
 
@@ -27,6 +29,20 @@ export function updateAllPartsPositions() {
 	return promise;
 }
 
-export function getAllPartsPositions() {
-	return partsPositions;
+export function getAllAvailablePositions() {
+	const availablePositions = partsPositions.filter(
+		(partPosition: PartPosition) => {
+			const isSnakePart = detectSnakeCollision(partPosition);
+
+			if (isSnakePart) {
+				return false;
+			}
+
+			const isFoodPart = isFoodPosition(partPosition);
+
+			return !isFoodPart;
+		},
+	);
+
+	return availablePositions;
 }
