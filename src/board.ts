@@ -43,7 +43,7 @@ export function cleanBoard() {
 }
 
 export function drawSnakePart(snakePosition: PartPosition) {
-	drawPart(snakePosition, snakeColor, 3);
+	drawPart(snakePosition, snakeColor, settings.snakePartRadiiInPx);
 }
 
 export function drawFoodPart(foodPosition: PartPosition) {
@@ -51,7 +51,7 @@ export function drawFoodPart(foodPosition: PartPosition) {
 }
 
 export function createSnakeSnapshot() {
-	const { partSizeInPx } = settings;
+	const { partSizeInPx, snakePartRadiiInPx } = settings;
 
 	canvasContext.strokeStyle = snakeColor;
 	canvasContext.shadowColor = snakeColor;
@@ -65,7 +65,7 @@ export function createSnakeSnapshot() {
 			snakePosition[1],
 			partSizeInPx,
 			partSizeInPx,
-			[3],
+			[snakePartRadiiInPx],
 		);
 		canvasContext.closePath();
 		canvasContext.stroke();
