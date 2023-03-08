@@ -1,8 +1,8 @@
 import { PartPosition } from "@/types/part-position";
-import { getAllAvailablePositions } from "@/parts-positions";
-import settings from "@/settings";
-import { drawFoodPart } from "@/canvas";
-import { detectPartCollision } from "@/collision-detection";
+import { getAllAvailablePositions } from "@/game-engine/parts-positions";
+import settings from "@/game-engine/settings";
+import { drawFoodPart } from "@/game-engine/canvas";
+import { detectPartCollision } from "@/game-engine/collision-detection";
 
 const foodPositions: PartPosition[] = [];
 

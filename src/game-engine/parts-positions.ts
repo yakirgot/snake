@@ -1,7 +1,7 @@
 import { PartPosition } from "@/types/part-position";
-import settings from "@/settings";
-import { isFoodPosition } from "@/food";
-import { detectSnakeCollision } from "@/collision-detection";
+import settings from "@/game-engine/settings";
+import { isFoodPosition } from "@/game-engine/food";
+import { detectSnakeCollision } from "@/game-engine/collision-detection";
 
 let allPartsPositions: PartPosition[] = [];
 

@@ -1,4 +1,8 @@
-import { cleanCanvas, createSnakeSnapshot, setupCanvas } from "@/canvas";
+import {
+	cleanCanvas,
+	createSnakeSnapshot,
+	setupCanvas,
+} from "@/game-engine/canvas";
 import {
 	currentSnakeHeadPosition,
 	getNextHeadPosition,
@@ -6,22 +10,25 @@ import {
 	isSnakeCollision,
 	moveSnake,
 	resetSnake,
-} from "@/snake";
-import settings from "@/settings";
+} from "@/game-engine/snake";
+import settings from "@/game-engine/settings";
 import {
 	cancelListenToUserArrowKeys,
 	listenToUserArrowKeys,
-} from "@/user-interactions";
-import { placeSnakeOnStartingPoint } from "@/snake-start-position";
+} from "@/game-engine/user-interactions";
+import { placeSnakeOnStartingPoint } from "@/game-engine/snake-start-position";
 import {
 	initFood,
 	isFoodPosition,
 	placeFood,
 	removeFoodPart,
 	resetFood,
-} from "@/food";
-import { updateAllPartsPositions } from "@/parts-positions";
-import { initGamePoints, updateGamePointsBySnakeParts } from "@/game-points";
+} from "@/game-engine/food";
+import { updateAllPartsPositions } from "@/game-engine/parts-positions";
+import {
+	initGamePoints,
+	updateGamePointsBySnakeParts,
+} from "@/game-engine/game-points";
 
 let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;

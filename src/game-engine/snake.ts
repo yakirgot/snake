@@ -1,14 +1,14 @@
-import settings from "@/settings";
-import { drawSnakePart, erasePart } from "@/canvas";
+import settings from "@/game-engine/settings";
+import { drawSnakePart, erasePart } from "@/game-engine/canvas";
 import { PartPosition } from "@/types/part-position";
 import {
 	getSnakeDirectionOrFromQueue,
 	resetSnakeDirection,
-} from "@/snake-direction";
+} from "@/game-engine/snake-direction";
 import {
 	detectSnakeCollision,
 	detectWallCollision,
-} from "@/collision-detection";
+} from "@/game-engine/collision-detection";
 
 const snakePositions: PartPosition[] = [];
 let snakeGrowMoves = 0;

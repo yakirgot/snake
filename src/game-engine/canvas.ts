@@ -1,6 +1,6 @@
-import settings from "@/settings";
+import settings from "@/game-engine/settings";
 import { PartPosition } from "@/types/part-position";
-import { getSnakePositions } from "@/snake";
+import { getSnakePositions } from "@/game-engine/snake";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;

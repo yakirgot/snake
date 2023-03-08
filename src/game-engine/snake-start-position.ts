@@ -1,6 +1,6 @@
-import settings from "@/settings";
+import settings from "@/game-engine/settings";
 import { PartPosition } from "@/types/part-position";
-import { addSnakePart } from "@/snake";
+import { addSnakePart } from "@/game-engine/snake";
 
 export function placeSnakeOnStartingPoint() {
 	const [xStartingPosition, yStartingPosition] = getSnakeStartingPoint();

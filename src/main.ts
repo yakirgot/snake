@@ -1,6 +1,6 @@
 import "the-new-css-reset/css/reset.css";
 import "@/styles/styles.scss";
-import { initGame } from "@/game";
+import { initGame } from "@/game-engine/game";
 
 const appElement = document.querySelector("#app");
 

@@ -1,5 +1,5 @@
 import { SnakeDirection } from "@/types/snake-direction";
-import { addSnakeDirectionToQueue } from "@/snake-direction";
+import { addSnakeDirectionToQueue } from "@/game-engine/snake-direction";
 
 export function listenToUserArrowKeys() {
 	addEventListener("keydown", handleKeyboardEvent);

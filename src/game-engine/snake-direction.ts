@@ -1,5 +1,5 @@
 import { SnakeDirection } from "@/types/snake-direction";
-import settings from "@/settings";
+import settings from "@/game-engine/settings";
 
 let currentSnakeDirection: SnakeDirection = settings.snakeStartingDirection;
 const snakeDirectionQueue: SnakeDirection[] = [];

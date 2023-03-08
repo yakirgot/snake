@@ -1,6 +1,6 @@
 import { PartPosition } from "@/types/part-position";
-import settings from "@/settings";
-import { getSnakePositions } from "@/snake";
+import settings from "@/game-engine/settings";
+import { getSnakePositions } from "@/game-engine/snake";
 
 export function detectWallCollision(partPosition: PartPosition) {
 	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } = settings;

@@ -1,4 +1,4 @@
-import { getSnakePartsCount } from "@/snake";
+import { getSnakePartsCount } from "@/game-engine/snake";
 
 let pointsElement: HTMLElement;
 
