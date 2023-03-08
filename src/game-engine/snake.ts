@@ -41,7 +41,7 @@ export function currentSnakeHeadPosition() {
 	return snakePositions.at(-1) as PartPosition;
 }
 
-export function getNextHeadPosition() {
+export function getNextSnakeHeadPosition() {
 	const nextPosition: PartPosition = [...currentSnakeHeadPosition()];
 	const direction = getSnakeDirectionOrFromQueue();
 	const { snakeSizeWithGap } = settings;
@@ -68,7 +68,7 @@ export function getNextHeadPosition() {
 	return nextPosition;
 }
 
-function eraseTail() {
+function eraseSnakeTail() {
 	const snakeTail = snakePositions.shift() as PartPosition;
 
 	erasePart(snakeTail);
@@ -85,7 +85,7 @@ export function moveSnake(headPosition: PartPosition) {
 	addSnakePart(headPosition);
 
 	if (snakeGrowMoves === 0) {
-		eraseTail();
+		eraseSnakeTail();
 	} else {
 		snakeGrowMoves--;
 	}

@@ -5,7 +5,7 @@ import {
 } from "@/game-engine/canvas";
 import {
 	currentSnakeHeadPosition,
-	getNextHeadPosition,
+	getNextSnakeHeadPosition,
 	growSnake,
 	isSnakeCollision,
 	moveSnake,
@@ -68,7 +68,7 @@ function startGame() {
 }
 
 function makeGameMove() {
-	const nextHeadPosition = getNextHeadPosition();
+	const nextHeadPosition = getNextSnakeHeadPosition();
 	const hasCollisionOccurred = isSnakeCollision(nextHeadPosition);
 
 	if (hasCollisionOccurred) {
