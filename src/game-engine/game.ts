@@ -103,7 +103,7 @@ function endGame() {
 
 	startButton.disabled = false;
 
-	cleanCanvas();
+	clearCanvas();
 	createSnakeSnapshot();
 	resetSnake();
 	resetFood();

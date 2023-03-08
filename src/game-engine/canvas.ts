@@ -20,7 +20,7 @@ export function setupCanvas() {
 
 	setCanvasSize();
 
-	cleanCanvas();
+	clearCanvas();
 }
 
 function setCanvasSize() {
@@ -33,7 +33,7 @@ function setCanvasSize() {
 	canvasElement.style.height = `${canvasHeightInPx}px`;
 }
 
-export function cleanCanvas() {
+export function clearCanvas() {
 	const { canvasWidthInPx, canvasHeightInPx } = settings;
 
 	canvasContext.fillStyle = window
