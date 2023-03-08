@@ -12,30 +12,29 @@ export function addSnakeDirectionToQueue(snakeDirection: SnakeDirection) {
 	}
 }
 
+export function resetSnakeDirection() {
+	currentSnakeDirection = settings.snakeStartingDirection;
+	snakeDirectionQueue.length = 0;
+}
+
 export function getSnakeDirectionOrFromQueue() {
 	if (snakeDirectionQueue.length > 0) {
-		const nextDirection = snakeDirectionQueue.shift() as SnakeDirection;
-		const isOpposite = isDirectionOpposite(nextDirection);
-
-		if (!isOpposite) {
-			currentSnakeDirection = nextDirection;
-		}
+		maybeUpdateCurrentSnakeDirectionFromQueue();
 	}
 
 	return currentSnakeDirection;
 }
 
-function isDirectionOpposite(snakeDirection: SnakeDirection) {
-	return (
-		currentSnakeDirection === snakeDirection ||
-		(currentSnakeDirection === "up" && snakeDirection === "down") ||
-		(currentSnakeDirection === "down" && snakeDirection === "up") ||
-		(currentSnakeDirection === "left" && snakeDirection === "right") ||
-		(currentSnakeDirection === "right" && snakeDirection === "left")
-	);
-}
+function maybeUpdateCurrentSnakeDirectionFromQueue() {
+	const nextDirection = snakeDirectionQueue.shift() as SnakeDirection;
+	const isOpposite =
+		currentSnakeDirection === nextDirection ||
+		(currentSnakeDirection === "up" && nextDirection === "down") ||
+		(currentSnakeDirection === "down" && nextDirection === "up") ||
+		(currentSnakeDirection === "left" && nextDirection === "right") ||
+		(currentSnakeDirection === "right" && nextDirection === "left");
 
-export function resetSnakeDirection() {
-	currentSnakeDirection = settings.snakeStartingDirection;
-	snakeDirectionQueue.length = 0;
+	if (!isOpposite) {
+		currentSnakeDirection = nextDirection;
+	}
 }
