@@ -9,8 +9,8 @@ export function cancelListenToUserArrowKeys() {
 	removeEventListener("keydown", handleKeyboardEvent);
 }
 
-function handleKeyboardEvent(event: KeyboardEvent) {
-	const direction = getNewDirection(event.code);
+function handleKeyboardEvent(keyboardEvent: KeyboardEvent) {
+	const direction = getNewDirection(keyboardEvent.code);
 
 	if (direction) {
 		addSnakeDirectionToQueue(direction);
