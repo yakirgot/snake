@@ -20,8 +20,7 @@ import { placeSnakeOnStartingPoint } from "@/game-engine/snake-start-position";
 import {
 	initFood,
 	isFoodPosition,
-	placeFood,
-	removeFoodPart,
+	replaceFoodPosition,
 	resetFood,
 } from "@/game-engine/food";
 import { updateAllPartsPositions } from "@/game-engine/parts-positions";
@@ -29,6 +28,7 @@ import {
 	initGamePoints,
 	updateGamePointsBySnakeParts,
 } from "@/game-engine/game-points";
+import { PartPosition } from "@/types/part-position";
 
 let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;
@@ -85,14 +85,14 @@ function makeGameMove() {
 }
 
 function handleMaybeHasEaten() {
-	const hasEaten = isFoodPosition(currentSnakeHeadPosition());
+	const snakeHeadPosition: PartPosition = currentSnakeHeadPosition();
+	const hasEaten = isFoodPosition(snakeHeadPosition);
 
 	if (!hasEaten) {
 		return;
 	}
 
-	removeFoodPart(currentSnakeHeadPosition());
-	placeFood();
+	replaceFoodPosition(snakeHeadPosition);
 
 	growSnake();
 }

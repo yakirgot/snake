@@ -10,7 +10,7 @@ function addFoodPart(foodPosition: PartPosition) {
 	foodPositions.push(foodPosition);
 }
 
-export function removeFoodPart(partPosition: PartPosition) {
+function removeFoodPart(partPosition: PartPosition) {
 	const index = foodPositions.findIndex((foodPosition) =>
 		detectPartCollision(partPosition, foodPosition),
 	);
@@ -22,6 +22,18 @@ export function resetFood() {
 	foodPositions.length = 0;
 }
 
+export function initFood() {
+	for (let index = 1; index <= settings.foodPartsOnCanvas; index++) {
+		placeFood();
+	}
+}
+
+export function replaceFoodPosition(foodPosition: PartPosition) {
+	removeFoodPart(foodPosition);
+
+	placeFood();
+}
+
 export function isFoodPosition(partPosition: PartPosition) {
 	const isPosition = foodPositions.some((foodPosition) =>
 		detectPartCollision(partPosition, foodPosition),
@@ -30,7 +42,7 @@ export function isFoodPosition(partPosition: PartPosition) {
 	return isPosition;
 }
 
-export function placeFood() {
+function placeFood() {
 	const availablePositions = getAllAvailablePositions();
 
 	const randomIndex = Math.floor(
@@ -41,10 +53,4 @@ export function placeFood() {
 
 	addFoodPart(foodPosition);
 	drawFoodPart(foodPosition);
-}
-
-export function initFood() {
-	for (let index = 1; index <= settings.foodPartsOnCanvas; index++) {
-		placeFood();
-	}
 }
