@@ -1,5 +1,5 @@
 import {
-	cleanCanvas,
+	clearCanvas,
 	createSnakeSnapshot,
 	setupCanvas,
 } from "@/game-engine/canvas";
@@ -12,10 +12,6 @@ import {
 	resetSnake,
 } from "@/game-engine/snake";
 import settings from "@/game-engine/settings";
-import {
-	cancelListenToUserArrowKeys,
-	listenToUserArrowKeys,
-} from "@/game-engine/user-interactions";
 import { placeSnakeOnStartingPoint } from "@/game-engine/snake-start-position";
 import {
 	initFood,
@@ -29,6 +25,7 @@ import {
 	updateGamePointsBySnakeParts,
 } from "@/game-engine/game-points";
 import { PartPosition } from "@/types/part-position";
+import { initSnakeDirection } from "@/game-engine/snake-direction";
 
 let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;
@@ -55,10 +52,10 @@ export async function initGame() {
 }
 
 function startGame() {
-	cleanCanvas();
+	clearCanvas();
 	placeSnakeOnStartingPoint();
 	initFood();
-	listenToUserArrowKeys();
+	initSnakeDirection();
 	updateGamePointsBySnakeParts();
 
 	moveSnakeIntervalId = window.setInterval(
@@ -107,5 +104,4 @@ function endGame() {
 	createSnakeSnapshot();
 	resetSnake();
 	resetFood();
-	cancelListenToUserArrowKeys();
 }
