@@ -1,5 +1,5 @@
 import settings from "@/settings";
-import { drawSnakePart, erasePart } from "@/board";
+import { drawSnakePart, erasePart } from "@/canvas";
 import { PartPosition } from "@/types/part-position";
 import {
 	getSnakeDirectionOrFromQueue,

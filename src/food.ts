@@ -1,7 +1,7 @@
 import { PartPosition } from "@/types/part-position";
 import { getAllAvailablePositions } from "@/parts-positions";
 import settings from "@/settings";
-import { drawFoodPart } from "@/board";
+import { drawFoodPart } from "@/canvas";
 import { detectPartCollision } from "@/collision-detection";
 
 const foodPositions: PartPosition[] = [];
@@ -30,7 +30,7 @@ export function isFoodPosition(partPosition: PartPosition) {
 	return isPosition;
 }
 
-export function placeFoodOnBoard() {
+export function placeFood() {
 	const availablePositions = getAllAvailablePositions();
 
 	const randomIndex = Math.floor(
@@ -44,7 +44,7 @@ export function placeFoodOnBoard() {
 }
 
 export function initFood() {
-	for (let index = 1; index <= settings.foodPartsOnBoard; index++) {
-		placeFoodOnBoard();
+	for (let index = 1; index <= settings.foodPartsOnCanvas; index++) {
+		placeFood();
 	}
 }

@@ -17,14 +17,17 @@ export function placeSnakeOnStartingPoint() {
 }
 
 function getSnakeStartingPoint() {
-	const { boardWidthInSnakeParts, boardHeightInSnakeParts, snakeSizeWithGap } =
-		settings;
+	const {
+		canvasWidthInSnakeParts,
+		canvasHeightInSnakeParts,
+		snakeSizeWithGap,
+	} = settings;
 
-	const boardWidthInPx = boardWidthInSnakeParts * snakeSizeWithGap;
-	const quarterScreenX = boardWidthInPx / 4;
+	const canvasWidthInPx = canvasWidthInSnakeParts * snakeSizeWithGap;
+	const quarterScreenX = canvasWidthInPx / 4;
 
-	const boardHeightInPx = boardHeightInSnakeParts * snakeSizeWithGap;
-	const yCoordinate = boardHeightInPx / 2;
+	const canvasHeightInPx = canvasHeightInSnakeParts * snakeSizeWithGap;
+	const yCoordinate = canvasHeightInPx / 2;
 
 	const normalizedX = Math.floor(quarterScreenX);
 	const normalizedY = Math.floor(yCoordinate);

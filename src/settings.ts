@@ -1,10 +1,10 @@
 import { SnakeDirection } from "@/types/snake-direction";
 
 const settings = Object.freeze({
-	boardHeightInSnakeParts: 30,
-	boardWidthInSnakeParts: 44,
+	canvasHeightInSnakeParts: 30,
+	canvasWidthInSnakeParts: 44,
 	snakeGapInPx: 2,
-	foodPartsOnBoard: 3,
+	foodPartsOnCanvas: 3,
 	snakeInitialLength: 3,
 	snakePartsGrowth: 3,
 	snakePartRadiiInPx: 3,
@@ -13,10 +13,10 @@ const settings = Object.freeze({
 		return this.partSizeInPx + this.snakeGapInPx;
 	},
 	get canvasWidthInPx() {
-		return this.boardWidthInSnakeParts * this.snakeSizeWithGap;
+		return this.canvasWidthInSnakeParts * this.snakeSizeWithGap;
 	},
 	get canvasHeightInPx() {
-		return this.boardHeightInSnakeParts * this.snakeSizeWithGap;
+		return this.canvasHeightInSnakeParts * this.snakeSizeWithGap;
 	},
 	snakeIntervalInMs: 150,
 	snakeStartingDirection: "right" as SnakeDirection,

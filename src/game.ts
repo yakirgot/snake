@@ -1,4 +1,4 @@
-import { cleanBoard, createSnakeSnapshot, setupBoard } from "@/board";
+import { cleanCanvas, createSnakeSnapshot, setupCanvas } from "@/canvas";
 import {
 	currentSnakeHeadPosition,
 	getNextHeadPosition,
@@ -16,7 +16,7 @@ import { placeSnakeOnStartingPoint } from "@/snake-start-position";
 import {
 	initFood,
 	isFoodPosition,
-	placeFoodOnBoard,
+	placeFood,
 	removeFoodPart,
 	resetFood,
 } from "@/food";
@@ -27,7 +27,7 @@ let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;
 
 export async function initGame() {
-	setupBoard();
+	setupCanvas();
 	initGamePoints();
 
 	startButton = document.querySelector(
@@ -48,7 +48,7 @@ export async function initGame() {
 }
 
 function startGame() {
-	cleanBoard();
+	cleanCanvas();
 	placeSnakeOnStartingPoint();
 	initFood();
 	listenToUserArrowKeys();
@@ -76,7 +76,7 @@ function makeGameMove() {
 
 	if (hasEaten) {
 		removeFoodPart(currentSnakeHeadPosition());
-		placeFoodOnBoard();
+		placeFood();
 
 		growSnake();
 	}
@@ -90,7 +90,7 @@ function endGame() {
 
 	startButton.disabled = false;
 
-	cleanBoard();
+	cleanCanvas();
 	createSnakeSnapshot();
 	resetSnake();
 	resetFood();

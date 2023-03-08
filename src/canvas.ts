@@ -11,19 +11,19 @@ const foodColor = window
 	.getComputedStyle(document.documentElement)
 	.getPropertyValue("--color-teal-blue");
 
-export function setupBoard() {
+export function setupCanvas() {
 	canvasElement = document.querySelector<HTMLCanvasElement>(
 		"[data-snake-game]",
 	) as HTMLCanvasElement;
 
 	canvasContext = canvasElement.getContext("2d") as CanvasRenderingContext2D;
 
-	setBoardSize();
+	setCanvasSize();
 
-	cleanBoard();
+	cleanCanvas();
 }
 
-function setBoardSize() {
+function setCanvasSize() {
 	const { canvasWidthInPx, canvasHeightInPx } = settings;
 
 	canvasElement.width = canvasWidthInPx;
@@ -33,7 +33,7 @@ function setBoardSize() {
 	canvasElement.style.height = `${canvasHeightInPx}px`;
 }
 
-export function cleanBoard() {
+export function cleanCanvas() {
 	const { canvasWidthInPx, canvasHeightInPx } = settings;
 
 	canvasContext.fillStyle = window
