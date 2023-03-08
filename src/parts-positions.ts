@@ -30,19 +30,21 @@ export function updateAllPartsPositions() {
 }
 
 export function getAllAvailablePositions() {
-	const availablePositions = allPartsPositions.filter(
-		(partPosition: PartPosition) => {
-			const isSnakePart = detectSnakeCollision(partPosition);
-
-			if (isSnakePart) {
-				return false;
-			}
-
-			const isFoodPart = isFoodPosition(partPosition);
-
-			return !isFoodPart;
-		},
+	const availablePositions = allPartsPositions.filter((partPosition) =>
+		isAvailablePosition(partPosition),
 	);
 
 	return availablePositions;
+}
+
+function isAvailablePosition(partPosition: PartPosition) {
+	const isSnakePart = detectSnakeCollision(partPosition);
+
+	if (isSnakePart) {
+		return false;
+	}
+
+	const isFoodPart = isFoodPosition(partPosition);
+
+	return !isFoodPart;
 }
