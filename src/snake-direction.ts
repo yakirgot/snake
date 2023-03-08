@@ -1,41 +1,41 @@
 import { SnakeDirection } from "@/types/snake-direction";
 import settings from "@/settings";
 
-let snakeDirection: SnakeDirection = settings.snakeStartingDirection;
+let currentSnakeDirection: SnakeDirection = settings.snakeStartingDirection;
 const snakeDirectionQueue: SnakeDirection[] = [];
 
-export function addSnakeDirectionToQueue(userInputDirection: SnakeDirection) {
+export function addSnakeDirectionToQueue(snakeDirection: SnakeDirection) {
 	if (snakeDirectionQueue.length > 0) {
-		snakeDirectionQueue[1] = userInputDirection;
+		snakeDirectionQueue[1] = snakeDirection;
 	} else {
-		snakeDirectionQueue.push(userInputDirection);
+		snakeDirectionQueue.push(snakeDirection);
 	}
 }
 
 export function getSnakeDirectionOrFromQueue() {
 	if (snakeDirectionQueue.length > 0) {
 		const nextDirection = snakeDirectionQueue.shift() as SnakeDirection;
-		const isOpposite = isNextDirectionOpposite(nextDirection);
+		const isOpposite = isDirectionOpposite(nextDirection);
 
 		if (!isOpposite) {
-			snakeDirection = nextDirection;
+			currentSnakeDirection = nextDirection;
 		}
 	}
 
-	return snakeDirection;
+	return currentSnakeDirection;
 }
 
-function isNextDirectionOpposite(nextDirection: SnakeDirection) {
+function isDirectionOpposite(snakeDirection: SnakeDirection) {
 	return (
-		snakeDirection === nextDirection ||
-		(snakeDirection === "up" && nextDirection === "down") ||
-		(snakeDirection === "down" && nextDirection === "up") ||
-		(snakeDirection === "left" && nextDirection === "right") ||
-		(snakeDirection === "right" && nextDirection === "left")
+		currentSnakeDirection === snakeDirection ||
+		(currentSnakeDirection === "up" && snakeDirection === "down") ||
+		(currentSnakeDirection === "down" && snakeDirection === "up") ||
+		(currentSnakeDirection === "left" && snakeDirection === "right") ||
+		(currentSnakeDirection === "right" && snakeDirection === "left")
 	);
 }
 
 export function resetSnakeDirection() {
-	snakeDirection = settings.snakeStartingDirection;
+	currentSnakeDirection = settings.snakeStartingDirection;
 	snakeDirectionQueue.length = 0;
 }
