@@ -5,7 +5,12 @@ let currentSnakeDirection: SnakeDirection = settings.snakeStartingDirection;
 const snakeDirectionQueue: SnakeDirection[] = [];
 
 export function addSnakeDirectionToQueue(snakeDirection: SnakeDirection) {
-	if (snakeDirectionQueue.length > 0) {
+	/**
+	 * We limit our queue size to 2 directions to allow the player to change the second turn direction
+	 */
+	const hasDirectionsInQueue = snakeDirectionQueue.length > 0;
+
+	if (hasDirectionsInQueue) {
 		snakeDirectionQueue[1] = snakeDirection;
 	} else {
 		snakeDirectionQueue.push(snakeDirection);
