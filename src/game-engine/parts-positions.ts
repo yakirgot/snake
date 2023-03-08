@@ -1,7 +1,7 @@
 import { PartPosition } from "@/types/part-position";
 import settings from "@/game-engine/settings";
 import { isFoodPosition } from "@/game-engine/food";
-import { detectSnakeCollision } from "@/game-engine/collision-detection";
+import { detectSnakeSelfCollision } from "@/game-engine/collision-detection";
 
 let allPartsPositions: PartPosition[] = [];
 
@@ -38,7 +38,7 @@ export function getAllAvailablePositions() {
 }
 
 function isAvailablePosition(partPosition: PartPosition) {
-	const isSnakePart = detectSnakeCollision(partPosition);
+	const isSnakePart = detectSnakeSelfCollision(partPosition);
 
 	if (isSnakePart) {
 		return false;

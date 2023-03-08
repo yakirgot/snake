@@ -2,7 +2,24 @@ import { PartPosition } from "@/types/part-position";
 import settings from "@/game-engine/settings";
 import { getSnakePositions } from "@/game-engine/snake";
 
-export function detectSnakeCollision(partPosition: PartPosition) {
+export function detectPartCollision(
+	partPositionA: PartPosition,
+	partPositionB: PartPosition,
+) {
+	const xAxisCollision = partPositionA[0] === partPositionB[0];
+	const yAxisCollision = partPositionA[1] === partPositionB[1];
+
+	return xAxisCollision && yAxisCollision;
+}
+
+export function isSnakeCollision(snakePosition: PartPosition) {
+	const isWallCollision = detectWallCollision(snakePosition);
+	const isSelfCollision = detectSnakeSelfCollision(snakePosition);
+
+	return isWallCollision || isSelfCollision;
+}
+
+export function detectSnakeSelfCollision(partPosition: PartPosition) {
 	const isCollision = getSnakePositions().some((snakePosition) =>
 		detectPartCollision(partPosition, snakePosition),
 	);
@@ -32,21 +49,4 @@ function detectWallCollision(partPosition: PartPosition) {
 		positionY + snakeSizeWithGap > canvasHeightInPx;
 
 	return isRightOutsideOfCanvas;
-}
-
-export function isSnakeCollision(headPosition: PartPosition) {
-	const isWallCollision = detectWallCollision(headPosition);
-	const isSelfCollision = detectSnakeCollision(headPosition);
-
-	return isWallCollision || isSelfCollision;
-}
-
-export function detectPartCollision(
-	partPositionA: PartPosition,
-	partPositionB: PartPosition,
-) {
-	const xAxisCollision = partPositionA[0] === partPositionB[0];
-	const yAxisCollision = partPositionA[1] === partPositionB[1];
-
-	return xAxisCollision && yAxisCollision;
 }
