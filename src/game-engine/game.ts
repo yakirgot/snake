@@ -79,16 +79,22 @@ function makeGameMove() {
 
 	moveSnake(nextHeadPosition);
 
-	const hasEaten = isFoodPosition(currentSnakeHeadPosition());
-
-	if (hasEaten) {
-		removeFoodPart(currentSnakeHeadPosition());
-		placeFood();
-
-		growSnake();
-	}
+	handleMaybeHasEaten();
 
 	updateGamePointsBySnakeParts();
+}
+
+function handleMaybeHasEaten() {
+	const hasEaten = isFoodPosition(currentSnakeHeadPosition());
+
+	if (!hasEaten) {
+		return;
+	}
+
+	removeFoodPart(currentSnakeHeadPosition());
+	placeFood();
+
+	growSnake();
 }
 
 function endGame() {
