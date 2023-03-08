@@ -2,7 +2,15 @@ import { PartPosition } from "@/types/part-position";
 import settings from "@/game-engine/settings";
 import { getSnakePositions } from "@/game-engine/snake";
 
-export function detectWallCollision(partPosition: PartPosition) {
+export function detectSnakeCollision(partPosition: PartPosition) {
+	const isCollision = getSnakePositions().some((snakePosition) =>
+		detectPartCollision(partPosition, snakePosition),
+	);
+
+	return isCollision;
+}
+
+function detectWallCollision(partPosition: PartPosition) {
 	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } = settings;
 
 	const [positionX, positionY] = partPosition;
@@ -26,12 +34,11 @@ export function detectWallCollision(partPosition: PartPosition) {
 	return isRightOutsideOfCanvas;
 }
 
-export function detectSnakeCollision(partPosition: PartPosition) {
-	const isCollision = getSnakePositions().some((snakePosition) =>
-		detectPartCollision(partPosition, snakePosition),
-	);
+export function isSnakeCollision(headPosition: PartPosition) {
+	const isWallCollision = detectWallCollision(headPosition);
+	const isSelfCollision = detectSnakeCollision(headPosition);
 
-	return isCollision;
+	return isWallCollision || isSelfCollision;
 }
 
 export function detectPartCollision(

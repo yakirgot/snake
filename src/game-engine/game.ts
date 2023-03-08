@@ -7,7 +7,6 @@ import {
 	currentSnakeHeadPosition,
 	getNextSnakeHeadPosition,
 	growSnake,
-	isSnakeCollision,
 	moveSnake,
 	resetSnake,
 } from "@/game-engine/snake";
@@ -26,6 +25,7 @@ import {
 } from "@/game-engine/game-points";
 import { PartPosition } from "@/types/part-position";
 import { initSnakeDirection } from "@/game-engine/snake-direction";
+import { isSnakeCollision } from "@/game-engine/collision-detection";
 
 let startButton: HTMLButtonElement;
 let moveSnakeIntervalId: number | undefined;

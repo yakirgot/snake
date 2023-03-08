@@ -5,10 +5,6 @@ import {
 	getSnakeDirectionOrFromQueue,
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
-import {
-	detectSnakeCollision,
-	detectWallCollision,
-} from "@/game-engine/collision-detection";
 
 const snakePositions: PartPosition[] = [];
 let snakeGrowMoves = 0;
@@ -72,13 +68,6 @@ function eraseSnakeTail() {
 	const snakeTail = snakePositions.shift() as PartPosition;
 
 	erasePart(snakeTail);
-}
-
-export function isSnakeCollision(headPosition: PartPosition) {
-	const isWallCollision = detectWallCollision(headPosition);
-	const isSelfCollision = detectSnakeCollision(headPosition);
-
-	return isWallCollision || isSelfCollision;
 }
 
 export function moveSnake(headPosition: PartPosition) {
