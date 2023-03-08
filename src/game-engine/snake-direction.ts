@@ -8,9 +8,9 @@ export function addSnakeDirectionToQueue(snakeDirection: SnakeDirection) {
 	/**
 	 * We limit our queue size to 2 directions to allow the player to change the second turn direction
 	 */
-	const hasDirectionsInQueue = snakeDirectionQueue.length > 0;
+	const hasSnakeDirectionsInQueue = snakeDirectionQueue.length > 0;
 
-	if (hasDirectionsInQueue) {
+	if (hasSnakeDirectionsInQueue) {
 		snakeDirectionQueue[1] = snakeDirection;
 	} else {
 		snakeDirectionQueue.push(snakeDirection);
@@ -31,15 +31,15 @@ export function getSnakeDirectionOrFromQueue() {
 }
 
 function maybeUpdateCurrentSnakeDirectionFromQueue() {
-	const nextDirection = snakeDirectionQueue.shift() as SnakeDirection;
-	const isOpposite =
-		currentSnakeDirection === nextDirection ||
-		(currentSnakeDirection === "up" && nextDirection === "down") ||
-		(currentSnakeDirection === "down" && nextDirection === "up") ||
-		(currentSnakeDirection === "left" && nextDirection === "right") ||
-		(currentSnakeDirection === "right" && nextDirection === "left");
+	const nextSnakeDirection = snakeDirectionQueue.shift() as SnakeDirection;
+	const isOppositeDirection =
+		currentSnakeDirection === nextSnakeDirection ||
+		(currentSnakeDirection === "up" && nextSnakeDirection === "down") ||
+		(currentSnakeDirection === "down" && nextSnakeDirection === "up") ||
+		(currentSnakeDirection === "left" && nextSnakeDirection === "right") ||
+		(currentSnakeDirection === "right" && nextSnakeDirection === "left");
 
-	if (!isOpposite) {
-		currentSnakeDirection = nextDirection;
+	if (!isOppositeDirection) {
+		currentSnakeDirection = nextSnakeDirection;
 	}
 }
