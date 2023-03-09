@@ -1,8 +1,10 @@
 import { PartPosition } from "@/types/part-position";
-import { getAllAvailablePositions } from "@/game-engine/parts-positions";
 import settings from "@/settings";
 import { drawFoodPart } from "@/game-engine/canvas";
-import { detectPartCollision } from "@/game-engine/collision-detection";
+import {
+	detectPartCollision,
+	detectSnakeSelfCollision,
+} from "@/game-engine/collision-detection";
 import { gameData } from "@/game-engine/game-data";
 
 function addFoodPart(foodPosition: PartPosition) {
@@ -42,8 +44,9 @@ export function isFoodPosition(partPosition: PartPosition) {
 }
 
 function placeFood() {
-	const availablePositions = getAllAvailablePositions();
-
+	const availablePositions = gameData.allPartsPositions.filter((partPosition) =>
+		isAvailablePosition(partPosition),
+	);
 	const randomIndex = Math.floor(
 		Math.random() * (availablePositions.length - 1),
 	);
@@ -52,4 +55,16 @@ function placeFood() {
 
 	addFoodPart(foodPosition);
 	drawFoodPart(foodPosition);
+}
+
+function isAvailablePosition(partPosition: PartPosition) {
+	const isSnakePart = detectSnakeSelfCollision(partPosition);
+
+	if (isSnakePart) {
+		return false;
+	}
+
+	const isFoodPart = isFoodPosition(partPosition);
+
+	return !isFoodPart;
 }
