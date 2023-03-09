@@ -17,7 +17,10 @@ import {
 	resetFood,
 } from "@/game-engine/food";
 import { PartPosition } from "@/types/part-position";
-import { initSnakeDirection } from "@/game-engine/snake-direction";
+import {
+	initSnakeDirection,
+	resetSnakeDirection,
+} from "@/game-engine/snake-direction";
 import { isSnakeCollision } from "@/game-engine/collision-detection";
 import { gameData } from "@/game-engine/game-data";
 
@@ -101,6 +104,7 @@ function endGame() {
 	clearCanvas();
 	createSnakeSnapshot();
 	resetSnake();
+	resetSnakeDirection();
 	resetFood();
 }
 
