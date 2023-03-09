@@ -6,6 +6,7 @@ import {
 import {
 	currentSnakeHeadPosition,
 	getNextSnakeHeadPosition,
+	getSnakePartsCount,
 	growSnake,
 	moveSnake,
 	resetSnake,
@@ -19,21 +20,18 @@ import {
 	resetFood,
 } from "@/game-engine/food";
 import { updateAllPartsPositions } from "@/game-engine/parts-positions";
-import {
-	initGamePoints,
-	updateGamePointsBySnakeParts,
-} from "@/game-engine/game-points";
 import { PartPosition } from "@/types/part-position";
 import { initSnakeDirection } from "@/game-engine/snake-direction";
 import { isSnakeCollision } from "@/game-engine/collision-detection";
 
 let startButton: HTMLButtonElement;
+let pointsElement: HTMLElement;
 let moveSnakeIntervalId: number | undefined;
 
 export async function initGame() {
 	setupCanvas();
-	initGamePoints();
 
+	pointsElement = document.querySelector("[data-game-points]") as HTMLElement;
 	startButton = document.querySelector(
 		"[data-snake-game-start-button]",
 	) as HTMLButtonElement;
@@ -104,4 +102,10 @@ function endGame() {
 	createSnakeSnapshot();
 	resetSnake();
 	resetFood();
+}
+
+function updateGamePointsBySnakeParts() {
+	const points = getSnakePartsCount();
+
+	pointsElement.textContent = new Intl.NumberFormat().format(points);
 }
