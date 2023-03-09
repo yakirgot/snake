@@ -2,21 +2,19 @@ import { SnakeDirection } from "@/types/snake-direction";
 import settings from "@/settings";
 import { gameData } from "@/game-engine/game-data";
 
-const snakeDirectionQueue: SnakeDirection[] = [];
-
 export function initSnakeDirection() {
 	addEventListener("keydown", handleKeyboardEvent);
 }
 
 export function resetSnakeDirection() {
 	gameData.currentSnakeDirection = settings.snakeStartingDirection;
-	snakeDirectionQueue.length = 0;
+	gameData.snakeDirectionQueue.length = 0;
 
 	removeEventListener("keydown", handleKeyboardEvent);
 }
 
 export function getSnakeDirectionOrFromQueue() {
-	if (snakeDirectionQueue.length > 0) {
+	if (gameData.snakeDirectionQueue.length > 0) {
 		maybeUpdateCurrentSnakeDirectionFromQueue();
 	}
 
@@ -24,7 +22,8 @@ export function getSnakeDirectionOrFromQueue() {
 }
 
 function maybeUpdateCurrentSnakeDirectionFromQueue() {
-	const nextSnakeDirection = snakeDirectionQueue.shift() as SnakeDirection;
+	const nextSnakeDirection =
+		gameData.snakeDirectionQueue.shift() as SnakeDirection;
 	const isOppositeDirection =
 		gameData.currentSnakeDirection === nextSnakeDirection ||
 		(gameData.currentSnakeDirection === "up" &&
@@ -45,12 +44,12 @@ function addSnakeDirectionToQueue(snakeDirection: SnakeDirection) {
 	/**
 	 * We limit our queue size to 2 directions to allow the player to change the second turn direction
 	 */
-	const hasSnakeDirectionsInQueue = snakeDirectionQueue.length > 0;
+	const hasSnakeDirectionsInQueue = gameData.snakeDirectionQueue.length > 0;
 
 	if (hasSnakeDirectionsInQueue) {
-		snakeDirectionQueue[1] = snakeDirection;
+		gameData.snakeDirectionQueue[1] = snakeDirection;
 	} else {
-		snakeDirectionQueue.push(snakeDirection);
+		gameData.snakeDirectionQueue.push(snakeDirection);
 	}
 }
 
