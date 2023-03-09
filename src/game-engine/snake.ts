@@ -1,7 +1,6 @@
 import settings from "@/settings";
 import { drawSnakePart, erasePart } from "@/game-engine/canvas";
 import { PartPosition } from "@/types/part-position";
-import { getSnakeDirectionOrFromQueue } from "@/game-engine/snake-direction";
 import { gameData } from "@/game-engine/game-data";
 
 export function moveSnake(headPosition: PartPosition) {
@@ -26,11 +25,10 @@ export function resetSnake() {
 }
 
 export function getNextSnakeHeadPosition() {
-	const nextPosition: PartPosition = [...gameData.currentSnakeHeadPosition];
-	const direction = getSnakeDirectionOrFromQueue();
 	const { snakeSizeWithGap } = settings;
+	const nextPosition: PartPosition = [...gameData.currentSnakeHeadPosition];
 
-	switch (direction) {
+	switch (gameData.currentSnakeDirection) {
 		case "right": {
 			nextPosition[0] += snakeSizeWithGap;
 			break;
@@ -65,7 +63,6 @@ export function placeSnakeOnStartingPoint() {
 	for (let index = 0; index < snakeInitialLength; index++) {
 		const xPositionCompensation = index * snakeSizeWithGap;
 		const snakeXPosition = xStartingPosition + xPositionCompensation;
-
 		const snakePosition: PartPosition = [snakeXPosition, yStartingPosition];
 
 		addAndDrawSnakePart(snakePosition);

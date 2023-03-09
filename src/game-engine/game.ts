@@ -18,6 +18,7 @@ import {
 import { PartPosition } from "@/types/part-position";
 import {
 	initSnakeDirection,
+	maybeUpdateCurrentSnakeDirectionFromQueue,
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
 import { isSnakeCollision } from "@/game-engine/collision-detection";
@@ -66,6 +67,10 @@ function startGame() {
 }
 
 function makeGameMove() {
+	if (gameData.snakeDirectionQueue.length > 0) {
+		maybeUpdateCurrentSnakeDirectionFromQueue();
+	}
+
 	const nextHeadPosition = getNextSnakeHeadPosition();
 	const hasCollisionOccurred = isSnakeCollision(nextHeadPosition);
 

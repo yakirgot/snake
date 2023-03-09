@@ -13,15 +13,7 @@ export function resetSnakeDirection() {
 	removeEventListener("keydown", handleKeyboardEvent);
 }
 
-export function getSnakeDirectionOrFromQueue() {
-	if (gameData.snakeDirectionQueue.length > 0) {
-		maybeUpdateCurrentSnakeDirectionFromQueue();
-	}
-
-	return gameData.currentSnakeDirection;
-}
-
-function maybeUpdateCurrentSnakeDirectionFromQueue() {
+export function maybeUpdateCurrentSnakeDirectionFromQueue() {
 	const nextSnakeDirection =
 		gameData.snakeDirectionQueue.shift() as SnakeDirection;
 	const isOppositeDirection =
