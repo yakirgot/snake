@@ -19,24 +19,8 @@ export function resetSnake() {
 	resetSnakeDirection();
 }
 
-export function growSnake() {
-	gameData.snakeGrowMoves += settings.snakePartsGrowth;
-}
-
-export function getSnakePartsCount() {
-	return gameData.snakePositions.length;
-}
-
-export function getSnakePositions() {
-	return gameData.snakePositions;
-}
-
-export function currentSnakeHeadPosition() {
-	return gameData.snakePositions.at(-1) as PartPosition;
-}
-
 export function getNextSnakeHeadPosition() {
-	const nextPosition: PartPosition = [...currentSnakeHeadPosition()];
+	const nextPosition: PartPosition = [...gameData.currentSnakeHeadPosition];
 	const direction = getSnakeDirectionOrFromQueue();
 	const { snakeSizeWithGap } = settings;
 

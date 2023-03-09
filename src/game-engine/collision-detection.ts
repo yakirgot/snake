@@ -1,6 +1,6 @@
 import { PartPosition } from "@/types/part-position";
 import settings from "@/settings";
-import { getSnakePositions } from "@/game-engine/snake";
+import { gameData } from "@/game-engine/game-data";
 
 export function detectPartCollision(
 	partPositionA: PartPosition,
@@ -20,7 +20,7 @@ export function isSnakeCollision(snakePosition: PartPosition) {
 }
 
 export function detectSnakeSelfCollision(partPosition: PartPosition) {
-	const isCollision = getSnakePositions().some((snakePosition) =>
+	const isCollision = gameData.snakePositions.some((snakePosition) =>
 		detectPartCollision(partPosition, snakePosition),
 	);
 

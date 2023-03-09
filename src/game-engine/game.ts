@@ -4,10 +4,7 @@ import {
 	setupCanvas,
 } from "@/game-engine/canvas";
 import {
-	currentSnakeHeadPosition,
 	getNextSnakeHeadPosition,
-	getSnakePartsCount,
-	growSnake,
 	moveSnake,
 	resetSnake,
 } from "@/game-engine/snake";
@@ -84,16 +81,15 @@ function makeGameMove() {
 }
 
 function handleMaybeHasEaten() {
-	const snakeHeadPosition: PartPosition = currentSnakeHeadPosition();
-	const hasEaten = isFoodPosition(snakeHeadPosition);
+	const hasEaten = isFoodPosition(gameData.currentSnakeHeadPosition);
 
 	if (!hasEaten) {
 		return;
 	}
 
-	replaceFoodPosition(snakeHeadPosition);
+	replaceFoodPosition(gameData.currentSnakeHeadPosition);
 
-	growSnake();
+	gameData.snakeGrowMoves += settings.snakePartsGrowth;
 }
 
 function endGame() {
@@ -109,9 +105,9 @@ function endGame() {
 }
 
 function updateGamePointsBySnakeParts() {
-	const points = getSnakePartsCount();
-
-	pointsElement.textContent = new Intl.NumberFormat().format(points);
+	pointsElement.textContent = new Intl.NumberFormat().format(
+		gameData.snakePartsCount,
+	);
 }
 
 function updateAllPartsPositions() {

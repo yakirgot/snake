@@ -1,6 +1,6 @@
 import settings from "@/settings";
 import { PartPosition } from "@/types/part-position";
-import { getSnakePositions } from "@/game-engine/snake";
+import { gameData } from "@/game-engine/game-data";
 
 let canvasElement: HTMLCanvasElement;
 let canvasContext: CanvasRenderingContext2D;
@@ -57,7 +57,7 @@ export function createSnakeSnapshot() {
 	canvasContext.shadowColor = snakeColor;
 	canvasContext.shadowBlur = partSizeInPx / 3;
 
-	for (const snakePosition of getSnakePositions()) {
+	for (const snakePosition of gameData.snakePositions) {
 		canvasContext.beginPath();
 
 		canvasContext.roundRect(

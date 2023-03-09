@@ -8,4 +8,6 @@ export type GameDataModel = {
 	snakeGrowMoves: number;
 	currentSnakeDirection: SnakeDirection;
 	snakeDirectionQueue: SnakeDirection[];
+	snakePartsCount: number;
+	currentSnakeHeadPosition: PartPosition;
 };
