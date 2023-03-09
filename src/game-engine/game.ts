@@ -6,10 +6,10 @@ import {
 import {
 	getNextSnakeHeadPosition,
 	moveSnake,
+	placeSnakeOnStartingPoint,
 	resetSnake,
 } from "@/game-engine/snake";
 import settings from "@/settings";
-import { placeSnakeOnStartingPoint } from "@/game-engine/snake-start-position";
 import {
 	initFood,
 	replaceFoodPositionIfHasEaten,
