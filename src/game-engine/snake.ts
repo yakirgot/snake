@@ -1,13 +1,10 @@
 import settings from "@/settings";
 import { drawSnakePart, erasePart } from "@/game-engine/canvas";
 import { PartPosition } from "@/types/part-position";
-import {
-	getSnakeDirectionOrFromQueue,
-	resetSnakeDirection,
-} from "@/game-engine/snake-direction";
+import { getSnakeDirectionOrFromQueue } from "@/game-engine/snake-direction";
 import { gameData } from "@/game-engine/game-data";
 
-export function addSnakePart(snakePosition: PartPosition) {
+export function addAndDrawSnakePart(snakePosition: PartPosition) {
 	gameData.snakePositions.push(snakePosition);
 
 	drawSnakePart(snakePosition);
@@ -16,7 +13,6 @@ export function addSnakePart(snakePosition: PartPosition) {
 export function resetSnake() {
 	gameData.snakePositions.length = 0;
 	gameData.snakeGrowMoves = 0;
-	resetSnakeDirection();
 }
 
 export function getNextSnakeHeadPosition() {
@@ -53,7 +49,7 @@ function eraseSnakeTail() {
 }
 
 export function moveSnake(headPosition: PartPosition) {
-	addSnakePart(headPosition);
+	addAndDrawSnakePart(headPosition);
 
 	if (gameData.snakeGrowMoves === 0) {
 		eraseSnakeTail();

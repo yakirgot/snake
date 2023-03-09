@@ -7,32 +7,20 @@ import {
 } from "@/game-engine/collision-detection";
 import { gameData } from "@/game-engine/game-data";
 
-function addFoodPart(foodPosition: PartPosition) {
-	gameData.foodPositions.push(foodPosition);
-}
-
-function removeFoodPart(partPosition: PartPosition) {
-	const index = gameData.foodPositions.findIndex((foodPosition) =>
-		detectPartCollision(partPosition, foodPosition),
-	);
-
-	gameData.foodPositions.splice(index, 1);
-}
-
 export function resetFood() {
 	gameData.foodPositions.length = 0;
 }
 
 export function initFood() {
 	for (let index = 1; index <= settings.foodPartsOnCanvas; index++) {
-		placeFood();
+		placeNewFood();
 	}
 }
 
 export function replaceFoodPosition(foodPosition: PartPosition) {
 	removeFoodPart(foodPosition);
 
-	placeFood();
+	placeNewFood();
 }
 
 export function isFoodPosition(partPosition: PartPosition) {
@@ -43,7 +31,15 @@ export function isFoodPosition(partPosition: PartPosition) {
 	return isPosition;
 }
 
-function placeFood() {
+function removeFoodPart(partPosition: PartPosition) {
+	const index = gameData.foodPositions.findIndex((foodPosition) =>
+		detectPartCollision(partPosition, foodPosition),
+	);
+
+	gameData.foodPositions.splice(index, 1);
+}
+
+function placeNewFood() {
 	const availablePositions = gameData.allPartsPositions.filter((partPosition) =>
 		isAvailablePosition(partPosition),
 	);
@@ -53,7 +49,7 @@ function placeFood() {
 
 	const foodPosition: PartPosition = availablePositions[randomIndex];
 
-	addFoodPart(foodPosition);
+	gameData.foodPositions.push(foodPosition);
 	drawFoodPart(foodPosition);
 }
 
