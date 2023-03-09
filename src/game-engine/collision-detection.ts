@@ -1,5 +1,5 @@
 import { PartPosition } from "@/types/part-position";
-import settings from "@/game-engine/settings";
+import settings from "@/settings";
 import { getSnakePositions } from "@/game-engine/snake";
 
 export function detectPartCollision(

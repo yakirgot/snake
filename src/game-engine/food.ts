@@ -1,6 +1,6 @@
 import { PartPosition } from "@/types/part-position";
 import { getAllAvailablePositions } from "@/game-engine/parts-positions";
-import settings from "@/game-engine/settings";
+import settings from "@/settings";
 import { drawFoodPart } from "@/game-engine/canvas";
 import { detectPartCollision } from "@/game-engine/collision-detection";
 

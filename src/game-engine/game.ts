@@ -11,7 +11,7 @@ import {
 	moveSnake,
 	resetSnake,
 } from "@/game-engine/snake";
-import settings from "@/game-engine/settings";
+import settings from "@/settings";
 import { placeSnakeOnStartingPoint } from "@/game-engine/snake-start-position";
 import {
 	initFood,

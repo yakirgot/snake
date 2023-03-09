@@ -1,4 +1,4 @@
-import settings from "@/game-engine/settings";
+import settings from "@/settings";
 import { PartPosition } from "@/types/part-position";
 import { getSnakePositions } from "@/game-engine/snake";
 

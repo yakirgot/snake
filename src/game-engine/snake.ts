@@ -1,4 +1,4 @@
-import settings from "@/game-engine/settings";
+import settings from "@/settings";
 import { drawSnakePart, erasePart } from "@/game-engine/canvas";
 import { PartPosition } from "@/types/part-position";
 import {
