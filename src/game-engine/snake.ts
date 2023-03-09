@@ -5,36 +5,34 @@ import {
 	getSnakeDirectionOrFromQueue,
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
-
-const snakePositions: PartPosition[] = [];
-let snakeGrowMoves = 0;
+import { gameData } from "@/game-engine/game-data";
 
 export function addSnakePart(snakePosition: PartPosition) {
-	snakePositions.push(snakePosition);
+	gameData.snakePositions.push(snakePosition);
 
 	drawSnakePart(snakePosition);
 }
 
 export function resetSnake() {
-	snakePositions.length = 0;
-	snakeGrowMoves = 0;
+	gameData.snakePositions.length = 0;
+	gameData.snakeGrowMoves = 0;
 	resetSnakeDirection();
 }
 
 export function growSnake() {
-	snakeGrowMoves += settings.snakePartsGrowth;
+	gameData.snakeGrowMoves += settings.snakePartsGrowth;
 }
 
 export function getSnakePartsCount() {
-	return snakePositions.length;
+	return gameData.snakePositions.length;
 }
 
 export function getSnakePositions() {
-	return snakePositions;
+	return gameData.snakePositions;
 }
 
 export function currentSnakeHeadPosition() {
-	return snakePositions.at(-1) as PartPosition;
+	return gameData.snakePositions.at(-1) as PartPosition;
 }
 
 export function getNextSnakeHeadPosition() {
@@ -65,7 +63,7 @@ export function getNextSnakeHeadPosition() {
 }
 
 function eraseSnakeTail() {
-	const snakeTail = snakePositions.shift() as PartPosition;
+	const snakeTail = gameData.snakePositions.shift() as PartPosition;
 
 	erasePart(snakeTail);
 }
@@ -73,9 +71,9 @@ function eraseSnakeTail() {
 export function moveSnake(headPosition: PartPosition) {
 	addSnakePart(headPosition);
 
-	if (snakeGrowMoves === 0) {
+	if (gameData.snakeGrowMoves === 0) {
 		eraseSnakeTail();
 	} else {
-		snakeGrowMoves--;
+		gameData.snakeGrowMoves--;
 	}
 }

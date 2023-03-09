@@ -3,23 +3,22 @@ import { getAllAvailablePositions } from "@/game-engine/parts-positions";
 import settings from "@/settings";
 import { drawFoodPart } from "@/game-engine/canvas";
 import { detectPartCollision } from "@/game-engine/collision-detection";
-
-const foodPositions: PartPosition[] = [];
+import { gameData } from "@/game-engine/game-data";
 
 function addFoodPart(foodPosition: PartPosition) {
-	foodPositions.push(foodPosition);
+	gameData.foodPositions.push(foodPosition);
 }
 
 function removeFoodPart(partPosition: PartPosition) {
-	const index = foodPositions.findIndex((foodPosition) =>
+	const index = gameData.foodPositions.findIndex((foodPosition) =>
 		detectPartCollision(partPosition, foodPosition),
 	);
 
-	foodPositions.splice(index, 1);
+	gameData.foodPositions.splice(index, 1);
 }
 
 export function resetFood() {
-	foodPositions.length = 0;
+	gameData.foodPositions.length = 0;
 }
 
 export function initFood() {
@@ -35,7 +34,7 @@ export function replaceFoodPosition(foodPosition: PartPosition) {
 }
 
 export function isFoodPosition(partPosition: PartPosition) {
-	const isPosition = foodPositions.some((foodPosition) =>
+	const isPosition = gameData.foodPositions.some((foodPosition) =>
 		detectPartCollision(partPosition, foodPosition),
 	);
 
