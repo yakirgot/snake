@@ -12,8 +12,7 @@ import settings from "@/settings";
 import { placeSnakeOnStartingPoint } from "@/game-engine/snake-start-position";
 import {
 	initFood,
-	isFoodPosition,
-	replaceFoodPosition,
+	replaceFoodPositionIfHasEaten,
 	resetFood,
 } from "@/game-engine/food";
 import { PartPosition } from "@/types/part-position";
@@ -78,21 +77,15 @@ function makeGameMove() {
 
 	moveSnake(nextHeadPosition);
 
-	handleMaybeHasEaten();
+	const hasEaten = replaceFoodPositionIfHasEaten(
+		gameData.currentSnakeHeadPosition,
+	);
 
-	updateGamePointsBySnakeParts();
-}
-
-function handleMaybeHasEaten() {
-	const hasEaten = isFoodPosition(gameData.currentSnakeHeadPosition);
-
-	if (!hasEaten) {
-		return;
+	if (hasEaten) {
+		gameData.snakeGrowMoves += settings.snakePartsGrowth;
 	}
 
-	replaceFoodPosition(gameData.currentSnakeHeadPosition);
-
-	gameData.snakeGrowMoves += settings.snakePartsGrowth;
+	updateGamePointsBySnakeParts();
 }
 
 function endGame() {

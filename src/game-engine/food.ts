@@ -17,13 +17,20 @@ export function initFood() {
 	}
 }
 
-export function replaceFoodPosition(foodPosition: PartPosition) {
-	removeFoodPart(foodPosition);
+export function replaceFoodPositionIfHasEaten(partPosition: PartPosition) {
+	const hasEaten = isFoodPosition(partPosition);
 
+	if (!hasEaten) {
+		return false;
+	}
+
+	removeFoodPart(partPosition);
 	placeNewFood();
+
+	return true;
 }
 
-export function isFoodPosition(partPosition: PartPosition) {
+function isFoodPosition(partPosition: PartPosition) {
 	const isPosition = gameData.foodPositions.some((foodPosition) =>
 		detectPartCollision(partPosition, foodPosition),
 	);
