@@ -2,8 +2,8 @@ import settings from "@/game-engine/settings";
 import { PartPosition } from "@/types/part-position";
 import { getSnakePositions } from "@/game-engine/snake";
 
-export let canvasElement: HTMLCanvasElement;
-export let canvasContext: CanvasRenderingContext2D;
+let canvasElement: HTMLCanvasElement;
+let canvasContext: CanvasRenderingContext2D;
 const snakeColor = window
 	.getComputedStyle(document.documentElement)
 	.getPropertyValue("--color-dark-slate-gray");
