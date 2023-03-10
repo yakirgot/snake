@@ -6,7 +6,8 @@
 	"prettier": "./node_modules/@better-front-end/linters/prettier/prettier-defaults.json",
 	"scripts": {
 		"dev": "vite",
-		"test": "vitest --passWithNoTests",
+		"test": "vitest",
+		"test:ui": "vitest --ui",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"prepare": "husky install",
@@ -22,6 +23,7 @@
 		"@commitlint/config-conventional": "~17.3.0",
 		"@typescript-eslint/eslint-plugin": "~5.46.1",
 		"@typescript-eslint/parser": "~5.46.1",
+		"@vitest/ui": "^0.29.2",
 		"eslint": "~8.30.0",
 		"eslint-config-prettier": "~8.5.0",
 		"eslint-plugin-json": "~3.1.0",

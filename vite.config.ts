@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -12,5 +12,8 @@ export default defineConfig({
 	publicDir: "../public",
 	build: {
 		outDir: "../dist",
+	},
+	test: {
+		root: ".",
 	},
 });
