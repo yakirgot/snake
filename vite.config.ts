@@ -15,5 +15,7 @@ export default defineConfig({
 	},
 	test: {
 		root: ".",
+		environment: "jsdom",
+		setupFiles: ["@vitest/web-worker"],
 	},
 });
