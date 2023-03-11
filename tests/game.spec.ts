@@ -85,5 +85,20 @@ describe("game", () => {
 
 			expect(gameData.snakePositions.at(-1)).toStrictEqual([224, 240]);
 		});
+
+		it("should grow after eating food", () => {
+			gameData.foodPositions.push([224, 240]);
+
+			vi.advanceTimersToNextTimer();
+			vi.advanceTimersToNextTimer();
+			vi.advanceTimersToNextTimer();
+			vi.advanceTimersToNextTimer();
+
+			expect(getByTestId(container, "game-points").textContent).toBe("6");
+
+			vi.advanceTimersToNextTimer();
+
+			expect(getByTestId(container, "game-points").textContent).toBe("6");
+		});
 	});
 });
