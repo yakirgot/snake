@@ -11,7 +11,7 @@ import { getByTestId, getByText } from "@testing-library/dom";
 import { gameHTML } from "@/game-html";
 import { initGame } from "@/game-engine/game";
 import { PartPosition } from "@/types/part-position";
-import { gameData } from "../src/game-engine/game-data";
+import { gameData } from "@/game-engine/game-data";
 
 let container: HTMLDivElement;
 
