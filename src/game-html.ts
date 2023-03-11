@@ -1,7 +1,9 @@
 export function gameHTML() {
 	return `
 		<div class="snake-game-container">
-			<h1 class="snake-game-title">Snake Game - <span data-game-points>0</span> Points</h1>
+			<h1 class="snake-game-title">
+				Snake Game - <span data-game-points data-testid="game-points">0</span> Points
+			</h1>
 
 			<canvas data-snake-game class="snake-game-canvas"></canvas>
 
