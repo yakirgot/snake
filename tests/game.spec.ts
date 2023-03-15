@@ -61,7 +61,7 @@ describe("game", () => {
 		});
 	});
 
-	describe("after start button click", () => {
+	describe("after start button clicked", () => {
 		beforeEach(() => {
 			const button: HTMLButtonElement = getByText(container, "Start!");
 
