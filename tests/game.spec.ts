@@ -7,18 +7,18 @@ import {
 	it,
 	vi,
 } from "vitest";
-import { getByTestId, getByText } from "@testing-library/dom";
+import { getByTestId, getByText, waitFor } from "@testing-library/dom";
 import { gameHTML } from "@/game-html";
 import { initGame } from "@/game-engine/game";
 import { PartPosition } from "@/types/part-position";
 import { gameData } from "@/game-engine/game-data";
+import userEvent from "@testing-library/user-event";
 
 let container: HTMLDivElement;
+const user = userEvent.setup();
 
 describe("game", () => {
 	beforeAll(() => {
-		vi.useFakeTimers();
-
 		vi.mock("@/game-engine/canvas", () => {
 			return {
 				setupCanvas: vi.fn(),
@@ -63,6 +63,8 @@ describe("game", () => {
 
 	describe("after start button clicked", () => {
 		beforeEach(() => {
+			vi.useFakeTimers();
+
 			const button: HTMLButtonElement = getByText(container, "Start!");
 
 			button.click();
@@ -72,6 +74,9 @@ describe("game", () => {
 			gameData.snakePositions.push([9999, 9999]);
 
 			vi.advanceTimersToNextTimer();
+
+			vi.runOnlyPendingTimers();
+			vi.useRealTimers();
 		});
 
 		it("should start a new game when clicking the start button", () => {
@@ -100,5 +105,21 @@ describe("game", () => {
 
 			expect(getByTestId(container, "game-points").textContent).toBe("6");
 		});
+
+		it("snake should move around with keyboard interactions", async () => {
+			await pressKeyboard("ArrowUp");
+			expect(gameData.snakePositions.at(-1)).toStrictEqual([208, 224]);
+
+			await pressKeyboard("ArrowLeft");
+			expect(gameData.snakePositions.at(-1)).toStrictEqual([192, 224]);
+		});
 	});
 });
+
+async function pressKeyboard(code: string) {
+	await waitFor(() => {
+		user.keyboard(`[${code}]`);
+	});
+
+	await vi.runOnlyPendingTimersAsync();
+}
