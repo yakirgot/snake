@@ -1,49 +1,50 @@
 @use "colors";
 
-:root {
-	font-size: 6.25%;
-}
-
 body {
 	background-color: var(--color-eggshell);
-	font-family: Open Sans, sans-serif;
-	font-size: 16rem;
+	font-family:
+		Open Sans,
+		sans-serif;
+	font-size: 1rem;
 }
 
 .snake-game-container {
 	margin-inline: auto;
-	padding: 16rem;
+	padding: 1rem;
 	text-align: center;
 }
 
 .snake-game-title {
 	color: var(--color-dark-slate-gray);
-	font-size: 30rem;
-	margin-block-end: 30rem;
+	font-size: 1.875rem;
+	margin-block-end: 1.875rem;
 	text-align: center;
 }
 
 .snake-game-canvas {
 	background-color: var(--color-maize-crayola);
-	border: 2rem dashed var(--color-metallic-sunburst);
-	border-radius: 3rem;
-	padding: 3rem;
+	border: 0.125rem dashed var(--color-metallic-sunburst);
+	border-radius: 0.188rem;
+	padding: 0.188rem;
 }
 
 .snake-game-start-button-container {
 	display: flex;
 	justify-content: center;
-	margin-block-start: 30rem;
+	margin-block-start: 1.875rem;
 }
 
 .snake-game-start-button {
 	background-color: var(--color-dark-slate-gray);
-	border-radius: 3rem;
+	border-radius: 0.188rem;
 	color: var(--color-eggshell);
-	padding-block: 10rem;
-	padding-inline: 25rem;
-	transition: background-color 80ms ease, box-shadow 80ms ease,
-		opacity 200ms linear, scale 200ms ease-in-out;
+	padding-block: 0.625rem;
+	padding-inline: 1.5rem;
+	transition:
+		background-color 80ms ease,
+		box-shadow 80ms ease,
+		opacity 200ms linear,
+		scale 200ms ease-in-out;
 
 	&:disabled {
 		opacity: 0.3;
@@ -60,12 +61,12 @@ body {
 		}
 
 		&:focus-visible {
-			outline: 2rem dashed var(--color-metallic-sunburst);
-			outline-offset: 2rem;
+			outline: 0.125rem dashed var(--color-metallic-sunburst);
+			outline-offset: 0.125rem;
 		}
 
 		&:active {
-			box-shadow: 0 0 6rem rgb(0 0 0 / 50%);
+			box-shadow: 0 0 0.375rem rgb(0 0 0 / 50%);
 		}
 	}
 }
