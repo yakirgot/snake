@@ -20,5 +20,5 @@ jobs:
       - run: npm ci
       - run: npm run lint:scripts
       - run: npm run lint:styles
-      # - run: npm run test -- --run
+      - run: npm run test -- --run
       - run: npm run build -- --emptyOutDir
