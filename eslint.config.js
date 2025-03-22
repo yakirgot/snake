@@ -56,8 +56,8 @@ export default tsEslint.config(
 		rules: {
 			"vitest/prefer-expect-assertions": "off",
 			"vitest/consistent-test-filename": [
-				"Error",
-				{ pattern: /.*\\.spec\\.ts?$/ },
+				"error",
+				{ pattern: ".*\\.spec\\.ts$" },
 			],
 		},
 	},
