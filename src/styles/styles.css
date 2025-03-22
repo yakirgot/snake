@@ -1,10 +1,8 @@
-@use "colors";
+@import url("colors.css");
 
 body {
 	background-color: var(--color-eggshell);
-	font-family:
-		Open Sans,
-		sans-serif;
+	font-family: "Open Sans", sans-serif;
 	font-size: 1rem;
 }
 
@@ -61,6 +59,7 @@ body {
 		}
 
 		&:focus-visible {
+			/* eslint-disable-next-line css/require-baseline */
 			outline: 0.125rem dashed var(--color-metallic-sunburst);
 			outline-offset: 0.125rem;
 		}
