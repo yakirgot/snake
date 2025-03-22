@@ -25,6 +25,7 @@
 		"@eslint/markdown": "~6.3.0",
 		"@testing-library/dom": "~10.4.0",
 		"@testing-library/user-event": "~14.6.1",
+		"@vitest/eslint-plugin": "~1.1.38",
 		"@vitest/ui": "~3.0.9",
 		"@vitest/web-worker": "~3.0.9",
 		"eslint": "~9.22.0",
