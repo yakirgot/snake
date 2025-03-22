@@ -1,18 +1,18 @@
-import { GameDataModel } from "@/types/game-data-model";
 import settings from "@/settings";
 import { PartPosition } from "@/types/part-position";
+import { SnakeDirection } from "@/types/snake-direction";
 
-export const gameData: GameDataModel = Object.seal({
-	allPartsPositions: [],
-	snakePositions: [],
-	foodPositions: [],
+export const gameData = Object.seal({
+	allPartsPositions: [] as PartPosition[],
+	snakePositions: [] as PartPosition[],
+	foodPositions: [] as PartPosition[],
 	snakeGrowMoves: 0,
 	currentSnakeDirection: settings.snakeStartingDirection,
-	snakeDirectionQueue: [],
-	get snakePartsCount() {
+	snakeDirectionQueue: [] as SnakeDirection[],
+	get snakePartsCount(): number {
 		return this.snakePositions.length;
 	},
-	get currentSnakeHeadPosition() {
+	get currentSnakeHeadPosition(): PartPosition {
 		return this.snakePositions.at(-1) as unknown as PartPosition;
 	},
 });

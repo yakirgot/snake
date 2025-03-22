@@ -4,10 +4,10 @@ import { gameData } from "@/game-engine/game-data";
 
 let canvasElement: HTMLCanvasElement;
 let canvasContext: CanvasRenderingContext2D;
-const snakeColor = window
+const snakeColor = globalThis
 	.getComputedStyle(document.documentElement)
 	.getPropertyValue("--color-dark-slate-gray");
-const foodColor = window
+const foodColor = globalThis
 	.getComputedStyle(document.documentElement)
 	.getPropertyValue("--color-teal-blue");
 
@@ -36,7 +36,7 @@ function setCanvasSize() {
 export function clearCanvas() {
 	const { canvasWidthInPx, canvasHeightInPx } = settings;
 
-	canvasContext.fillStyle = window
+	canvasContext.fillStyle = globalThis
 		.getComputedStyle(document.documentElement)
 		.getPropertyValue("--color-maize-crayola");
 	canvasContext.fillRect(0, 0, canvasWidthInPx, canvasHeightInPx);

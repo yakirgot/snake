@@ -26,7 +26,7 @@ import { getAllPartsPositions } from "@/game-engine/all-parts-positions";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
-let moveSnakeIntervalId: number | undefined;
+let moveSnakeIntervalId: ReturnType<typeof setTimeout> | undefined;
 
 export async function initGame() {
 	setupCanvas();
@@ -56,7 +56,7 @@ function startGame() {
 	initSnakeDirection();
 	updateGamePointsBySnakeParts();
 
-	moveSnakeIntervalId = window.setInterval(
+	moveSnakeIntervalId = globalThis.setInterval(
 		makeGameMove,
 		settings.snakeIntervalInMs,
 	);
@@ -90,7 +90,7 @@ function makeGameMove() {
 }
 
 function endGame() {
-	window.clearInterval(moveSnakeIntervalId);
+	globalThis.clearInterval(moveSnakeIntervalId);
 	moveSnakeIntervalId = undefined;
 
 	startButton.disabled = false;

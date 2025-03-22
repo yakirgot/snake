@@ -2,18 +2,18 @@ import { SnakeDirection } from "@/types/snake-direction";
 import settings from "@/settings";
 import { gameData } from "@/game-engine/game-data";
 
-export function initSnakeDirection() {
+export function initSnakeDirection(): void {
 	addEventListener("keydown", handleKeyboardEvent);
 }
 
-export function resetSnakeDirection() {
+export function resetSnakeDirection(): void {
 	gameData.currentSnakeDirection = settings.snakeStartingDirection;
 	gameData.snakeDirectionQueue.length = 0;
 
 	removeEventListener("keydown", handleKeyboardEvent);
 }
 
-export function maybeUpdateCurrentSnakeDirectionFromQueue() {
+export function maybeUpdateCurrentSnakeDirectionFromQueue(): void {
 	const nextSnakeDirection =
 		gameData.snakeDirectionQueue.shift() as SnakeDirection;
 	const isOppositeDirection =
@@ -32,7 +32,7 @@ export function maybeUpdateCurrentSnakeDirectionFromQueue() {
 	}
 }
 
-function addSnakeDirectionToQueue(snakeDirection: SnakeDirection) {
+function addSnakeDirectionToQueue(snakeDirection: SnakeDirection): void {
 	/**
 	 * We limit our queue size to 2 directions to allow the player to change the second turn direction
 	 */
@@ -45,7 +45,7 @@ function addSnakeDirectionToQueue(snakeDirection: SnakeDirection) {
 	}
 }
 
-function handleKeyboardEvent(keyboardEvent: KeyboardEvent) {
+function handleKeyboardEvent(keyboardEvent: KeyboardEvent): void {
 	const direction = getDirectionFromKeyboardEventCode(keyboardEvent.code);
 
 	if (direction) {

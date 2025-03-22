@@ -6,8 +6,7 @@ const partsWorker = new Worker(
 	{ type: "module" },
 );
 
-export function getAllPartsPositions() {
-	// eslint-disable-next-line unicorn/require-post-message-target-origin
+export function getAllPartsPositions(): Promise<PartPosition[]> {
 	partsWorker.postMessage(settings);
 
 	return new Promise<PartPosition[]>((resolve) => {
