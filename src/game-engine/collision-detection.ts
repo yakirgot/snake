@@ -5,21 +5,21 @@ import { gameData } from "@/game-engine/game-data";
 export function detectPartCollision(
 	partPositionA: PartPosition,
 	partPositionB: PartPosition,
-) {
+): boolean {
 	const xAxisCollision = partPositionA[0] === partPositionB[0];
 	const yAxisCollision = partPositionA[1] === partPositionB[1];
 
 	return xAxisCollision && yAxisCollision;
 }
 
-export function isSnakeCollision(snakePosition: PartPosition) {
+export function isSnakeCollision(snakePosition: PartPosition): boolean {
 	const isWallCollision = detectWallCollision(snakePosition);
 	const isSelfCollision = detectSnakeSelfCollision(snakePosition);
 
 	return isWallCollision || isSelfCollision;
 }
 
-export function detectSnakeSelfCollision(partPosition: PartPosition) {
+export function detectSnakeSelfCollision(partPosition: PartPosition): boolean {
 	const isCollision = gameData.snakePositions.some((snakePosition) =>
 		detectPartCollision(partPosition, snakePosition),
 	);
@@ -27,7 +27,7 @@ export function detectSnakeSelfCollision(partPosition: PartPosition) {
 	return isCollision;
 }
 
-function detectWallCollision(partPosition: PartPosition) {
+function detectWallCollision(partPosition: PartPosition): boolean {
 	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } = settings;
 
 	const [positionX, positionY] = partPosition;
