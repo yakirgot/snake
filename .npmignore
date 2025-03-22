@@ -5,8 +5,8 @@
 .browserslistrc
 .commitlintrc.json
 .editorconfig
-.eslintrc.json
+eslint.config.js
 .gitignore
-.stylelintrc.json
+stylelint.config.js
 tsconfig.json
 vitest.config.ts
