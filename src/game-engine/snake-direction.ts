@@ -1,13 +1,16 @@
 import { SnakeDirection } from "@/types/snake-direction";
-import settings from "@/settings";
 import { gameData } from "@/game-engine/game-data";
+import { container } from "tsyringe";
+import { GameSettings } from "@/settings";
+
+const gameSettings = container.resolve(GameSettings);
 
 export function initSnakeDirection(): void {
 	addEventListener("keydown", handleKeyboardEvent);
 }
 
 export function resetSnakeDirection(): void {
-	gameData.currentSnakeDirection = settings.snakeStartingDirection;
+	gameData.currentSnakeDirection = gameSettings.snakeStartingDirection;
 	gameData.snakeDirectionQueue.length = 0;
 
 	removeEventListener("keydown", handleKeyboardEvent);

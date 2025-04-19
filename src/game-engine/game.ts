@@ -9,7 +9,6 @@ import {
 	placeSnakeOnStartingPoint,
 	resetSnake,
 } from "@/game-engine/snake";
-import settings from "@/settings";
 import {
 	initFood,
 	replaceFoodPositionIfHasEaten,
@@ -23,6 +22,10 @@ import {
 import { isSnakeCollision } from "@/game-engine/collision-detection";
 import { gameData } from "@/game-engine/game-data";
 import { getAllPartsPositions } from "@/game-engine/all-parts-positions";
+import { container } from "tsyringe";
+import { GameSettings } from "@/settings";
+
+const gameSettings = container.resolve(GameSettings);
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
@@ -58,7 +61,7 @@ function startGame() {
 
 	moveSnakeIntervalId = globalThis.setInterval(
 		makeGameMove,
-		settings.snakeIntervalInMs,
+		gameSettings.snakeIntervalInMs,
 	);
 }
 
@@ -83,7 +86,7 @@ function makeGameMove() {
 	);
 
 	if (hasEaten) {
-		gameData.snakeGrowMoves += settings.snakePartsGrowth;
+		gameData.snakeGrowMoves += gameSettings.snakePartsGrowth;
 	}
 
 	updateGamePointsBySnakeParts();

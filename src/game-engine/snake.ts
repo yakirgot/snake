@@ -1,7 +1,10 @@
-import settings from "@/settings";
 import { drawSnakePart, erasePart } from "@/game-engine/canvas";
 import { PartPosition } from "@/types/part-position";
 import { gameData } from "@/game-engine/game-data";
+import { container } from "tsyringe";
+import { GameSettings } from "@/settings";
+
+const gameSettings = container.resolve(GameSettings);
 
 export function moveSnake(headPosition: PartPosition): void {
 	addAndDrawSnakePart(headPosition);
@@ -25,7 +28,7 @@ export function resetSnake(): void {
 }
 
 export function getNextSnakeHeadPosition(): PartPosition {
-	const { snakeSizeWithGap } = settings;
+	const { snakeSizeWithGap } = gameSettings;
 	const nextPosition: PartPosition = [...gameData.currentSnakeHeadPosition];
 
 	switch (gameData.currentSnakeDirection) {
@@ -58,7 +61,7 @@ function eraseSnakeTail(): void {
 
 export function placeSnakeOnStartingPoint() {
 	const [xStartingPosition, yStartingPosition] = getSnakeStartingPoint();
-	const { snakeInitialLength, snakeSizeWithGap } = settings;
+	const { snakeInitialLength, snakeSizeWithGap } = gameSettings;
 
 	for (let index = 0; index < snakeInitialLength; index++) {
 		const xPositionCompensation = index * snakeSizeWithGap;
@@ -74,7 +77,7 @@ function getSnakeStartingPoint(): PartPosition {
 		canvasWidthInSnakeParts,
 		canvasHeightInSnakeParts,
 		snakeSizeWithGap,
-	} = settings;
+	} = gameSettings;
 
 	const canvasWidthInPx = canvasWidthInSnakeParts * snakeSizeWithGap;
 	const quarterScreenX = canvasWidthInPx / 4;

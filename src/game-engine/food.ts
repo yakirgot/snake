@@ -1,18 +1,21 @@
 import { PartPosition } from "@/types/part-position";
-import settings from "@/settings";
 import { drawFoodPart } from "@/game-engine/canvas";
 import {
 	detectPartCollision,
 	detectSnakeSelfCollision,
 } from "@/game-engine/collision-detection";
 import { gameData } from "@/game-engine/game-data";
+import { container } from "tsyringe";
+import { GameSettings } from "@/settings";
+
+const gameSettings = container.resolve(GameSettings);
 
 export function resetFood() {
 	gameData.foodPositions.length = 0;
 }
 
 export function initFood() {
-	for (let index = 1; index <= settings.foodPartsOnCanvas; index++) {
+	for (let index = 1; index <= gameSettings.foodPartsOnCanvas; index++) {
 		placeNewFood();
 	}
 }

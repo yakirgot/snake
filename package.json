@@ -14,7 +14,9 @@
 		"lint:styles": "npx stylelint \"**/*.css\""
 	},
 	"dependencies": {
-		"the-new-css-reset": "~1.11.3"
+		"core-js": "~3.41.0",
+		"the-new-css-reset": "~1.11.3",
+		"tsyringe": "~4.10.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "~19.8.0",

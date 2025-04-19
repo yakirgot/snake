@@ -1,6 +1,9 @@
-import settings from "@/settings";
 import { PartPosition } from "@/types/part-position";
 import { gameData } from "@/game-engine/game-data";
+import { container } from "tsyringe";
+import { GameSettings } from "@/settings";
+
+const gameSettings = container.resolve(GameSettings);
 
 let canvasElement: HTMLCanvasElement;
 let canvasContext: CanvasRenderingContext2D;
@@ -24,7 +27,7 @@ export function setupCanvas() {
 }
 
 function setCanvasSize() {
-	const { canvasWidthInPx, canvasHeightInPx } = settings;
+	const { canvasWidthInPx, canvasHeightInPx } = gameSettings;
 
 	canvasElement.width = canvasWidthInPx;
 	canvasElement.style.width = `${canvasWidthInPx}px`;
@@ -34,7 +37,7 @@ function setCanvasSize() {
 }
 
 export function clearCanvas() {
-	const { canvasWidthInPx, canvasHeightInPx } = settings;
+	const { canvasWidthInPx, canvasHeightInPx } = gameSettings;
 
 	canvasContext.fillStyle = globalThis
 		.getComputedStyle(document.documentElement)
@@ -43,15 +46,15 @@ export function clearCanvas() {
 }
 
 export function drawSnakePart(snakePosition: PartPosition) {
-	drawPart(snakePosition, snakeColor, settings.snakePartRadiiInPx);
+	drawPart(snakePosition, snakeColor, gameSettings.snakePartRadiiInPx);
 }
 
 export function drawFoodPart(foodPosition: PartPosition) {
-	drawPart(foodPosition, foodColor, settings.partSizeInPx / 3);
+	drawPart(foodPosition, foodColor, gameSettings.partSizeInPx / 3);
 }
 
 export function createSnakeSnapshot() {
-	const { partSizeInPx, snakePartRadiiInPx } = settings;
+	const { partSizeInPx, snakePartRadiiInPx } = gameSettings;
 
 	canvasContext.strokeStyle = snakeColor;
 	canvasContext.shadowColor = snakeColor;
@@ -75,7 +78,7 @@ export function createSnakeSnapshot() {
 }
 
 function drawPart(snakePosition: PartPosition, color: string, radii = 0) {
-	const { partSizeInPx } = settings;
+	const { partSizeInPx } = gameSettings;
 
 	canvasContext.fillStyle = color;
 
@@ -92,7 +95,7 @@ function drawPart(snakePosition: PartPosition, color: string, radii = 0) {
 }
 
 export function erasePart(partPosition: PartPosition) {
-	const { partSizeInPx } = settings;
+	const { partSizeInPx } = gameSettings;
 
 	canvasContext.clearRect(
 		partPosition[0],

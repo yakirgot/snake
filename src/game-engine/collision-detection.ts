@@ -1,6 +1,9 @@
 import { PartPosition } from "@/types/part-position";
-import settings from "@/settings";
 import { gameData } from "@/game-engine/game-data";
+import { container } from "tsyringe";
+import { GameSettings } from "@/settings";
+
+const gameSettings = container.resolve(GameSettings);
 
 export function detectPartCollision(
 	partPositionA: PartPosition,
@@ -28,7 +31,7 @@ export function detectSnakeSelfCollision(partPosition: PartPosition): boolean {
 }
 
 function detectWallCollision(partPosition: PartPosition): boolean {
-	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } = settings;
+	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } = gameSettings;
 
 	const [positionX, positionY] = partPosition;
 
