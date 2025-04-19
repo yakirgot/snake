@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { detectPartCollision } from "@/game-engine/collision-detection";
 
-describe("detectPartCollision", () => {
+describe(detectPartCollision, () => {
 	it("should detect a collision", () => {
 		expect(detectPartCollision([1, 1], [1, 1])).toBe(true);
 		expect(detectPartCollision([2, 2], [2, 2])).toBe(true);
