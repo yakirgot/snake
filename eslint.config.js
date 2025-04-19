@@ -47,6 +47,7 @@ export default tsEslint.config(
 		extends: [css.configs.recommended],
 		rules: {
 			"css/prefer-logical-properties": "error",
+			"css/use-layers": "error",
 		},
 	},
 	{
