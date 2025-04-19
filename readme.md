@@ -9,7 +9,7 @@ Feel free to give a feedback or submit a PR
 ### Install dependencies
 
 ```bash
-npm install
+npm ci
 ```
 
 ### Run development environment
