@@ -1,5 +1,5 @@
-import { PartPosition } from "@/types/part-position";
-import { SnakeDirection } from "@/types/snake-direction";
+import { PartPosition } from "@/types/snake-types";
+import { SnakeDirection } from "@/types/snake-types";
 import { container, singleton } from "tsyringe";
 import { GameSettings } from "@/settings";
 

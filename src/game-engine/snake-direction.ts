@@ -1,4 +1,4 @@
-import { SnakeDirection } from "@/types/snake-direction";
+import { SnakeDirection } from "@/types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameData } from "@/game-engine/game-data";

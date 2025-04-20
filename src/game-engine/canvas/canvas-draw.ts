@@ -1,4 +1,4 @@
-import { PartPosition } from "@/types/part-position";
+import { PartPosition } from "@/types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { foodColor, snakeColor } from "@/game-engine/canvas/canvas-colors";

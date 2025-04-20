@@ -1,4 +1,4 @@
-import { SnakeDirection } from "@/types/snake-direction";
+import { SnakeDirection } from "@/types/snake-types";
 import { singleton } from "tsyringe";
 
 @singleton()
