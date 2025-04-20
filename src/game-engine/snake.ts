@@ -1,12 +1,13 @@
 import { drawSnakePart, erasePart } from "@/game-engine/canvas";
 import { PartPosition } from "@/types/part-position";
-import { gameData } from "@/game-engine/game-data";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
+import { GameData } from "@/game-engine/game-data";
 
 export function moveSnake(headPosition: PartPosition): void {
 	addAndDrawSnakePart(headPosition);
 
+	const gameData = container.resolve<GameData>("GameData");
 	if (gameData.snakeGrowMoves === 0) {
 		eraseSnakeTail();
 	} else {
@@ -15,12 +16,14 @@ export function moveSnake(headPosition: PartPosition): void {
 }
 
 export function addAndDrawSnakePart(snakePosition: PartPosition): void {
+	const gameData = container.resolve<GameData>("GameData");
 	gameData.snakePositions.push(snakePosition);
 
 	drawSnakePart(snakePosition);
 }
 
 export function resetSnake(): void {
+	const gameData = container.resolve<GameData>("GameData");
 	gameData.snakePositions.length = 0;
 	gameData.snakeGrowMoves = 0;
 }
@@ -28,6 +31,8 @@ export function resetSnake(): void {
 export function getNextSnakeHeadPosition(): PartPosition {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { snakeSizeWithGap } = gameSettings;
+
+	const gameData = container.resolve<GameData>("GameData");
 	const nextPosition: PartPosition = [...gameData.currentSnakeHeadPosition];
 
 	switch (gameData.currentSnakeDirection) {
@@ -53,6 +58,7 @@ export function getNextSnakeHeadPosition(): PartPosition {
 }
 
 function eraseSnakeTail(): void {
+	const gameData = container.resolve<GameData>("GameData");
 	const snakeTail = gameData.snakePositions.shift() as PartPosition;
 
 	erasePart(snakeTail);

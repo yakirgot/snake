@@ -4,11 +4,12 @@ import {
 	detectPartCollision,
 	detectSnakeSelfCollision,
 } from "@/game-engine/collision-detection";
-import { gameData } from "@/game-engine/game-data";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
+import { GameData } from "@/game-engine/game-data";
 
 export function resetFood() {
+	const gameData = container.resolve<GameData>("GameData");
 	gameData.foodPositions.length = 0;
 }
 
@@ -33,6 +34,7 @@ export function replaceFoodPositionIfHasEaten(partPosition: PartPosition) {
 }
 
 function isFoodPosition(partPosition: PartPosition) {
+	const gameData = container.resolve<GameData>("GameData");
 	const isPosition = gameData.foodPositions.some((foodPosition) =>
 		detectPartCollision(partPosition, foodPosition),
 	);
@@ -41,6 +43,7 @@ function isFoodPosition(partPosition: PartPosition) {
 }
 
 function removeFoodPart(partPosition: PartPosition) {
+	const gameData = container.resolve<GameData>("GameData");
 	const index = gameData.foodPositions.findIndex((foodPosition) =>
 		detectPartCollision(partPosition, foodPosition),
 	);
@@ -49,6 +52,8 @@ function removeFoodPart(partPosition: PartPosition) {
 }
 
 function placeNewFood() {
+	const gameData = container.resolve<GameData>("GameData");
+
 	const availablePositions = gameData.allPartsPositions.filter((partPosition) =>
 		isAvailablePosition(partPosition),
 	);

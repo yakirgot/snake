@@ -1,7 +1,7 @@
 import { SnakeDirection } from "@/types/snake-direction";
-import { gameData } from "@/game-engine/game-data";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
+import { GameData } from "@/game-engine/game-data";
 
 const gameSettings = container.resolve(GameSettings);
 
@@ -10,6 +10,7 @@ export function initSnakeDirection(): void {
 }
 
 export function resetSnakeDirection(): void {
+	const gameData = container.resolve<GameData>("GameData");
 	gameData.currentSnakeDirection = gameSettings.snakeStartingDirection;
 	gameData.snakeDirectionQueue.length = 0;
 
@@ -17,6 +18,7 @@ export function resetSnakeDirection(): void {
 }
 
 export function maybeUpdateCurrentSnakeDirectionFromQueue(): void {
+	const gameData = container.resolve<GameData>("GameData");
 	const nextSnakeDirection =
 		gameData.snakeDirectionQueue.shift() as SnakeDirection;
 	const isOppositeDirection =
@@ -36,6 +38,8 @@ export function maybeUpdateCurrentSnakeDirectionFromQueue(): void {
 }
 
 function addSnakeDirectionToQueue(snakeDirection: SnakeDirection): void {
+	const gameData = container.resolve<GameData>("GameData");
+
 	/**
 	 * We limit our queue size to 2 directions to allow the player to change the second turn direction
 	 */

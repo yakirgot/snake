@@ -20,10 +20,10 @@ import {
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
 import { isSnakeCollision } from "@/game-engine/collision-detection";
-import { gameData } from "@/game-engine/game-data";
 import { getAllPartsPositions } from "@/game-engine/all-parts-positions";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
+import { GameData } from "@/game-engine/game-data";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
@@ -39,6 +39,7 @@ export async function initGame() {
 
 	startButton.disabled = true;
 
+	const gameData = container.resolve<GameData>("GameData");
 	gameData.allPartsPositions = await getAllPartsPositions();
 
 	startButton.disabled = false;
@@ -66,6 +67,7 @@ function startGame() {
 }
 
 function makeGameMove() {
+	const gameData = container.resolve<GameData>("GameData");
 	if (gameData.snakeDirectionQueue.length > 0) {
 		maybeUpdateCurrentSnakeDirectionFromQueue();
 	}
@@ -107,6 +109,8 @@ function endGame() {
 }
 
 function updateGamePointsBySnakeParts() {
+	const gameData = container.resolve<GameData>("GameData");
+
 	pointsElement.textContent = new Intl.NumberFormat().format(
 		gameData.snakePartsCount,
 	);

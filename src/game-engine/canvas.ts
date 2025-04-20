@@ -1,7 +1,7 @@
 import { PartPosition } from "@/types/part-position";
-import { gameData } from "@/game-engine/game-data";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
+import { GameData } from "@/game-engine/game-data";
 
 let canvasElement: HTMLCanvasElement;
 let canvasContext: CanvasRenderingContext2D;
@@ -63,6 +63,7 @@ export function createSnakeSnapshot() {
 	canvasContext.shadowColor = snakeColor;
 	canvasContext.shadowBlur = partSizeInPx / 3;
 
+	const gameData = container.resolve<GameData>("GameData");
 	for (const snakePosition of gameData.snakePositions) {
 		canvasContext.beginPath();
 

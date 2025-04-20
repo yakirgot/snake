@@ -1,7 +1,7 @@
 import { PartPosition } from "@/types/part-position";
-import { gameData } from "@/game-engine/game-data";
 import { GameSettings } from "@/settings";
 import { container } from "tsyringe";
+import { GameData } from "@/game-engine/game-data";
 
 export function detectPartCollision(
 	partPositionA: PartPosition,
@@ -21,6 +21,7 @@ export function isSnakeCollision(snakePosition: PartPosition): boolean {
 }
 
 export function detectSnakeSelfCollision(partPosition: PartPosition): boolean {
+	const gameData = container.resolve<GameData>("GameData");
 	const isCollision = gameData.snakePositions.some((snakePosition) =>
 		detectPartCollision(partPosition, snakePosition),
 	);
