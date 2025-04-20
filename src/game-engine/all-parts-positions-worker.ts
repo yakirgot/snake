@@ -1,4 +1,4 @@
-onmessage = (messageEvent) => {
+addEventListener("message", (messageEvent) => {
 	const partPositions = [];
 	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } =
 		messageEvent.data;
@@ -10,6 +10,4 @@ onmessage = (messageEvent) => {
 	}
 
 	postMessage(partPositions);
-};
-
-export {};
+});
