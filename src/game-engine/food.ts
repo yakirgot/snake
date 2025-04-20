@@ -1,5 +1,5 @@
 import { PartPosition } from "@/types/part-position";
-import { drawFoodPart } from "@/game-engine/canvas-draw";
+import { drawFoodPart } from "@/game-engine/canvas/canvas-draw";
 import {
 	detectPartCollision,
 	detectSnakeSelfCollision,

@@ -1,8 +1,8 @@
 import { PartPosition } from "@/types/part-position";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
-import { foodColor, snakeColor } from "@/game-engine/canvas-colors";
-import { canvasContext } from "@/game-engine/canvas-setup";
+import { foodColor, snakeColor } from "@/game-engine/canvas/canvas-colors";
+import { canvasContext } from "@/game-engine/canvas/canvas-setup";
 
 export function drawSnakePart(snakePosition: PartPosition) {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");

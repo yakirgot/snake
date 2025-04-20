@@ -1,7 +1,7 @@
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameData } from "@/game-engine/game-data";
-import { canvasColor, snakeColor } from "@/game-engine/canvas-colors";
+import { canvasColor, snakeColor } from "@/game-engine/canvas/canvas-colors";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;

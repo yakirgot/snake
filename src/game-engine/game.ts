@@ -2,7 +2,7 @@ import {
 	clearCanvas,
 	createSnakeSnapshot,
 	setupCanvas,
-} from "@/game-engine/canvas-setup";
+} from "@/game-engine/canvas/canvas-setup";
 import {
 	getNextSnakeHeadPosition,
 	moveSnake,
