@@ -1,4 +1,4 @@
-import { drawSnakePart, erasePart } from "@/game-engine/canvas";
+import { drawSnakePart, erasePart } from "@/game-engine/canvas-draw";
 import { PartPosition } from "@/types/part-position";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
