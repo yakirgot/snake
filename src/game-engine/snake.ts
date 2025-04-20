@@ -64,7 +64,7 @@ function eraseSnakeTail(): void {
 	erasePart(snakeTail);
 }
 
-export function placeSnakeOnStartingPoint() {
+export function placeSnakeOnStartingPoint(): void {
 	const [xStartingPosition, yStartingPosition] = getSnakeStartingPoint();
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { snakeInitialLength, snakeSizeWithGap } = gameSettings;

@@ -51,7 +51,7 @@ export async function initGame() {
 	});
 }
 
-function startGame() {
+function startGame(): void {
 	clearCanvas();
 	placeSnakeOnStartingPoint();
 	initFood();
@@ -66,7 +66,7 @@ function startGame() {
 	);
 }
 
-function makeGameMove() {
+function makeGameMove(): void {
 	const gameData = container.resolve<GameData>("GameData");
 	if (gameData.snakeDirectionQueue.length > 0) {
 		maybeUpdateCurrentSnakeDirectionFromQueue();
@@ -95,7 +95,7 @@ function makeGameMove() {
 	updateGamePointsBySnakeParts();
 }
 
-function endGame() {
+function endGame(): void {
 	globalThis.clearInterval(moveSnakeIntervalId);
 	moveSnakeIntervalId = undefined;
 
@@ -108,7 +108,7 @@ function endGame() {
 	resetFood();
 }
 
-function updateGamePointsBySnakeParts() {
+function updateGamePointsBySnakeParts(): void {
 	const gameData = container.resolve<GameData>("GameData");
 
 	pointsElement.textContent = new Intl.NumberFormat().format(

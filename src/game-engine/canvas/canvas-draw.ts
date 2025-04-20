@@ -9,12 +9,12 @@ export function drawSnakePart(snakePosition: PartPosition) {
 	drawPart(snakePosition, snakeColor, gameSettings.snakePartRadiiInPx);
 }
 
-export function drawFoodPart(foodPosition: PartPosition) {
+export function drawFoodPart(foodPosition: PartPosition): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	drawPart(foodPosition, foodColor, Math.round(gameSettings.partSizeInPx / 3));
 }
 
-function drawPart(snakePosition: PartPosition, color: string, radii = 0) {
+function drawPart(snakePosition: PartPosition, color: string, radii = 0): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx } = gameSettings;
 
@@ -32,7 +32,7 @@ function drawPart(snakePosition: PartPosition, color: string, radii = 0) {
 	canvasContext.fill();
 }
 
-export function erasePart(partPosition: PartPosition) {
+export function erasePart(partPosition: PartPosition): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx } = gameSettings;
 

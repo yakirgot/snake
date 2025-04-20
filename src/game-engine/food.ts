@@ -8,19 +8,21 @@ import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameData } from "@/game-engine/game-data";
 
-export function resetFood() {
+export function resetFood(): void {
 	const gameData = container.resolve<GameData>("GameData");
 	gameData.foodPositions.length = 0;
 }
 
-export function initFood() {
+export function initFood(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	for (let index = 1; index <= gameSettings.foodPartsOnCanvas; index++) {
 		placeNewFood();
 	}
 }
 
-export function replaceFoodPositionIfHasEaten(partPosition: PartPosition) {
+export function replaceFoodPositionIfHasEaten(
+	partPosition: PartPosition,
+): boolean {
 	const hasEaten = isFoodPosition(partPosition);
 
 	if (!hasEaten) {
@@ -33,7 +35,7 @@ export function replaceFoodPositionIfHasEaten(partPosition: PartPosition) {
 	return true;
 }
 
-function isFoodPosition(partPosition: PartPosition) {
+function isFoodPosition(partPosition: PartPosition): boolean {
 	const gameData = container.resolve<GameData>("GameData");
 	const isPosition = gameData.foodPositions.some((foodPosition) =>
 		detectPartCollision(partPosition, foodPosition),
@@ -42,7 +44,7 @@ function isFoodPosition(partPosition: PartPosition) {
 	return isPosition;
 }
 
-function removeFoodPart(partPosition: PartPosition) {
+function removeFoodPart(partPosition: PartPosition): void {
 	const gameData = container.resolve<GameData>("GameData");
 	const index = gameData.foodPositions.findIndex((foodPosition) =>
 		detectPartCollision(partPosition, foodPosition),
@@ -51,7 +53,7 @@ function removeFoodPart(partPosition: PartPosition) {
 	gameData.foodPositions.splice(index, 1);
 }
 
-function placeNewFood() {
+function placeNewFood(): void {
 	const gameData = container.resolve<GameData>("GameData");
 
 	const availablePositions = gameData.allPartsPositions.filter((partPosition) =>
@@ -67,7 +69,7 @@ function placeNewFood() {
 	drawFoodPart(foodPosition);
 }
 
-function isAvailablePosition(partPosition: PartPosition) {
+function isAvailablePosition(partPosition: PartPosition): boolean {
 	const isSnakePart = detectSnakeSelfCollision(partPosition);
 
 	if (isSnakePart) {

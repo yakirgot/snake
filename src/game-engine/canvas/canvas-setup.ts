@@ -6,7 +6,7 @@ import { canvasColor, snakeColor } from "@/game-engine/canvas/canvas-colors";
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;
 
-export function setupCanvas() {
+export function setupCanvas(): void {
 	canvasElement = document.querySelector<HTMLCanvasElement>(
 		"[data-snake-game]",
 	) as HTMLCanvasElement;
@@ -18,7 +18,7 @@ export function setupCanvas() {
 	clearCanvas();
 }
 
-function setCanvasSize() {
+function setCanvasSize(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { canvasWidthInPx, canvasHeightInPx } = gameSettings;
 
@@ -29,7 +29,7 @@ function setCanvasSize() {
 	canvasElement.style.height = `${canvasHeightInPx}px`;
 }
 
-export function clearCanvas() {
+export function clearCanvas(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { canvasWidthInPx, canvasHeightInPx } = gameSettings;
 
@@ -37,7 +37,7 @@ export function clearCanvas() {
 	canvasContext.fillRect(0, 0, canvasWidthInPx, canvasHeightInPx);
 }
 
-export function createSnakeSnapshot() {
+export function createSnakeSnapshot(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx, snakePartRadiiInPx } = gameSettings;
 

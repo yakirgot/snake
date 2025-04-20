@@ -16,7 +16,7 @@ export function getAllPartsPositions(): Promise<PartPosition[]> {
 		snakeSizeWithGap,
 	});
 
-	return new Promise<PartPosition[]>((resolve) => {
+	return new Promise<PartPosition[]>((resolve): void => {
 		partsWorker.addEventListener(
 			"message",
 			(results: MessageEvent<PartPosition[]>) => {
