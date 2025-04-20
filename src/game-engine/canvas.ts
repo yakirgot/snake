@@ -2,15 +2,14 @@ import { PartPosition } from "@/types/part-position";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameData } from "@/game-engine/game-data";
+import {
+	canvasColor,
+	foodColor,
+	snakeColor,
+} from "@/game-engine/canvas-colors";
 
 let canvasElement: HTMLCanvasElement;
 let canvasContext: CanvasRenderingContext2D;
-const snakeColor = globalThis
-	.getComputedStyle(document.documentElement)
-	.getPropertyValue("--color-dark-slate-gray");
-const foodColor = globalThis
-	.getComputedStyle(document.documentElement)
-	.getPropertyValue("--color-teal-blue");
 
 export function setupCanvas() {
 	canvasElement = document.querySelector<HTMLCanvasElement>(
@@ -39,9 +38,7 @@ export function clearCanvas() {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { canvasWidthInPx, canvasHeightInPx } = gameSettings;
 
-	canvasContext.fillStyle = globalThis
-		.getComputedStyle(document.documentElement)
-		.getPropertyValue("--color-maize-crayola");
+	canvasContext.fillStyle = canvasColor;
 	canvasContext.fillRect(0, 0, canvasWidthInPx, canvasHeightInPx);
 }
 
