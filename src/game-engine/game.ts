@@ -20,7 +20,7 @@ import {
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
 import { isSnakeCollision } from "@/game-engine/collision-detection";
-import { getAllPartsPositions } from "@/game-engine/all-parts-positions";
+import { getAllPartsPositions } from "@/game-engine/all-parts-positions/all-parts-positions";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameData } from "@/game-engine/game-data";
