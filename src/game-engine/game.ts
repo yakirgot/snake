@@ -25,8 +25,6 @@ import { getAllPartsPositions } from "@/game-engine/all-parts-positions";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 
-const gameSettings = container.resolve(GameSettings);
-
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
 let moveSnakeIntervalId: ReturnType<typeof setTimeout> | undefined;
@@ -59,6 +57,8 @@ function startGame() {
 	initSnakeDirection();
 	updateGamePointsBySnakeParts();
 
+	const gameSettings = container.resolve<GameSettings>("GameSettings");
+
 	moveSnakeIntervalId = globalThis.setInterval(
 		makeGameMove,
 		gameSettings.snakeIntervalInMs,
@@ -86,6 +86,7 @@ function makeGameMove() {
 	);
 
 	if (hasEaten) {
+		const gameSettings = container.resolve<GameSettings>("GameSettings");
 		gameData.snakeGrowMoves += gameSettings.snakePartsGrowth;
 	}
 

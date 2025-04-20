@@ -4,8 +4,6 @@ import { gameData } from "@/game-engine/game-data";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 
-const gameSettings = container.resolve(GameSettings);
-
 export function moveSnake(headPosition: PartPosition): void {
 	addAndDrawSnakePart(headPosition);
 
@@ -28,6 +26,7 @@ export function resetSnake(): void {
 }
 
 export function getNextSnakeHeadPosition(): PartPosition {
+	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { snakeSizeWithGap } = gameSettings;
 	const nextPosition: PartPosition = [...gameData.currentSnakeHeadPosition];
 
@@ -61,6 +60,7 @@ function eraseSnakeTail(): void {
 
 export function placeSnakeOnStartingPoint() {
 	const [xStartingPosition, yStartingPosition] = getSnakeStartingPoint();
+	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { snakeInitialLength, snakeSizeWithGap } = gameSettings;
 
 	for (let index = 0; index < snakeInitialLength; index++) {
@@ -73,6 +73,7 @@ export function placeSnakeOnStartingPoint() {
 }
 
 function getSnakeStartingPoint(): PartPosition {
+	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const {
 		canvasWidthInSnakeParts,
 		canvasHeightInSnakeParts,
