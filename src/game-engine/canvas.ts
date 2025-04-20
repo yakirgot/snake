@@ -52,7 +52,7 @@ export function drawSnakePart(snakePosition: PartPosition) {
 
 export function drawFoodPart(foodPosition: PartPosition) {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
-	drawPart(foodPosition, foodColor, gameSettings.partSizeInPx / 3);
+	drawPart(foodPosition, foodColor, Math.round(gameSettings.partSizeInPx / 3));
 }
 
 export function createSnakeSnapshot() {
@@ -61,7 +61,7 @@ export function createSnakeSnapshot() {
 
 	canvasContext.strokeStyle = snakeColor;
 	canvasContext.shadowColor = snakeColor;
-	canvasContext.shadowBlur = partSizeInPx / 3;
+	canvasContext.shadowBlur = Math.round(partSizeInPx / 3);
 
 	const gameData = container.resolve<GameData>("GameData");
 	for (const snakePosition of gameData.snakePositions) {
