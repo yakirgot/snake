@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
 	detectPartCollision,
 	isSnakeCollision,
@@ -8,14 +8,6 @@ import { GameSettings } from "@/settings";
 import { GameData } from "@/game-engine/game-data";
 
 describe("collision detection", () => {
-	const gameSettingsMock = vi.fn().mockReturnValue(new GameSettings());
-	const gameDataMock = vi.fn().mockReturnValue(new GameData());
-
-	beforeEach(() => {
-		container.register("GameSettings", { useValue: gameSettingsMock() });
-		container.register("GameData", { useValue: gameDataMock() });
-	});
-
 	describe(detectPartCollision, () => {
 		it("should detect a collision", () => {
 			expect(detectPartCollision([1, 1], [1, 1])).toBe(true);
@@ -38,13 +30,11 @@ describe("collision detection", () => {
 			gameSettings.canvasHeightInSnakeParts = 2;
 			gameSettings.partSizeInPx = 1;
 			gameSettings.snakeGapInPx = 1;
-			gameSettingsMock.mockReturnValue(gameSettings);
-			container.register("GameSettings", { useValue: gameSettingsMock() });
+			container.registerInstance("GameSettings", gameSettings);
 
 			const gameData = new GameData();
 			gameData.snakePositions.push([1, 1]);
-			gameDataMock.mockReturnValue(gameData);
-			container.register("GameData", { useValue: gameDataMock() });
+			container.registerInstance("GameData", gameData);
 		});
 
 		it("should detect self collision", () => {
