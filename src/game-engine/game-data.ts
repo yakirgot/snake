@@ -5,7 +5,7 @@ import { GameSettings } from "@/settings";
 
 @singleton()
 export class GameData {
-	#gameSettings = container.resolve(GameSettings);
+	readonly #gameSettings = container.resolve(GameSettings);
 
 	allPartsPositions: PartPosition[] = [];
 	snakePositions: PartPosition[] = [];

@@ -3,18 +3,17 @@ import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameData } from "@/game-engine/game-data";
 
-const gameSettings = container.resolve(GameSettings);
-
 export function initSnakeDirection(): void {
-	addEventListener("keydown", handleKeyboardEvent);
+	addEventListener("keydown", addDirectionFromKeyboardEvent);
 }
 
 export function resetSnakeDirection(): void {
+	const gameSettings = container.resolve(GameSettings);
 	const gameData = container.resolve<GameData>("GameData");
 	gameData.currentSnakeDirection = gameSettings.snakeStartingDirection;
 	gameData.snakeDirectionQueue.length = 0;
 
-	removeEventListener("keydown", handleKeyboardEvent);
+	removeEventListener("keydown", addDirectionFromKeyboardEvent);
 }
 
 export function maybeUpdateCurrentSnakeDirectionFromQueue(): void {
@@ -37,47 +36,41 @@ export function maybeUpdateCurrentSnakeDirectionFromQueue(): void {
 	}
 }
 
-function addSnakeDirectionToQueue(snakeDirection: SnakeDirection): void {
-	const gameData = container.resolve<GameData>("GameData");
+function addDirectionFromKeyboardEvent(keyboardEvent: KeyboardEvent): void {
+	let direction: SnakeDirection | undefined;
 
-	/**
-	 * We limit our queue size to 2 directions to allow the player to change the second turn direction
-	 */
-	const hasSnakeDirectionsInQueue = gameData.snakeDirectionQueue.length > 0;
-
-	if (hasSnakeDirectionsInQueue) {
-		gameData.snakeDirectionQueue[1] = snakeDirection;
-	} else {
-		gameData.snakeDirectionQueue.push(snakeDirection);
+	switch (keyboardEvent.code) {
+		case "ArrowUp": {
+			direction = "up";
+			break;
+		}
+		case "ArrowDown": {
+			direction = "down";
+			break;
+		}
+		case "ArrowLeft": {
+			direction = "left";
+			break;
+		}
+		case "ArrowRight": {
+			direction = "right";
+			break;
+		}
 	}
-}
-
-function handleKeyboardEvent(keyboardEvent: KeyboardEvent): void {
-	const direction = getDirectionFromKeyboardEventCode(keyboardEvent.code);
 
 	if (direction) {
 		addSnakeDirectionToQueue(direction);
 	}
 }
 
-function getDirectionFromKeyboardEventCode(
-	code: string,
-): SnakeDirection | undefined {
-	switch (code) {
-		case "ArrowUp": {
-			return "up";
-		}
-		case "ArrowDown": {
-			return "down";
-		}
-		case "ArrowLeft": {
-			return "left";
-		}
-		case "ArrowRight": {
-			return "right";
-		}
-		default: {
-			return undefined;
-		}
+/**
+ * We limit our queue size to 2 directions to allow the player to change the second turn direction
+ */
+function addSnakeDirectionToQueue(snakeDirection: SnakeDirection): void {
+	const gameData = container.resolve<GameData>("GameData");
+	if (gameData.snakeDirectionQueue.length > 0) {
+		gameData.snakeDirectionQueue[1] = snakeDirection;
+	} else {
+		gameData.snakeDirectionQueue.push(snakeDirection);
 	}
 }
