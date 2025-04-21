@@ -8,8 +8,9 @@ export function initSnakeDirection(): void {
 }
 
 export function resetSnakeDirection(): void {
-	const gameSettings = container.resolve(GameSettings);
 	const gameData = container.resolve<GameData>("GameData");
+	const gameSettings = container.resolve(GameSettings);
+
 	gameData.currentSnakeDirection = gameSettings.snakeStartingDirection;
 	gameData.snakeDirectionQueue.length = 0;
 
