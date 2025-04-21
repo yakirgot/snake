@@ -1,4 +1,4 @@
-import { PartPosition } from "@/types/part-position";
+import { PartPosition } from "@/types/snake-types";
 import { GameSettings } from "@/settings";
 import { container } from "tsyringe";
 import { GameData } from "@/game-engine/game-data";
