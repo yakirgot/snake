@@ -1,7 +1,7 @@
 .idea
 .vscode
 .github
-.husky
+lefthook.yml
 .browserslistrc
 .commitlintrc.json
 .editorconfig
