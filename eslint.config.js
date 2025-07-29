@@ -3,7 +3,6 @@ import globals from "globals";
 import eslint from "@eslint/js";
 import json from "@eslint/json";
 import markdown from "@eslint/markdown";
-import css from "@eslint/css";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import vitest from "@vitest/eslint-plugin";
 
@@ -39,16 +38,6 @@ export default tsEslint.config(
 		plugins: { markdown },
 		language: "markdown/commonmark",
 		extends: [markdown.configs.recommended],
-	},
-	{
-		files: ["**/*.css"],
-		plugins: { css },
-		language: "css/css",
-		extends: [css.configs.recommended],
-		rules: {
-			"css/prefer-logical-properties": "error",
-			"css/use-layers": "error",
-		},
 	},
 	{
 		files: ["**/*.spec.ts"],
