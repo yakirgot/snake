@@ -30,17 +30,33 @@ let pointsElement: HTMLElement;
 let moveSnakeIntervalId: ReturnType<typeof setTimeout> | undefined;
 
 export async function initGame() {
-	setupCanvas();
+	try {
+		setupCanvas();
+	} catch (error) {
+		console.error("Failed to setup canvas:", error);
+		return;
+	}
 
 	pointsElement = document.querySelector("[data-game-points]") as HTMLElement;
 	startButton = document.querySelector(
 		"[data-snake-game-start-button]",
 	) as HTMLButtonElement;
 
+	if (!pointsElement || !startButton) {
+		console.error("Required DOM elements not found");
+		return;
+	}
+
 	startButton.disabled = true;
 
-	const gameData = container.resolve<GameData>("GameData");
-	gameData.allPartsPositions = await getAllPartsPositions();
+	try {
+		const gameData = container.resolve<GameData>("GameData");
+		gameData.allPartsPositions = await getAllPartsPositions();
+	} catch (error) {
+		console.error("Failed to initialize game positions:", error);
+		startButton.disabled = false;
+		return;
+	}
 
 	startButton.disabled = false;
 
