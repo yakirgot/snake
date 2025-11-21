@@ -20,7 +20,8 @@
 		<div class="snake-game-container">
 			<h1 class="snake-game-title">
 				Snake Game -
-				<span data-game-points data-testid="game-points">0</span> Points
+				<span data-game-points data-testid="game-points" aria-live="polite">0</span>
+				Points
 			</h1>
 
 			<canvas data-snake-game class="snake-game-canvas"></canvas>
@@ -30,6 +31,7 @@
 					class="snake-game-start-button"
 					data-snake-game-start-button
 					tabindex="1"
+					aria-label="Start the snake game"
 				>
 					Start!
 				</button>
