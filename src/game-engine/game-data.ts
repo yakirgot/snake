@@ -19,6 +19,10 @@ export class GameData {
 	}
 
 	get currentSnakeHeadPosition(): PartPosition {
-		return this.snakePositions.at(-1) as unknown as PartPosition;
+		const head = this.snakePositions.at(-1);
+		if (!head) {
+			throw new Error("Snake has no positions");
+		}
+		return head;
 	}
 }
