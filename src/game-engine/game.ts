@@ -73,13 +73,7 @@ function startGame(): void {
 	initFood();
 	initSnakeDirection();
 	updateGamePointsBySnakeParts();
-
-	const gameSettings = container.resolve<GameSettings>("GameSettings");
-
-	moveSnakeIntervalId = globalThis.setInterval(
-		makeGameMove,
-		gameSettings.snakeIntervalInMs,
-	);
+	setSnakeInterval();
 }
 
 function makeGameMove(): void {
@@ -112,8 +106,7 @@ function makeGameMove(): void {
 }
 
 function endGame(): void {
-	globalThis.clearInterval(moveSnakeIntervalId);
-	moveSnakeIntervalId = undefined;
+	clearSnakeInterval();
 
 	startButton.disabled = false;
 
@@ -122,6 +115,20 @@ function endGame(): void {
 	resetSnake();
 	resetSnakeDirection();
 	resetFood();
+}
+
+function setSnakeInterval(): void {
+	const gameSettings = container.resolve<GameSettings>("GameSettings");
+
+	moveSnakeIntervalId = globalThis.setInterval(
+		makeGameMove,
+		gameSettings.snakeIntervalInMs,
+	);
+}
+
+function clearSnakeInterval(): void {
+	globalThis.clearInterval(moveSnakeIntervalId);
+	moveSnakeIntervalId = undefined;
 }
 
 function updateGamePointsBySnakeParts(): void {
