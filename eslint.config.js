@@ -50,6 +50,7 @@ export default tsEslint.config(
 				"error",
 				{ pattern: ".*\\.spec\\.ts$" },
 			],
+			"vitest/valid-title": ["error", { allowArguments: true }],
 		},
 	},
 );
