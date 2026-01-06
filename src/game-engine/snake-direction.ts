@@ -3,10 +3,17 @@ import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameState } from "@/game-engine/game-state";
 
+/**
+ * Initializes listeners for keyboard events to control the snake.
+ */
 export function initializeKeyboardInputListeners(): void {
 	addEventListener("keydown", handleKeyboardInput);
 }
 
+/**
+ * Resets the snake's direction to its initial state and clears the input queue.
+ * Also removes the keyboard event listener.
+ */
 export function resetSnakeDirection(): void {
 	const gameState = container.resolve<GameState>("GameState");
 	const gameSettings = container.resolve(GameSettings);
@@ -17,6 +24,10 @@ export function resetSnakeDirection(): void {
 	removeEventListener("keydown", handleKeyboardInput);
 }
 
+/**
+ * Processes the next direction from the queue and updates the game state.
+ * Prevents the snake from turning 180 degrees directly.
+ */
 export function applyNextDirection(): void {
 	const gameState = container.resolve<GameState>("GameState");
 	const nextSnakeDirection =
@@ -37,6 +48,9 @@ export function applyNextDirection(): void {
 	}
 }
 
+/**
+ * Maps keyboard keys to snake directions and adds them to the processing queue.
+ */
 function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
 	let direction: SnakeDirection | undefined;
 
@@ -65,7 +79,8 @@ function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
 }
 
 /**
- * we limit our queue size to 2 directions to allow the player to change the second turn direction
+ * we limit the queue size to 2 directions to allow the player to "pre-buffer"
+ * their next turn while still being able to change their mind about the second turn
  */
 function addSnakeDirectionToQueue(snakeDirection: SnakeDirection): void {
 	const gameState = container.resolve<GameState>("GameState");
