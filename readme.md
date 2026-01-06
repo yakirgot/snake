@@ -30,3 +30,19 @@ npm run test
 npm run lint:scripts
 npm run lint:styles
 ```
+
+## Docker
+
+### Build Docker image
+
+```bash
+docker build -t snake-game .
+```
+
+### Run Docker container
+
+```bash
+docker run -p 8080:80 snake-game
+```
+
+The game will be available at http://localhost:8080
