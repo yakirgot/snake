@@ -1,20 +1,20 @@
-import { PartPosition } from "@/types/snake-types";
+import { Position } from "@/types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { foodColor, snakeColor } from "@/game-engine/canvas/canvas-colors";
 import { canvasContext } from "@/game-engine/canvas/canvas-setup";
 
-export function drawSnakePart(snakePosition: PartPosition) {
+export function drawSnakePart(snakePosition: Position) {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	drawPart(snakePosition, snakeColor, gameSettings.snakePartRadiiInPx);
 }
 
-export function drawFoodPart(foodPosition: PartPosition): void {
+export function drawFoodPart(foodPosition: Position): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	drawPart(foodPosition, foodColor, Math.round(gameSettings.partSizeInPx / 3));
 }
 
-function drawPart(snakePosition: PartPosition, color: string, radii = 0): void {
+function drawPart(snakePosition: Position, color: string, radii = 0): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx } = gameSettings;
 
@@ -32,14 +32,9 @@ function drawPart(snakePosition: PartPosition, color: string, radii = 0): void {
 	canvasContext.fill();
 }
 
-export function erasePart(partPosition: PartPosition): void {
+export function erasePart(position: Position): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx } = gameSettings;
 
-	canvasContext.clearRect(
-		partPosition[0],
-		partPosition[1],
-		partSizeInPx,
-		partSizeInPx,
-	);
+	canvasContext.clearRect(position[0], position[1], partSizeInPx, partSizeInPx);
 }

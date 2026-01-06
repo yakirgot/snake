@@ -1,43 +1,43 @@
 import { SnakeDirection } from "@/types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
-import { GameData } from "@/game-engine/game-data";
+import { GameState } from "@/game-engine/game-state";
 
-export function initSnakeDirection(): void {
-	addEventListener("keydown", addDirectionFromKeyboardEvent);
+export function initializeKeyboardInputListeners(): void {
+	addEventListener("keydown", handleKeyboardInput);
 }
 
 export function resetSnakeDirection(): void {
-	const gameData = container.resolve<GameData>("GameData");
+	const gameState = container.resolve<GameState>("GameState");
 	const gameSettings = container.resolve(GameSettings);
 
-	gameData.currentSnakeDirection = gameSettings.snakeStartingDirection;
-	gameData.snakeDirectionQueue.length = 0;
+	gameState.currentSnakeDirection = gameSettings.snakeStartingDirection;
+	gameState.snakeDirectionQueue.length = 0;
 
-	removeEventListener("keydown", addDirectionFromKeyboardEvent);
+	removeEventListener("keydown", handleKeyboardInput);
 }
 
-export function maybeUpdateCurrentSnakeDirectionFromQueue(): void {
-	const gameData = container.resolve<GameData>("GameData");
+export function applyNextDirection(): void {
+	const gameState = container.resolve<GameState>("GameState");
 	const nextSnakeDirection =
-		gameData.snakeDirectionQueue.shift() as SnakeDirection;
+		gameState.snakeDirectionQueue.shift() as SnakeDirection;
 	const isOppositeDirection =
-		gameData.currentSnakeDirection === nextSnakeDirection ||
-		(gameData.currentSnakeDirection === "up" &&
+		gameState.currentSnakeDirection === nextSnakeDirection ||
+		(gameState.currentSnakeDirection === "up" &&
 			nextSnakeDirection === "down") ||
-		(gameData.currentSnakeDirection === "down" &&
+		(gameState.currentSnakeDirection === "down" &&
 			nextSnakeDirection === "up") ||
-		(gameData.currentSnakeDirection === "left" &&
+		(gameState.currentSnakeDirection === "left" &&
 			nextSnakeDirection === "right") ||
-		(gameData.currentSnakeDirection === "right" &&
+		(gameState.currentSnakeDirection === "right" &&
 			nextSnakeDirection === "left");
 
 	if (!isOppositeDirection) {
-		gameData.currentSnakeDirection = nextSnakeDirection;
+		gameState.currentSnakeDirection = nextSnakeDirection;
 	}
 }
 
-function addDirectionFromKeyboardEvent(keyboardEvent: KeyboardEvent): void {
+function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
 	let direction: SnakeDirection | undefined;
 
 	switch (keyboardEvent.code) {
@@ -65,13 +65,13 @@ function addDirectionFromKeyboardEvent(keyboardEvent: KeyboardEvent): void {
 }
 
 /**
- * We limit our queue size to 2 directions to allow the player to change the second turn direction
+ * we limit our queue size to 2 directions to allow the player to change the second turn direction
  */
 function addSnakeDirectionToQueue(snakeDirection: SnakeDirection): void {
-	const gameData = container.resolve<GameData>("GameData");
-	if (gameData.snakeDirectionQueue.length > 0) {
-		gameData.snakeDirectionQueue[1] = snakeDirection;
+	const gameState = container.resolve<GameState>("GameState");
+	if (gameState.snakeDirectionQueue.length > 0) {
+		gameState.snakeDirectionQueue[1] = snakeDirection;
 	} else {
-		gameData.snakeDirectionQueue.push(snakeDirection);
+		gameState.snakeDirectionQueue.push(snakeDirection);
 	}
 }

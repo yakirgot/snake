@@ -1,82 +1,80 @@
-import { PartPosition } from "@/types/snake-types";
+import { Position } from "@/types/snake-types";
 import { drawFoodPart } from "@/game-engine/canvas/canvas-draw";
 import {
-	detectPartCollision,
+	arePositionsEqual,
 	detectSnakeSelfCollision,
 } from "@/game-engine/collision-detection";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
-import { GameData } from "@/game-engine/game-data";
+import { GameState } from "@/game-engine/game-state";
 
 export function resetFood(): void {
-	const gameData = container.resolve<GameData>("GameData");
-	gameData.foodPositions.length = 0;
+	const gameState = container.resolve<GameState>("GameState");
+	gameState.foodPositions.length = 0;
 }
 
-export function initFood(): void {
+export function spawnInitialFood(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	for (let index = 1; index <= gameSettings.foodPartsOnCanvas; index++) {
 		placeNewFood();
 	}
 }
 
-export function replaceFoodPositionIfHasEaten(
-	partPosition: PartPosition,
-): boolean {
-	const hasEaten = isFoodPosition(partPosition);
+export function replaceFoodPositionIfWasEaten(position: Position): boolean {
+	const hasEaten = isFoodPosition(position);
 
 	if (!hasEaten) {
 		return false;
 	}
 
-	removeFoodPart(partPosition);
+	removeFoodPart(position);
 	placeNewFood();
 
 	return true;
 }
 
-function isFoodPosition(partPosition: PartPosition): boolean {
-	const gameData = container.resolve<GameData>("GameData");
-	const isPosition = gameData.foodPositions.some((foodPosition) =>
-		detectPartCollision(partPosition, foodPosition),
+function isFoodPosition(position: Position): boolean {
+	const gameState = container.resolve<GameState>("GameState");
+	const isPosition = gameState.foodPositions.some((foodPosition) =>
+		arePositionsEqual(position, foodPosition),
 	);
 
 	return isPosition;
 }
 
-function removeFoodPart(partPosition: PartPosition): void {
-	const gameData = container.resolve<GameData>("GameData");
-	const index = gameData.foodPositions.findIndex((foodPosition) =>
-		detectPartCollision(partPosition, foodPosition),
+function removeFoodPart(position: Position): void {
+	const gameState = container.resolve<GameState>("GameState");
+	const index = gameState.foodPositions.findIndex((foodPosition) =>
+		arePositionsEqual(position, foodPosition),
 	);
 
-	gameData.foodPositions.splice(index, 1);
+	gameState.foodPositions.splice(index, 1);
 }
 
 function placeNewFood(): void {
-	const gameData = container.resolve<GameData>("GameData");
+	const gameState = container.resolve<GameState>("GameState");
 
-	const availablePositions = gameData.allPartsPositions.filter((partPosition) =>
-		isAvailablePosition(partPosition),
+	const availablePositions = gameState.canvasGridPositions.filter((position) =>
+		isAvailablePosition(position),
 	);
 	const randomIndex = Math.floor(
 		Math.random() * (availablePositions.length - 1),
 	);
 
-	const foodPosition: PartPosition = availablePositions[randomIndex];
+	const foodPosition: Position = availablePositions[randomIndex];
 
-	gameData.foodPositions.push(foodPosition);
+	gameState.foodPositions.push(foodPosition);
 	drawFoodPart(foodPosition);
 }
 
-function isAvailablePosition(partPosition: PartPosition): boolean {
-	const isSnakePart = detectSnakeSelfCollision(partPosition);
+function isAvailablePosition(position: Position): boolean {
+	const isSnakePart = detectSnakeSelfCollision(position);
 
 	if (isSnakePart) {
 		return false;
 	}
 
-	const isFoodPart = isFoodPosition(partPosition);
+	const isFoodPart = isFoodPosition(position);
 
 	return !isFoodPart;
 }

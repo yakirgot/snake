@@ -1,39 +1,39 @@
-import { PartPosition } from "@/types/snake-types";
+import { Position } from "@/types/snake-types";
 import { GameSettings } from "@/settings";
 import { container } from "tsyringe";
-import { GameData } from "@/game-engine/game-data";
+import { GameState } from "@/game-engine/game-state";
 
-export function detectPartCollision(
-	partPositionA: PartPosition,
-	partPositionB: PartPosition,
+export function arePositionsEqual(
+	positionA: Position,
+	positionB: Position,
 ): boolean {
-	const xAxisCollision = partPositionA[0] === partPositionB[0];
-	const yAxisCollision = partPositionA[1] === partPositionB[1];
+	const xAxisCollision = positionA[0] === positionB[0];
+	const yAxisCollision = positionA[1] === positionB[1];
 
 	return xAxisCollision && yAxisCollision;
 }
 
-export function isSnakeCollision(snakePosition: PartPosition): boolean {
+export function checkSnakeCollision(snakePosition: Position): boolean {
 	const isWallCollision = detectWallCollision(snakePosition);
 	const isSelfCollision = detectSnakeSelfCollision(snakePosition);
 
 	return isWallCollision || isSelfCollision;
 }
 
-export function detectSnakeSelfCollision(partPosition: PartPosition): boolean {
-	const gameData = container.resolve<GameData>("GameData");
-	const isCollision = gameData.snakePositions.some((snakePosition) =>
-		detectPartCollision(partPosition, snakePosition),
+export function detectSnakeSelfCollision(position: Position): boolean {
+	const gameState = container.resolve<GameState>("GameState");
+	const isCollision = gameState.snakePositions.some((snakePosition) =>
+		arePositionsEqual(position, snakePosition),
 	);
 
 	return isCollision;
 }
 
-function detectWallCollision(partPosition: PartPosition): boolean {
+function detectWallCollision(position: Position): boolean {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } = gameSettings;
 
-	const [positionX, positionY] = partPosition;
+	const [positionX, positionY] = position;
 
 	const isLeftOrTopOutsideOfCanvas = positionX < 0 || positionY < 0;
 

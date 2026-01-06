@@ -1,16 +1,16 @@
-import { PartPosition } from "@/types/snake-types";
+import { Position } from "@/types/snake-types";
 import { SnakeDirection } from "@/types/snake-types";
 import { container, singleton } from "tsyringe";
 import { GameSettings } from "@/settings";
 
 @singleton()
-export class GameData {
+export class GameState {
 	readonly #gameSettings = container.resolve(GameSettings);
 
-	allPartsPositions: PartPosition[] = [];
-	snakePositions: PartPosition[] = [];
-	foodPositions: PartPosition[] = [];
-	snakeGrowMoves = 0;
+	canvasGridPositions: Position[] = [];
+	snakePositions: Position[] = [];
+	foodPositions: Position[] = [];
+	pendingSnakeGrowthSteps = 0;
 	currentSnakeDirection = this.#gameSettings.snakeStartingDirection;
 	snakeDirectionQueue: SnakeDirection[] = [];
 
@@ -18,7 +18,7 @@ export class GameData {
 		return this.snakePositions.length;
 	}
 
-	get currentSnakeHeadPosition(): PartPosition {
+	get currentSnakeHeadPosition(): Position {
 		const head = this.snakePositions.at(-1);
 		if (!head) {
 			throw new Error("Snake has no positions");

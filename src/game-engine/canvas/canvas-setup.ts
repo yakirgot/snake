@@ -1,6 +1,6 @@
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
-import { GameData } from "@/game-engine/game-data";
+import { GameState } from "@/game-engine/game-state";
 import { canvasColor, snakeColor } from "@/game-engine/canvas/canvas-colors";
 
 export let canvasElement: HTMLCanvasElement;
@@ -37,7 +37,7 @@ export function clearCanvas(): void {
 	canvasContext.fillRect(0, 0, canvasWidthInPx, canvasHeightInPx);
 }
 
-export function createSnakeSnapshot(): void {
+export function renderGameOverSnapshot(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx, snakePartRadiiInPx } = gameSettings;
 
@@ -45,8 +45,8 @@ export function createSnakeSnapshot(): void {
 	canvasContext.shadowColor = snakeColor;
 	canvasContext.shadowBlur = Math.round(partSizeInPx / 3);
 
-	const gameData = container.resolve<GameData>("GameData");
-	for (const snakePosition of gameData.snakePositions) {
+	const gameState = container.resolve<GameState>("GameState");
+	for (const snakePosition of gameState.snakePositions) {
 		canvasContext.beginPath();
 
 		canvasContext.roundRect(

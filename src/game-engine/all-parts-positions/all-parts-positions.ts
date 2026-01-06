@@ -1,4 +1,4 @@
-import { PartPosition } from "@/types/snake-types";
+import { Position } from "@/types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 
@@ -7,7 +7,7 @@ const partsWorker = new Worker(
 	{ type: "module" },
 );
 
-export function getAllPartsPositions(): Promise<PartPosition[]> {
+export function getAllPartsPositions(): Promise<Position[]> {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { canvasWidthInPx, canvasHeightInPx, snakeSizeWithGap } = gameSettings;
 	partsWorker.postMessage({
@@ -16,10 +16,10 @@ export function getAllPartsPositions(): Promise<PartPosition[]> {
 		snakeSizeWithGap,
 	});
 
-	return new Promise<PartPosition[]>((resolve): void => {
+	return new Promise<Position[]>((resolve): void => {
 		partsWorker.addEventListener(
 			"message",
-			(results: MessageEvent<PartPosition[]>) => {
+			(results: MessageEvent<Position[]>) => {
 				resolve(results.data);
 			},
 			{ once: true },

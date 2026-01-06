@@ -1,35 +1,35 @@
 import {
 	clearCanvas,
-	createSnakeSnapshot,
+	renderGameOverSnapshot,
 	setupCanvas,
 } from "@/game-engine/canvas/canvas-setup";
 import {
 	getNextSnakeHeadPosition,
 	moveSnake,
-	placeSnakeOnStartingPoint,
+	initializeSnakePosition,
 	resetSnake,
 } from "@/game-engine/snake";
 import {
-	initFood,
-	replaceFoodPositionIfHasEaten,
+	spawnInitialFood,
+	replaceFoodPositionIfWasEaten,
 	resetFood,
 } from "@/game-engine/food";
 import {
-	initSnakeDirection,
-	maybeUpdateCurrentSnakeDirectionFromQueue,
+	initializeKeyboardInputListeners,
+	applyNextDirection,
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
-import { isSnakeCollision } from "@/game-engine/collision-detection";
+import { checkSnakeCollision } from "@/game-engine/collision-detection";
 import { getAllPartsPositions } from "@/game-engine/all-parts-positions/all-parts-positions";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
-import { GameData } from "@/game-engine/game-data";
+import { GameState } from "@/game-engine/game-state";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
 let moveSnakeIntervalId: ReturnType<typeof setTimeout> | undefined;
 
-export async function initGame() {
+export async function bootstrapGame() {
 	try {
 		setupCanvas();
 	} catch (error) {
@@ -50,8 +50,8 @@ export async function initGame() {
 	startButton.disabled = true;
 
 	try {
-		const gameData = container.resolve<GameData>("GameData");
-		gameData.allPartsPositions = await getAllPartsPositions();
+		const gameState = container.resolve<GameState>("GameState");
+		gameState.canvasGridPositions = await getAllPartsPositions();
 	} catch (error) {
 		console.error("Failed to initialize game positions:", error);
 		startButton.disabled = false;
@@ -69,21 +69,21 @@ export async function initGame() {
 
 function startGame(): void {
 	clearCanvas();
-	placeSnakeOnStartingPoint();
-	initFood();
-	initSnakeDirection();
+	initializeSnakePosition();
+	spawnInitialFood();
+	initializeKeyboardInputListeners();
 	updateGamePointsBySnakeParts();
-	setSnakeInterval();
+	startGameLoop();
 }
 
-function makeGameMove(): void {
-	const gameData = container.resolve<GameData>("GameData");
-	if (gameData.snakeDirectionQueue.length > 0) {
-		maybeUpdateCurrentSnakeDirectionFromQueue();
+function processGameTick(): void {
+	const gameState = container.resolve<GameState>("GameState");
+	if (gameState.snakeDirectionQueue.length > 0) {
+		applyNextDirection();
 	}
 
 	const nextHeadPosition = getNextSnakeHeadPosition();
-	const hasCollisionOccurred = isSnakeCollision(nextHeadPosition);
+	const hasCollisionOccurred = checkSnakeCollision(nextHeadPosition);
 
 	if (hasCollisionOccurred) {
 		endGame();
@@ -93,13 +93,13 @@ function makeGameMove(): void {
 
 	moveSnake(nextHeadPosition);
 
-	const hasEaten = replaceFoodPositionIfHasEaten(
-		gameData.currentSnakeHeadPosition,
+	const hasEaten = replaceFoodPositionIfWasEaten(
+		gameState.currentSnakeHeadPosition,
 	);
 
 	if (hasEaten) {
 		const gameSettings = container.resolve<GameSettings>("GameSettings");
-		gameData.snakeGrowMoves += gameSettings.snakePartsGrowth;
+		gameState.pendingSnakeGrowthSteps += gameSettings.snakePartsGrowth;
 	}
 
 	updateGamePointsBySnakeParts();
@@ -111,17 +111,17 @@ function endGame(): void {
 	startButton.disabled = false;
 
 	clearCanvas();
-	createSnakeSnapshot();
+	renderGameOverSnapshot();
 	resetSnake();
 	resetSnakeDirection();
 	resetFood();
 }
 
-function setSnakeInterval(): void {
+function startGameLoop(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 
 	moveSnakeIntervalId = globalThis.setInterval(
-		makeGameMove,
+		processGameTick,
 		gameSettings.snakeIntervalInMs,
 	);
 }
@@ -132,9 +132,9 @@ function clearSnakeInterval(): void {
 }
 
 function updateGamePointsBySnakeParts(): void {
-	const gameData = container.resolve<GameData>("GameData");
+	const gameState = container.resolve<GameState>("GameState");
 
 	pointsElement.textContent = new Intl.NumberFormat().format(
-		gameData.snakePartsCount,
+		gameState.snakePartsCount,
 	);
 }
