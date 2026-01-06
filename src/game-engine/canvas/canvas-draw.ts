@@ -28,7 +28,6 @@ function drawPart(snakePosition: Position, color: string, radii = 0): void {
 		partSizeInPx,
 		[radii],
 	);
-	canvasContext.closePath();
 	canvasContext.fill();
 }
 
