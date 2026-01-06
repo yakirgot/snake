@@ -7,10 +7,12 @@
 		"dev": "vite",
 		"test": "vitest",
 		"test:ui": "vitest --ui",
-		"build": "vite build",
+		"build": "vite build --emptyOutDir",
+		"type-check": "tsc --noEmit",
 		"preview": "vite preview",
 		"lint:scripts": "npx eslint",
-		"lint:styles": "npx stylelint \"**/*.css\""
+		"lint:styles": "npx stylelint \"src/**/*.css\"",
+		"run-all-checks": "npm run lint:scripts && npm run lint:styles && npm run type-check && vitest run"
 	},
 	"dependencies": {
 		"core-js": "~3.47.0",
