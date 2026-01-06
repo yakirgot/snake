@@ -3,6 +3,10 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';"
+		/>
 		<title>Snake Game</title>
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -20,7 +24,9 @@
 		<div class="snake-game-container">
 			<h1 class="snake-game-title">
 				Snake Game -
-				<span data-game-points data-testid="game-points" aria-live="polite">0</span>
+				<span data-game-points data-testid="game-points" aria-live="polite">
+					0
+				</span>
 				Points
 			</h1>
 
