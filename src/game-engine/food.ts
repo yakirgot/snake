@@ -54,20 +54,18 @@ function removeFoodPart(position: Position): void {
 function placeNewFood(): void {
 	const gameState = container.resolve<GameState>("GameState");
 
-	const availablePositions = gameState.canvasGridPositions.filter((position) =>
-		isAvailablePosition(position),
+	const freePositions = gameState.canvasGridPositions.filter((position) =>
+		isFreePosition(position),
 	);
-	const randomIndex = Math.floor(
-		Math.random() * (availablePositions.length - 1),
-	);
+	const randomIndex = Math.floor(Math.random() * (freePositions.length - 1));
 
-	const foodPosition: Position = availablePositions[randomIndex];
+	const foodPosition: Position = freePositions[randomIndex];
 
 	gameState.foodPositions.push(foodPosition);
 	drawFoodPart(foodPosition);
 }
 
-function isAvailablePosition(position: Position): boolean {
+function isFreePosition(position: Position): boolean {
 	const isSnakePart = detectSnakeSelfCollision(position);
 
 	if (isSnakePart) {
