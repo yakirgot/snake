@@ -78,6 +78,7 @@ function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
 	}
 
 	if (direction) {
+		keyboardEvent.preventDefault();
 		addSnakeDirectionToQueue(direction);
 	}
 }
