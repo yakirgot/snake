@@ -55,19 +55,23 @@ function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
 	let direction: SnakeDirection | undefined;
 
 	switch (keyboardEvent.code) {
-		case "ArrowUp": {
+		case "ArrowUp":
+		case "KeyW": {
 			direction = "up";
 			break;
 		}
-		case "ArrowDown": {
+		case "ArrowDown":
+		case "KeyS": {
 			direction = "down";
 			break;
 		}
-		case "ArrowLeft": {
+		case "ArrowLeft":
+		case "KeyA": {
 			direction = "left";
 			break;
 		}
-		case "ArrowRight": {
+		case "ArrowRight":
+		case "KeyD": {
 			direction = "right";
 			break;
 		}
