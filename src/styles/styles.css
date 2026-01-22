@@ -16,6 +16,18 @@
 		text-align: center;
 	}
 
+	.visually-hidden {
+		border: 0;
+		clip-path: rect(0 0 0 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+
 	.snake-game-title {
 		color: var(--color-dark-slate-gray);
 		font-size: 1.875rem;

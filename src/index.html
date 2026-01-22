@@ -24,19 +24,38 @@
 		<main class="snake-game-container">
 			<h1 class="snake-game-title">
 				Snake Game -
-				<span data-game-points data-testid="game-points" aria-live="polite">
+				<span
+					data-game-points
+					data-testid="game-points"
+					aria-live="polite"
+					aria-atomic="true"
+				>
 					0
 				</span>
 				Points
 			</h1>
 
-			<canvas data-snake-game class="snake-game-canvas"></canvas>
+			<div
+				id="game-announcer"
+				class="visually-hidden"
+				aria-live="assertive"
+				aria-atomic="true"
+			></div>
+
+			<canvas
+				data-snake-game
+				class="snake-game-canvas"
+				role="img"
+				aria-label="Snake Game"
+			>
+				Your browser does not support the canvas element. This is a game of
+				Snake where you control a snake to eat food and grow.
+			</canvas>
 
 			<div class="snake-game-start-button-container">
 				<button
 					class="snake-game-start-button"
 					data-snake-game-start-button
-					tabindex="1"
 					aria-label="Start a new snake game"
 				>
 					Start!

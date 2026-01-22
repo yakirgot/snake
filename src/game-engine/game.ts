@@ -27,6 +27,7 @@ import { GameState } from "@/game-engine/game-state";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
+let announcerElement: HTMLElement;
 let moveSnakeIntervalId: ReturnType<typeof setTimeout> | undefined;
 
 export async function bootstrapGame() {
@@ -41,8 +42,9 @@ export async function bootstrapGame() {
 	startButton = document.querySelector(
 		"[data-snake-game-start-button]",
 	) as HTMLButtonElement;
+	announcerElement = document.querySelector("#game-announcer") as HTMLElement;
 
-	if (!pointsElement || !startButton) {
+	if (!pointsElement || !startButton || !announcerElement) {
 		console.error("Required DOM elements not found");
 		return;
 	}
@@ -73,7 +75,12 @@ function startGame(): void {
 	spawnInitialFood();
 	initializeKeyboardInputListeners();
 	updateGamePointsBySnakeParts();
+	announce("Game started. Use arrow keys to move.");
 	startGameLoop();
+}
+
+function announce(message: string): void {
+	announcerElement.textContent = message;
 }
 
 function processGameTick(): void {
@@ -100,6 +107,9 @@ function processGameTick(): void {
 	if (hasEaten) {
 		const gameSettings = container.resolve<GameSettings>("GameSettings");
 		gameState.pendingSnakeGrowthSteps += gameSettings.snakePartsGrowth;
+		announce(
+			`Food eaten. ${gameState.snakePartsCount + gameState.pendingSnakeGrowthSteps} points`,
+		);
 	}
 
 	updateGamePointsBySnakeParts();
@@ -109,6 +119,11 @@ function endGame(): void {
 	clearSnakeInterval();
 
 	startButton.disabled = false;
+
+	const gameState = container.resolve<GameState>("GameState");
+	announce(
+		`Game over. Final score: ${gameState.snakePartsCount} points. Press start to play again.`,
+	);
 
 	clearCanvas();
 	renderGameOverSnapshot();
