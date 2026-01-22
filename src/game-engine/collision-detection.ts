@@ -41,15 +41,14 @@ function detectWallCollision(position: Position): boolean {
 		return true;
 	}
 
-	const isBottomOutsideOfCanvas =
-		positionX + snakeSizeWithGap > canvasWidthInPx;
+	const isRightOutsideOfCanvas = positionX + snakeSizeWithGap > canvasWidthInPx;
 
-	if (isBottomOutsideOfCanvas) {
+	if (isRightOutsideOfCanvas) {
 		return true;
 	}
 
-	const isRightOutsideOfCanvas =
+	const isBottomOutsideOfCanvas =
 		positionY + snakeSizeWithGap > canvasHeightInPx;
 
-	return isRightOutsideOfCanvas;
+	return isBottomOutsideOfCanvas;
 }
