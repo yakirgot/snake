@@ -98,6 +98,7 @@ function processGameTick(): void {
 		return;
 	}
 
+	const snakeWasGrowing = gameState.pendingSnakeGrowthSteps > 0;
 	moveSnake(nextHeadPosition);
 
 	const hasEaten = replaceFoodPositionIfWasEaten(
@@ -112,7 +113,9 @@ function processGameTick(): void {
 		);
 	}
 
-	updateGamePointsBySnakeParts();
+	if (snakeWasGrowing) {
+		updateGamePointsBySnakeParts();
+	}
 }
 
 function endGame(): void {
