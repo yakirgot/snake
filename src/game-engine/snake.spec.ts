@@ -19,6 +19,8 @@ describe("snake movement", () => {
 	let gameSettings: GameSettings;
 
 	beforeEach(() => {
+		vi.clearAllMocks();
+
 		gameSettings = new GameSettings();
 		gameSettings.snakeGapInPx = 2;
 		gameSettings.partSizeInPx = 14;
@@ -63,6 +65,14 @@ describe("snake movement", () => {
 			const nextPosition = getNextSnakeHeadPosition();
 
 			expect(nextPosition).toStrictEqual([16, 32]);
+		});
+
+		it("should throw error if snake has no positions", () => {
+			gameState.snakePositions = [];
+
+			expect(() => getNextSnakeHeadPosition()).toThrowError(
+				"Snake has no positions",
+			);
 		});
 	});
 
