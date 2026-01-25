@@ -1,14 +1,22 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
 import { GameState } from "@/game-engine/game-state";
 import { GameSettings } from "@/settings";
-import { applyNextDirection } from "@/game-engine/snake-direction";
+import {
+	applyNextDirection,
+	initializeKeyboardInputListeners,
+	resetSnakeDirection,
+} from "@/game-engine/snake-direction";
 
 describe("snake direction", () => {
 	let gameState: GameState;
+	let gameSettings: GameSettings;
 
 	beforeEach(() => {
-		container.registerInstance("GameSettings", new GameSettings());
+		vi.clearAllMocks();
+
+		gameSettings = new GameSettings();
+		container.registerInstance("GameSettings", gameSettings);
 		gameState = new GameState();
 		container.registerInstance("GameState", gameState);
 	});
@@ -79,6 +87,75 @@ describe("snake direction", () => {
 			applyNextDirection();
 
 			expect(gameState.currentSnakeDirection).toBe("left");
+		});
+
+		it("should not change direction if queue is empty", () => {
+			gameState.currentSnakeDirection = "right";
+
+			applyNextDirection();
+
+			expect(gameState.currentSnakeDirection).toBe("right");
+		});
+	});
+
+	describe(resetSnakeDirection, () => {
+		it("should reset direction and clear queue", () => {
+			gameSettings.snakeStartingDirection = "down";
+			gameState.currentSnakeDirection = "right";
+			gameState.snakeDirectionQueue.push("up");
+
+			resetSnakeDirection();
+
+			expect(gameState.currentSnakeDirection).toBe("down");
+			expect(gameState.snakeDirectionQueue).toHaveLength(0);
+		});
+	});
+
+	describe("keyboard input", () => {
+		it("should add direction to queue on keydown", () => {
+			initializeKeyboardInputListeners();
+
+			const event = new KeyboardEvent("keydown", { code: "ArrowUp" });
+			globalThis.dispatchEvent(event);
+
+			expect(gameState.snakeDirectionQueue).toContain("up");
+		});
+
+		it("should limit queue size to 2", () => {
+			initializeKeyboardInputListeners();
+
+			globalThis.dispatchEvent(
+				new KeyboardEvent("keydown", { code: "ArrowUp" }),
+			);
+			globalThis.dispatchEvent(
+				new KeyboardEvent("keydown", { code: "ArrowLeft" }),
+			);
+			globalThis.dispatchEvent(
+				new KeyboardEvent("keydown", { code: "ArrowDown" }),
+			);
+
+			expect(gameState.snakeDirectionQueue).toHaveLength(2);
+			expect(gameState.snakeDirectionQueue).toStrictEqual(["up", "down"]);
+		});
+
+		it("should support WASD keys", () => {
+			initializeKeyboardInputListeners();
+
+			globalThis.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyW" }));
+
+			expect(gameState.snakeDirectionQueue.at(-1)).toBe("up");
+
+			globalThis.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyS" }));
+
+			expect(gameState.snakeDirectionQueue.at(-1)).toBe("down");
+
+			globalThis.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyA" }));
+
+			expect(gameState.snakeDirectionQueue.at(-1)).toBe("left");
+
+			globalThis.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyD" }));
+
+			expect(gameState.snakeDirectionQueue.at(-1)).toBe("right");
 		});
 	});
 });
