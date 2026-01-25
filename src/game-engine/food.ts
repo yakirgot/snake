@@ -57,7 +57,7 @@ function placeNewFood(): void {
 	const freePositions = gameState.canvasGridPositions.filter((position) =>
 		isFreePosition(position),
 	);
-	const randomIndex = Math.floor(Math.random() * (freePositions.length - 1));
+	const randomIndex = Math.floor(Math.random() * freePositions.length);
 
 	const foodPosition: Position = freePositions[randomIndex];
 
