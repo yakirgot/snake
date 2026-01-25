@@ -16,7 +16,7 @@ export function initializeKeyboardInputListeners(): void {
  */
 export function resetSnakeDirection(): void {
 	const gameState = container.resolve<GameState>("GameState");
-	const gameSettings = container.resolve(GameSettings);
+	const gameSettings = container.resolve<GameSettings>("GameSettings");
 
 	gameState.currentSnakeDirection = gameSettings.snakeStartingDirection;
 	gameState.snakeDirectionQueue.length = 0;
