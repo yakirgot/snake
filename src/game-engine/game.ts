@@ -30,7 +30,7 @@ let pointsElement: HTMLElement;
 let announcerElement: HTMLElement;
 let moveSnakeIntervalId: ReturnType<typeof setTimeout> | undefined;
 
-export async function bootstrapGame() {
+export async function bootstrapGame(): Promise<void> {
 	try {
 		setupCanvas();
 	} catch (error) {
