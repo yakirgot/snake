@@ -32,6 +32,11 @@ export function applyNextDirection(): void {
 	const gameState = container.resolve<GameState>("GameState");
 	const nextSnakeDirection =
 		gameState.snakeDirectionQueue.shift() as SnakeDirection;
+
+	if (!nextSnakeDirection) {
+		return;
+	}
+
 	const isOppositeDirection =
 		gameState.currentSnakeDirection === nextSnakeDirection ||
 		(gameState.currentSnakeDirection === "up" &&
