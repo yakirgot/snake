@@ -33,12 +33,18 @@ describe("collision detection", () => {
 			container.registerInstance("GameSettings", gameSettings);
 
 			const gameState = new GameState();
-			gameState.snakePositions.push([1, 1]);
+			gameState.snakePositions.push([2, 2]);
 			container.registerInstance("GameState", gameState);
 		});
 
+		it("should return false when no collision occurs", () => {
+			const isCollision = checkSnakeCollision([0, 0]);
+
+			expect(isCollision).toBe(false);
+		});
+
 		it("should detect self collision", () => {
-			const isCollision = checkSnakeCollision([1, 1]);
+			const isCollision = checkSnakeCollision([2, 2]);
 
 			expect(isCollision).toBe(true);
 		});
@@ -65,6 +71,18 @@ describe("collision detection", () => {
 			const isCollision = checkSnakeCollision([0, 3]);
 
 			expect(isCollision).toBe(true);
+		});
+
+		it("should not detect collision at the exact right boundary", () => {
+			const isCollision = checkSnakeCollision([2, 0]);
+
+			expect(isCollision).toBe(false);
+		});
+
+		it("should not detect collision at the exact bottom boundary", () => {
+			const isCollision = checkSnakeCollision([0, 2]);
+
+			expect(isCollision).toBe(false);
 		});
 	});
 });
