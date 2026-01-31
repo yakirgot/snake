@@ -4,7 +4,7 @@ import { GameSettings } from "@/settings";
 
 @singleton()
 export class GameState {
-	readonly #gameSettings = container.resolve(GameSettings);
+	readonly #gameSettings = container.resolve<GameSettings>("GameSettings");
 
 	canvasGridPositions: Position[] = [];
 	snakePositions: Position[] = [];

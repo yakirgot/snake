@@ -20,11 +20,12 @@ import {
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
 import { checkSnakeCollision } from "@/game-engine/collision-detection";
-import { getAllPartsPositions } from "@/game-engine/all-parts-positions/all-parts-positions";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameState } from "@/game-engine/game-state";
 import { HighScore } from "@/game-engine/high-score";
+import { GameSounds } from "@/game-engine/game-sounds";
+import { getAllPartsPositions } from "@/game-engine/all-parts-positions/all-parts-positions";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
@@ -82,6 +83,9 @@ export async function bootstrapGame(): Promise<void> {
 }
 
 function startGame(): void {
+	const audioService = container.resolve<GameSounds>("GameSounds");
+	audioService.playStartSound();
+
 	clearCanvas();
 	initializeSnakePosition();
 	spawnInitialFood();
@@ -119,7 +123,11 @@ function processGameTick(): void {
 
 	if (hasEaten) {
 		const gameSettings = container.resolve<GameSettings>("GameSettings");
+		const audioService = container.resolve<GameSounds>("GameSounds");
+
 		gameState.pendingSnakeGrowthSteps += gameSettings.snakePartsGrowth;
+		audioService.playEatSound();
+
 		announce(
 			`Food eaten. ${gameState.snakePartsCount + gameState.pendingSnakeGrowthSteps} points`,
 		);
@@ -131,6 +139,9 @@ function processGameTick(): void {
 }
 
 function endGame(): void {
+	const gameSounds = container.resolve<GameSounds>("GameSounds");
+	gameSounds.playGameOverSound();
+
 	clearSnakeInterval();
 
 	startButton.disabled = false;
