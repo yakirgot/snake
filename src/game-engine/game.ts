@@ -26,6 +26,7 @@ import { GameState } from "@/game-engine/game-state";
 import { HighScore } from "@/game-engine/high-score";
 import { GameSounds } from "@/game-engine/game-sounds";
 import { getAllPartsPositions } from "@/game-engine/all-parts-positions/all-parts-positions";
+import { SoundSettings } from "@/game-engine/sound-settings";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
@@ -81,10 +82,12 @@ export async function bootstrapGame(): Promise<void> {
 	startButton.disabled = false;
 
 	const gameState = container.resolve<GameState>("GameState");
+	const soundSettings = container.resolve<SoundSettings>("SoundSettings");
 	soundToggleButton.textContent = `Sound: ${gameState.soundsEnabled ? "ON" : "OFF"}`;
 
 	soundToggleButton.addEventListener("click", () => {
 		gameState.soundsEnabled = !gameState.soundsEnabled;
+		soundSettings.saveSoundSetting(gameState.soundsEnabled);
 		soundToggleButton.textContent = `Sound: ${gameState.soundsEnabled ? "ON" : "OFF"}`;
 		announce(`Sound ${gameState.soundsEnabled ? "enabled" : "disabled"}`);
 	});

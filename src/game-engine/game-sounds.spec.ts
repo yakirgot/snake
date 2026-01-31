@@ -20,11 +20,14 @@ describe(GameSounds, () => {
 	let gameState: GameState;
 
 	beforeEach(() => {
-		vi.clearAllMocks();
-		container.clearInstances();
-
 		const gameSettings = new GameSettings();
 		container.registerInstance("GameSettings", gameSettings);
+
+		const mockStorage = {
+			getItem: vi.fn(),
+			setItem: vi.fn(),
+		} as unknown as Storage;
+		container.registerInstance("Storage", mockStorage);
 
 		gameState = container.resolve(GameState);
 		container.registerInstance("GameState", gameState);

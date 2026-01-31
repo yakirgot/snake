@@ -19,8 +19,6 @@ describe("snake movement", () => {
 	let gameSettings: GameSettings;
 
 	beforeEach(() => {
-		vi.clearAllMocks();
-
 		gameSettings = new GameSettings();
 		gameSettings.snakeGapInPx = 2;
 		gameSettings.partSizeInPx = 14;

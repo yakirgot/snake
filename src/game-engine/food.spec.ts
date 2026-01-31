@@ -18,8 +18,6 @@ describe("food", () => {
 	let gameSettings: GameSettings;
 
 	beforeEach(() => {
-		vi.clearAllMocks();
-
 		gameSettings = new GameSettings();
 		gameSettings.foodPartsOnCanvas = 2;
 		container.registerInstance("GameSettings", gameSettings);

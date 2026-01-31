@@ -1,10 +1,12 @@
 import { Position, SnakeDirection } from "@/types/snake-types";
 import { container, singleton } from "tsyringe";
 import { GameSettings } from "@/settings";
+import { SoundSettings } from "@/game-engine/sound-settings";
 
 @singleton()
 export class GameState {
 	readonly #gameSettings = container.resolve<GameSettings>("GameSettings");
+	readonly #soundSettings = container.resolve<SoundSettings>("SoundSettings");
 
 	canvasGridPositions: Position[] = [];
 	snakePositions: Position[] = [];
@@ -13,7 +15,7 @@ export class GameState {
 	currentSnakeDirection = this.#gameSettings.snakeStartingDirection;
 	snakeDirectionQueue: SnakeDirection[] = [];
 	highScore = 0;
-	soundsEnabled = true;
+	soundsEnabled = this.#soundSettings.isSoundEnabled();
 
 	get snakePartsCount(): number {
 		return this.snakePositions.length;

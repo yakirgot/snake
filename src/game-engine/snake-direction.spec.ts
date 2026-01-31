@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { container } from "tsyringe";
 import { GameState } from "@/game-engine/game-state";
 import { GameSettings } from "@/settings";
@@ -13,12 +13,10 @@ describe("snake direction", () => {
 	let gameSettings: GameSettings;
 
 	beforeEach(() => {
-		vi.clearAllMocks();
-
 		gameSettings = new GameSettings();
 		container.registerInstance("GameSettings", gameSettings);
 
-		gameState = new GameState();
+		gameState = container.resolve(GameState);
 		container.registerInstance("GameState", gameState);
 	});
 
