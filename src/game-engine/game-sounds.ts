@@ -1,3 +1,6 @@
+import { container } from "tsyringe";
+import { GameState } from "@/game-engine/game-state";
+
 export class GameSounds {
 	#audioContext: AudioContext;
 
@@ -11,6 +14,11 @@ export class GameSounds {
 		// eslint-disable-next-line no-undef
 		type: OscillatorType = "sine",
 	): void {
+		const gameState = container.resolve<GameState>("GameState");
+		if (!gameState.soundsEnabled) {
+			return;
+		}
+
 		try {
 			const context = this.#audioContext;
 			const oscillator = context.createOscillator();

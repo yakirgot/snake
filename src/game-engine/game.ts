@@ -31,6 +31,7 @@ let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
 let highScoreElement: HTMLElement;
 let announcerElement: HTMLElement;
+let soundToggleButton: HTMLButtonElement;
 let moveSnakeIntervalId: ReturnType<typeof setTimeout> | undefined;
 
 export async function bootstrapGame(): Promise<void> {
@@ -47,12 +48,16 @@ export async function bootstrapGame(): Promise<void> {
 		"[data-snake-game-start-button]",
 	) as HTMLButtonElement;
 	announcerElement = document.querySelector("#game-announcer") as HTMLElement;
+	soundToggleButton = document.querySelector(
+		"[data-sound-toggle]",
+	) as HTMLButtonElement;
 
 	if (
 		!pointsElement ||
 		!highScoreElement ||
 		!startButton ||
-		!announcerElement
+		!announcerElement ||
+		!soundToggleButton
 	) {
 		console.error("Required DOM elements not found");
 		return;
@@ -74,6 +79,15 @@ export async function bootstrapGame(): Promise<void> {
 	}
 
 	startButton.disabled = false;
+
+	const gameState = container.resolve<GameState>("GameState");
+	soundToggleButton.textContent = `Sound: ${gameState.soundsEnabled ? "ON" : "OFF"}`;
+
+	soundToggleButton.addEventListener("click", () => {
+		gameState.soundsEnabled = !gameState.soundsEnabled;
+		soundToggleButton.textContent = `Sound: ${gameState.soundsEnabled ? "ON" : "OFF"}`;
+		announce(`Sound ${gameState.soundsEnabled ? "enabled" : "disabled"}`);
+	});
 
 	startButton.addEventListener("click", () => {
 		startButton.disabled = true;

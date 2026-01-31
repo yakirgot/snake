@@ -42,13 +42,15 @@
 		padding: 0.188rem;
 	}
 
-	.snake-game-start-button-container {
+	.snake-game-start-button-container,
+	.snake-game-sound-button-container {
 		display: flex;
 		justify-content: center;
 		margin-block-start: 1.875rem;
 	}
 
-	.snake-game-start-button {
+	.snake-game-start-button,
+	.snake-game-sound-button {
 		background-color: var(--color-dark-slate-gray);
 		border-radius: 0.188rem;
 		color: var(--color-eggshell);

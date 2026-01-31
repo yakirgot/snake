@@ -13,6 +13,7 @@ export class GameState {
 	currentSnakeDirection = this.#gameSettings.snakeStartingDirection;
 	snakeDirectionQueue: SnakeDirection[] = [];
 	highScore = 0;
+	soundsEnabled = true;
 
 	get snakePartsCount(): number {
 		return this.snakePositions.length;
