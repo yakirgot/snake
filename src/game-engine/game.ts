@@ -24,9 +24,9 @@ import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameState } from "@/game-engine/game-state";
 import { HighScore } from "@/game-engine/high-score";
-import { GameSounds } from "@/game-engine/game-sounds";
+import { GameSounds } from "@/game-engine/audio/game-sounds";
 import { getAllPartsPositions } from "@/game-engine/all-parts-positions/all-parts-positions";
-import { SoundSettings } from "@/game-engine/sound-settings";
+import { SoundSettings } from "@/game-engine/audio/sound-settings";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;

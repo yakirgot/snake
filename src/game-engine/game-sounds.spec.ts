@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
-import { GameSounds } from "@/game-engine/game-sounds";
+import { GameSounds } from "@/game-engine/audio/game-sounds";
 import { GameState } from "@/game-engine/game-state";
 import { GameSettings } from "@/settings";
 
@@ -35,7 +35,7 @@ describe(GameSounds, () => {
 		gameSounds = new GameSounds();
 	});
 
-	it("should play sound when sounds are enabled", () => {
+	it("should play sound when audio are enabled", () => {
 		gameState.soundsEnabled = true;
 
 		gameSounds.playEatSound();
@@ -43,7 +43,7 @@ describe(GameSounds, () => {
 		expect(mockCreateOscillator).toHaveBeenCalledWith();
 	});
 
-	it("should NOT play sound when sounds are disabled", () => {
+	it("should NOT play sound when audio are disabled", () => {
 		gameState.soundsEnabled = false;
 
 		gameSounds.playEatSound();
