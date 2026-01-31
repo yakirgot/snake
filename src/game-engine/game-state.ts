@@ -1,5 +1,4 @@
-import { Position } from "@/types/snake-types";
-import { SnakeDirection } from "@/types/snake-types";
+import { Position, SnakeDirection } from "@/types/snake-types";
 import { container, singleton } from "tsyringe";
 import { GameSettings } from "@/settings";
 
@@ -13,6 +12,7 @@ export class GameState {
 	pendingSnakeGrowthSteps = 0;
 	currentSnakeDirection = this.#gameSettings.snakeStartingDirection;
 	snakeDirectionQueue: SnakeDirection[] = [];
+	highScore = 0;
 
 	get snakePartsCount(): number {
 		return this.snakePositions.length;

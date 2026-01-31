@@ -5,18 +5,18 @@ import {
 } from "@/game-engine/canvas/canvas-setup";
 import {
 	getNextSnakeHeadPosition,
-	moveSnake,
 	initializeSnakePosition,
+	moveSnake,
 	resetSnake,
 } from "@/game-engine/snake";
 import {
-	spawnInitialFood,
 	replaceFoodPositionIfWasEaten,
 	resetFood,
+	spawnInitialFood,
 } from "@/game-engine/food";
 import {
-	initializeKeyboardInputListeners,
 	applyNextDirection,
+	initializeKeyboardInputListeners,
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
 import { checkSnakeCollision } from "@/game-engine/collision-detection";
@@ -24,9 +24,11 @@ import { getAllPartsPositions } from "@/game-engine/all-parts-positions/all-part
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameState } from "@/game-engine/game-state";
+import { HighScore } from "@/game-engine/high-score";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
+let highScoreElement: HTMLElement;
 let announcerElement: HTMLElement;
 let moveSnakeIntervalId: ReturnType<typeof setTimeout> | undefined;
 
@@ -39,12 +41,18 @@ export async function bootstrapGame(): Promise<void> {
 	}
 
 	pointsElement = document.querySelector("[data-game-points]") as HTMLElement;
+	highScoreElement = document.querySelector("[data-high-score]") as HTMLElement;
 	startButton = document.querySelector(
 		"[data-snake-game-start-button]",
 	) as HTMLButtonElement;
 	announcerElement = document.querySelector("#game-announcer") as HTMLElement;
 
-	if (!pointsElement || !startButton || !announcerElement) {
+	if (
+		!pointsElement ||
+		!highScoreElement ||
+		!startButton ||
+		!announcerElement
+	) {
 		console.error("Required DOM elements not found");
 		return;
 	}
@@ -53,7 +61,11 @@ export async function bootstrapGame(): Promise<void> {
 
 	try {
 		const gameState = container.resolve<GameState>("GameState");
+		const highScore = container.resolve<HighScore>("HighScore");
+
 		gameState.canvasGridPositions = await getAllPartsPositions();
+		gameState.highScore = highScore.getHighScore();
+		updateHighScoreDisplay();
 	} catch (error) {
 		console.error("Failed to initialize game positions:", error);
 		startButton.disabled = false;
@@ -124,6 +136,14 @@ function endGame(): void {
 	startButton.disabled = false;
 
 	const gameState = container.resolve<GameState>("GameState");
+	const highScore = container.resolve<HighScore>("HighScore");
+
+	if (gameState.snakePartsCount > gameState.highScore) {
+		gameState.highScore = gameState.snakePartsCount;
+		highScore.saveHighScore(gameState.highScore);
+		updateHighScoreDisplay();
+	}
+
 	announce(
 		`Game over. Final score: ${gameState.snakePartsCount} points. Press start to play again.`,
 	);
@@ -154,5 +174,13 @@ function updateGamePointsBySnakeParts(): void {
 
 	pointsElement.textContent = new Intl.NumberFormat().format(
 		gameState.snakePartsCount,
+	);
+}
+
+function updateHighScoreDisplay(): void {
+	const gameState = container.resolve<GameState>("GameState");
+
+	highScoreElement.textContent = new Intl.NumberFormat().format(
+		gameState.highScore,
 	);
 }
