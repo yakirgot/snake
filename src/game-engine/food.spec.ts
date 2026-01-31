@@ -3,9 +3,9 @@ import { container } from "tsyringe";
 import { GameState } from "@/game-engine/game-state";
 import { GameSettings } from "@/settings";
 import {
+	replaceFoodPositionIfWasEaten,
 	resetFood,
 	spawnInitialFood,
-	replaceFoodPositionIfWasEaten,
 } from "@/game-engine/food";
 
 vi.mock(import("@/game-engine/canvas/canvas-draw"), () => ({
@@ -24,7 +24,7 @@ describe("food", () => {
 		gameSettings.foodPartsOnCanvas = 2;
 		container.registerInstance("GameSettings", gameSettings);
 
-		gameState = new GameState();
+		gameState = container.resolve(GameState);
 		gameState.canvasGridPositions = [
 			[0, 0],
 			[16, 0],

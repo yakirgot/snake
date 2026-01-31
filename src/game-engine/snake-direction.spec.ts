@@ -17,6 +17,7 @@ describe("snake direction", () => {
 
 		gameSettings = new GameSettings();
 		container.registerInstance("GameSettings", gameSettings);
+
 		gameState = new GameState();
 		container.registerInstance("GameState", gameState);
 	});

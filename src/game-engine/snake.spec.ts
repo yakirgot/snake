@@ -26,7 +26,7 @@ describe("snake movement", () => {
 		gameSettings.partSizeInPx = 14;
 		container.registerInstance("GameSettings", gameSettings);
 
-		gameState = new GameState();
+		gameState = container.resolve(GameState);
 		container.registerInstance("GameState", gameState);
 	});
 

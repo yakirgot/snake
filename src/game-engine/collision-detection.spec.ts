@@ -32,7 +32,7 @@ describe("collision detection", () => {
 			gameSettings.snakeGapInPx = 1;
 			container.registerInstance("GameSettings", gameSettings);
 
-			const gameState = new GameState();
+			const gameState = container.resolve(GameState);
 			gameState.snakePositions.push([2, 2]);
 			container.registerInstance("GameState", gameState);
 		});
