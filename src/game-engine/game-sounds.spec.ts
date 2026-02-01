@@ -4,6 +4,8 @@ import { GameSounds } from "@/game-engine/audio/game-sounds";
 import { GameState } from "@/game-engine/game-state";
 import { GameSettings } from "@/settings";
 
+/* eslint-disable vitest/require-mock-type-parameters */
+
 const mockCreateOscillator = vi.fn().mockReturnValue({
 	connect: vi.fn(),
 	start: vi.fn(),
