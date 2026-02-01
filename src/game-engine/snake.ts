@@ -1,4 +1,8 @@
-import { drawSnakePart, erasePart } from "@/game-engine/canvas/canvas-draw";
+import {
+	drawSnakeHeadPart,
+	drawSnakePart,
+	erasePart,
+} from "@/game-engine/canvas/canvas-draw";
 import { Position } from "@/types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
@@ -69,11 +73,11 @@ function addAndDrawSnakePart(position: Position): void {
 
 	const previousHeadPosition = gameState.snakePositions.at(-1);
 	if (previousHeadPosition) {
-		drawSnakePart(previousHeadPosition, false);
+		drawSnakePart(previousHeadPosition);
 	}
 
 	gameState.snakePositions.push(position);
-	drawSnakePart(position, true);
+	drawSnakeHeadPart(position);
 }
 
 function eraseSnakeTail(): void {

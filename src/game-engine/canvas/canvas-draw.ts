@@ -9,14 +9,15 @@ import {
 import { canvasContext } from "@/game-engine/canvas/canvas-setup";
 import { GameState } from "@/game-engine/game-state";
 
-export function drawSnakePart(snakePosition: Position, isHead = false) {
+export function drawSnakePart(snakePosition: Position) {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 
 	drawPart(snakePosition, snakeColor, gameSettings.snakePartRadiiInPx);
+}
 
-	if (isHead) {
-		drawEyes(snakePosition);
-	}
+export function drawSnakeHeadPart(snakePosition: Position) {
+	drawSnakePart(snakePosition);
+	drawEyes(snakePosition);
 }
 
 function drawEyes(snakePosition: Position): void {
