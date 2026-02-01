@@ -23,10 +23,7 @@ function setCanvasSize(): void {
 	const { canvasWidthInPx, canvasHeightInPx } = gameSettings;
 
 	canvasElement.width = canvasWidthInPx;
-	canvasElement.style.width = `${canvasWidthInPx}px`;
-
 	canvasElement.height = canvasHeightInPx;
-	canvasElement.style.height = `${canvasHeightInPx}px`;
 }
 
 export function clearCanvas(): void {

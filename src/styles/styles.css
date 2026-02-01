@@ -39,6 +39,8 @@
 		background-color: var(--color-maize-crayola);
 		border: 0.125rem dashed var(--color-metallic-sunburst);
 		border-radius: 0.188rem;
+		height: auto;
+		max-width: 100%;
 		padding: 0.188rem;
 	}
 
