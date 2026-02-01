@@ -21,6 +21,9 @@ export class GameSounds {
 
 		try {
 			const context = this.#audioContext;
+			if (context.state === "suspended") {
+				void context.resume();
+			}
 			const oscillator = context.createOscillator();
 			const gainNode = context.createGain();
 
