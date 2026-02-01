@@ -66,9 +66,14 @@ export function initializeSnakePosition(): void {
 
 function addAndDrawSnakePart(position: Position): void {
 	const gameState = container.resolve<GameState>("GameState");
-	gameState.snakePositions.push(position);
 
-	drawSnakePart(position);
+	const previousHeadPosition = gameState.snakePositions.at(-1);
+	if (previousHeadPosition) {
+		drawSnakePart(previousHeadPosition, false);
+	}
+
+	gameState.snakePositions.push(position);
+	drawSnakePart(position, true);
 }
 
 function eraseSnakeTail(): void {

@@ -8,6 +8,7 @@ import {
 	moveSnake,
 	resetSnake,
 } from "@/game-engine/snake";
+import { drawSnakePart } from "@/game-engine/canvas/canvas-draw";
 
 vi.mock(import("@/game-engine/canvas/canvas-draw"), () => ({
 	drawSnakePart: vi.fn<() => void>(),
@@ -75,6 +76,15 @@ describe("snake movement", () => {
 	});
 
 	describe(moveSnake, () => {
+		it("should draw previous head as body and new head as head", () => {
+			gameState.snakePositions = [[16, 16]];
+
+			moveSnake([32, 16]);
+
+			expect(drawSnakePart).toHaveBeenCalledWith([16, 16], false);
+			expect(drawSnakePart).toHaveBeenCalledWith([32, 16], true);
+		});
+
 		it("should move snake and erase tail when not growing", () => {
 			gameState.snakePositions = [
 				[16, 16],
