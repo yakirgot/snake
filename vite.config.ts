@@ -15,6 +15,8 @@ export default defineConfig({
 		outDir: "../dist",
 	},
 	test: {
+		root: ".",
+		include: ["src/**/*.spec.ts"],
 		environment: "jsdom",
 		setupFiles: ["@vitest/web-worker", "./src/test-setup.ts"],
 	},
