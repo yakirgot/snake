@@ -8,7 +8,7 @@ export class SoundSettings {
 	isSoundEnabled(): boolean {
 		const saved = this.#storage.getItem(this.#storageKey);
 		if (saved === null) {
-			return true;
+			return false;
 		}
 		return saved === "true";
 	}
