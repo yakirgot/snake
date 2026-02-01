@@ -250,6 +250,54 @@ describe("snake direction", () => {
 
 			expect(gameState.snakeDirectionQueue).toHaveLength(0);
 		});
+
+		it("should ignore multi-touch start", () => {
+			initializeTouchInputListeners();
+			resetSnakeDirection(); // Ensure clean state
+
+			const startEvent = new CustomEvent("touchstart", {
+				bubbles: true,
+			}) as any;
+			// Simulating 2 fingers
+			startEvent.touches = [
+				{ clientX: 100, clientY: 100 },
+				{ clientX: 150, clientY: 150 },
+			];
+			globalThis.dispatchEvent(startEvent);
+
+			const endEvent = new CustomEvent("touchend", {
+				bubbles: true,
+			}) as any;
+			endEvent.changedTouches = [{ clientX: 200, clientY: 100 }];
+			globalThis.dispatchEvent(endEvent);
+
+			// Should be empty because touchStartX/Y were not updated from their reset values (0,0)
+			// But wait, if they are (0,0), then (200, 100) - (0,0) = (200, 100) which is a swipe right.
+			// So if we want to truly ignore it, we might need a flag or check if it was initialized.
+			expect(gameState.snakeDirectionQueue).toHaveLength(0);
+		});
+
+		it("should ignore multi-touch end", () => {
+			initializeTouchInputListeners();
+
+			const startEvent = new CustomEvent("touchstart", {
+				bubbles: true,
+			}) as any;
+			startEvent.touches = [{ clientX: 100, clientY: 100 }];
+			globalThis.dispatchEvent(startEvent);
+
+			const endEvent = new CustomEvent("touchend", {
+				bubbles: true,
+			}) as any;
+			// Simulating 2 fingers changed
+			endEvent.changedTouches = [
+				{ clientX: 200, clientY: 100 },
+				{ clientX: 250, clientY: 150 },
+			];
+			globalThis.dispatchEvent(endEvent);
+
+			expect(gameState.snakeDirectionQueue).toHaveLength(0);
+		});
 	});
 	/* eslint-enable @typescript-eslint/no-explicit-any */
 });

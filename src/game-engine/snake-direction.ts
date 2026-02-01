@@ -5,6 +5,7 @@ import { GameState } from "@/game-engine/game-state";
 
 let touchStartX = 0;
 let touchStartY = 0;
+let isTouchActive = false;
 
 /**
  * Initializes listeners for keyboard events to control the snake.
@@ -102,11 +103,21 @@ function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
 }
 
 function handleTouchStart(event: TouchEvent): void {
+	if (event.touches.length !== 1) {
+		isTouchActive = false;
+		return;
+	}
 	touchStartX = event.touches[0].clientX;
 	touchStartY = event.touches[0].clientY;
+	isTouchActive = true;
 }
 
 function handleTouchEnd(event: TouchEvent): void {
+	if (!isTouchActive || event.changedTouches.length !== 1) {
+		isTouchActive = false;
+		return;
+	}
+	isTouchActive = false;
 	const touchEndX = event.changedTouches[0].clientX;
 	const touchEndY = event.changedTouches[0].clientY;
 
