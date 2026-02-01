@@ -103,6 +103,8 @@ function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
 }
 
 function handleTouchStart(event: TouchEvent): void {
+	event.preventDefault();
+
 	if (event.touches.length !== 1) {
 		isTouchActive = false;
 		return;
