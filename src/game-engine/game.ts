@@ -65,8 +65,6 @@ export async function bootstrapGame(): Promise<void> {
 		return;
 	}
 
-	startButton.disabled = true;
-
 	try {
 		const gameState = container.resolve<GameState>("GameState");
 		const highScore = container.resolve<HighScore>("HighScore");
@@ -76,11 +74,8 @@ export async function bootstrapGame(): Promise<void> {
 		updateHighScoreDisplay();
 	} catch (error) {
 		console.error("Failed to initialize game positions:", error);
-		startButton.disabled = false;
 		return;
 	}
-
-	startButton.disabled = false;
 
 	const gameState = container.resolve<GameState>("GameState");
 	const soundSettings = container.resolve<SoundSettings>("SoundSettings");
