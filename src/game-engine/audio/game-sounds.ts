@@ -2,10 +2,13 @@ import { container } from "tsyringe";
 import { GameState } from "@/game-engine/game-state";
 
 export class GameSounds {
-	#audioContext: AudioContext;
+	#audioContext: AudioContext | undefined;
 
-	constructor() {
-		this.#audioContext = new AudioContext();
+	#getAudioContext(): AudioContext {
+		if (!this.#audioContext) {
+			this.#audioContext = new AudioContext();
+		}
+		return this.#audioContext;
 	}
 
 	#playTone(
@@ -20,7 +23,7 @@ export class GameSounds {
 		}
 
 		try {
-			const context = this.#audioContext;
+			const context = this.#getAudioContext();
 			if (context.state === "suspended") {
 				void context.resume();
 			}
