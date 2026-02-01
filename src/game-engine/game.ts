@@ -83,12 +83,13 @@ export async function bootstrapGame(): Promise<void> {
 
 	const gameState = container.resolve<GameState>("GameState");
 	const soundSettings = container.resolve<SoundSettings>("SoundSettings");
-	soundToggleButton.textContent = `Sound: ${gameState.soundsEnabled ? "ON" : "OFF"}`;
+
+	updateSoundButton(gameState.soundsEnabled);
 
 	soundToggleButton.addEventListener("click", () => {
 		gameState.soundsEnabled = !gameState.soundsEnabled;
 		soundSettings.saveSoundSetting(gameState.soundsEnabled);
-		soundToggleButton.textContent = `Sound: ${gameState.soundsEnabled ? "ON" : "OFF"}`;
+		updateSoundButton(gameState.soundsEnabled);
 		announce(`Sound ${gameState.soundsEnabled ? "enabled" : "disabled"}`);
 	});
 
@@ -97,6 +98,14 @@ export async function bootstrapGame(): Promise<void> {
 
 		startGame();
 	});
+}
+
+function updateSoundButton(isEnabled: boolean): void {
+	soundToggleButton.textContent = `${isEnabled ? "🔊" : "🔇"}`;
+	soundToggleButton.setAttribute(
+		"aria-label",
+		`Turn sound ${isEnabled ? "off" : "on"}`,
+	);
 }
 
 function startGame(): void {
