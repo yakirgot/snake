@@ -5,6 +5,7 @@ import { GameSettings } from "@/settings";
 import {
 	applyNextDirection,
 	initializeKeyboardInputListeners,
+	initializeTouchInputListeners,
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
 
@@ -157,4 +158,98 @@ describe("snake direction", () => {
 			expect(gameState.snakeDirectionQueue.at(-1)).toBe("right");
 		});
 	});
+
+	/* eslint-disable @typescript-eslint/no-explicit-any */
+	describe("touch input", () => {
+		it("should detect swipe up", () => {
+			initializeTouchInputListeners();
+
+			const startEvent = new CustomEvent("touchstart", {
+				bubbles: true,
+			}) as any;
+			startEvent.touches = [{ clientX: 100, clientY: 200 }];
+			globalThis.dispatchEvent(startEvent);
+
+			const endEvent = new CustomEvent("touchend", {
+				bubbles: true,
+			}) as any;
+			endEvent.changedTouches = [{ clientX: 100, clientY: 100 }];
+			globalThis.dispatchEvent(endEvent);
+
+			expect(gameState.snakeDirectionQueue).toContain("up");
+		});
+
+		it("should detect swipe down", () => {
+			initializeTouchInputListeners();
+
+			const startEvent = new CustomEvent("touchstart", {
+				bubbles: true,
+			}) as any;
+			startEvent.touches = [{ clientX: 100, clientY: 100 }];
+			globalThis.dispatchEvent(startEvent);
+
+			const endEvent = new CustomEvent("touchend", {
+				bubbles: true,
+			}) as any;
+			endEvent.changedTouches = [{ clientX: 100, clientY: 200 }];
+			globalThis.dispatchEvent(endEvent);
+
+			expect(gameState.snakeDirectionQueue).toContain("down");
+		});
+
+		it("should detect swipe left", () => {
+			initializeTouchInputListeners();
+
+			const startEvent = new CustomEvent("touchstart", {
+				bubbles: true,
+			}) as any;
+			startEvent.touches = [{ clientX: 200, clientY: 100 }];
+			globalThis.dispatchEvent(startEvent);
+
+			const endEvent = new CustomEvent("touchend", {
+				bubbles: true,
+			}) as any;
+			endEvent.changedTouches = [{ clientX: 100, clientY: 100 }];
+			globalThis.dispatchEvent(endEvent);
+
+			expect(gameState.snakeDirectionQueue).toContain("left");
+		});
+
+		it("should detect swipe right", () => {
+			initializeTouchInputListeners();
+
+			const startEvent = new CustomEvent("touchstart", {
+				bubbles: true,
+			}) as any;
+			startEvent.touches = [{ clientX: 100, clientY: 100 }];
+			globalThis.dispatchEvent(startEvent);
+
+			const endEvent = new CustomEvent("touchend", {
+				bubbles: true,
+			}) as any;
+			endEvent.changedTouches = [{ clientX: 200, clientY: 100 }];
+			globalThis.dispatchEvent(endEvent);
+
+			expect(gameState.snakeDirectionQueue).toContain("right");
+		});
+
+		it("should ignore small movements", () => {
+			initializeTouchInputListeners();
+
+			const startEvent = new CustomEvent("touchstart", {
+				bubbles: true,
+			}) as any;
+			startEvent.touches = [{ clientX: 100, clientY: 100 }];
+			globalThis.dispatchEvent(startEvent);
+
+			const endEvent = new CustomEvent("touchend", {
+				bubbles: true,
+			}) as any;
+			endEvent.changedTouches = [{ clientX: 110, clientY: 110 }];
+			globalThis.dispatchEvent(endEvent);
+
+			expect(gameState.snakeDirectionQueue).toHaveLength(0);
+		});
+	});
+	/* eslint-enable @typescript-eslint/no-explicit-any */
 });

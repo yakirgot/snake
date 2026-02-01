@@ -17,6 +17,7 @@ import {
 import {
 	applyNextDirection,
 	initializeKeyboardInputListeners,
+	initializeTouchInputListeners,
 	resetSnakeDirection,
 } from "@/game-engine/snake-direction";
 import { checkSnakeCollision } from "@/game-engine/collision-detection";
@@ -116,8 +117,9 @@ function startGame(): void {
 	initializeSnakePosition();
 	spawnInitialFood();
 	initializeKeyboardInputListeners();
+	initializeTouchInputListeners();
 	updateGamePointsBySnakeParts();
-	announce("Game started. Use arrow keys to move.");
+	announce("Game started. Use arrow keys or swipe to move.");
 	startGameLoop();
 }
 

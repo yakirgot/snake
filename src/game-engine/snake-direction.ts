@@ -3,6 +3,9 @@ import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameState } from "@/game-engine/game-state";
 
+let touchStartX = 0;
+let touchStartY = 0;
+
 /**
  * Initializes listeners for keyboard events to control the snake.
  */
@@ -11,8 +14,16 @@ export function initializeKeyboardInputListeners(): void {
 }
 
 /**
+ * Initializes listeners for touch events to control the snake via swipes.
+ */
+export function initializeTouchInputListeners(): void {
+	addEventListener("touchstart", handleTouchStart, { passive: false });
+	addEventListener("touchend", handleTouchEnd, { passive: false });
+}
+
+/**
  * Resets the snake's direction to its initial state and clears the input queue.
- * Also removes the keyboard event listener.
+ * Also removes the keyboard and touch event listeners.
  */
 export function resetSnakeDirection(): void {
 	const gameState = container.resolve<GameState>("GameState");
@@ -22,6 +33,8 @@ export function resetSnakeDirection(): void {
 	gameState.snakeDirectionQueue.length = 0;
 
 	removeEventListener("keydown", handleKeyboardInput);
+	removeEventListener("touchstart", handleTouchStart);
+	removeEventListener("touchend", handleTouchEnd);
 }
 
 /**
@@ -84,6 +97,39 @@ function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
 
 	if (direction) {
 		keyboardEvent.preventDefault();
+		addSnakeDirectionToQueue(direction);
+	}
+}
+
+function handleTouchStart(event: TouchEvent): void {
+	touchStartX = event.touches[0].clientX;
+	touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchEnd(event: TouchEvent): void {
+	const touchEndX = event.changedTouches[0].clientX;
+	const touchEndY = event.changedTouches[0].clientY;
+
+	const deltaX = touchEndX - touchStartX;
+	const deltaY = touchEndY - touchStartY;
+
+	const absDeltaX = Math.abs(deltaX);
+	const absDeltaY = Math.abs(deltaY);
+
+	// Ignore small movements
+	if (Math.max(absDeltaX, absDeltaY) < 30) {
+		return;
+	}
+
+	let direction: SnakeDirection | undefined;
+
+	if (absDeltaX > absDeltaY) {
+		direction = deltaX > 0 ? "right" : "left";
+	} else {
+		direction = deltaY > 0 ? "down" : "up";
+	}
+
+	if (direction) {
 		addSnakeDirectionToQueue(direction);
 	}
 }
