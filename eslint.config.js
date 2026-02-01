@@ -40,7 +40,7 @@ export default tsEslint.config(
 		extends: [markdown.configs.recommended],
 	},
 	{
-		files: ["**/*.spec.ts"],
+		files: ["src/**/*.spec.ts"],
 		plugins: { vitest },
 		extends: [vitest.configs.all],
 		rules: {
