@@ -86,16 +86,13 @@ function getSnakeStartingPoint(): Position {
 		snakeSizeWithGap,
 	} = gameSettings;
 
-	const canvasWidthInPx = canvasWidthInSnakeParts * snakeSizeWithGap;
-	const quarterScreenX = canvasWidthInPx / 4;
+	const xGridCoordinate = Math.floor(canvasWidthInSnakeParts / 4);
+	const yGridCoordinate = Math.floor(canvasHeightInSnakeParts / 2);
 
-	const canvasHeightInPx = canvasHeightInSnakeParts * snakeSizeWithGap;
-	const yCoordinate = canvasHeightInPx / 2;
-
-	const normalizedX = Math.floor(quarterScreenX);
-	const normalizedY = Math.floor(yCoordinate);
-
-	const snakeStartingPosition: Position = [normalizedX, normalizedY];
+	const snakeStartingPosition: Position = [
+		xGridCoordinate * snakeSizeWithGap,
+		yGridCoordinate * snakeSizeWithGap,
+	];
 
 	return snakeStartingPosition;
 }

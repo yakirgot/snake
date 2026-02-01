@@ -136,6 +136,27 @@ describe("snake movement", () => {
 				[192, 160],
 			]);
 		});
+
+		it("should align snake perfectly even with odd canvas dimensions", () => {
+			gameSettings.snakeInitialLength = 3;
+			gameSettings.canvasWidthInSnakeParts = 41; // Odd number
+			gameSettings.canvasHeightInSnakeParts = 21; // Odd number
+			gameSettings.partSizeInPx = 14;
+			gameSettings.snakeGapInPx = 2; // snakeSizeWithGap = 16
+
+			initializeSnakePosition();
+
+			// Current implementation:
+			// quarterScreenX = (41 * 16) / 4 = 164
+			// yCoordinate = (21 * 16) / 2 = 168
+			// normalizedX = 164, normalizedY = 168
+			// 164 is not a multiple of 16 (164 / 16 = 10.25)
+
+			for (const pos of gameState.snakePositions) {
+				expect(pos[0] % 16).toBe(0);
+				expect(pos[1] % 16).toBe(0);
+			}
+		});
 	});
 
 	describe(resetSnake, () => {
