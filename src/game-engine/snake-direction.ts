@@ -12,6 +12,7 @@ let isTouchActive = false;
  * Initializes listeners for keyboard events to control the snake.
  */
 export function initializeKeyboardInputListeners(): void {
+	resetSnakeDirection();
 	addEventListener("keydown", handleKeyboardInput);
 }
 
@@ -19,6 +20,7 @@ export function initializeKeyboardInputListeners(): void {
  * Initializes listeners for touch events to control the snake via swipes.
  */
 export function initializeTouchInputListeners(): void {
+	resetSnakeDirection();
 	addEventListener("touchstart", handleTouchStart, { passive: false });
 	addEventListener("touchend", handleTouchEnd, { passive: false });
 }
