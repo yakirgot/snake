@@ -29,6 +29,8 @@ jobs:
           node-version: 22
           cache: "npm"
       - run: npm ci
+      - name: Security audit
+        run: npm audit --audit-level=high
       - run: npm run lint:scripts
       - run: npm run lint:styles
       - run: npm run type-check
