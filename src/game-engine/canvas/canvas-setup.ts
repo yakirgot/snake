@@ -2,16 +2,19 @@ import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameState } from "@/game-engine/game-state";
 import { canvasColor, snakeColor } from "@/game-engine/canvas/canvas-colors";
+import { getRequiredElement } from "@/game-engine/utils/dom";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;
 
 export function setupCanvas(): void {
-	canvasElement = document.querySelector<HTMLCanvasElement>(
-		"[data-snake-game]",
-	) as HTMLCanvasElement;
+	canvasElement = getRequiredElement<HTMLCanvasElement>("[data-snake-game]");
 
-	canvasContext = canvasElement.getContext("2d") as CanvasRenderingContext2D;
+	const context = canvasElement.getContext("2d");
+	if (!context) {
+		throw new Error("Could not get 2D context from canvas");
+	}
+	canvasContext = context;
 
 	setCanvasSize();
 

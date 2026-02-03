@@ -28,6 +28,7 @@ import { HighScore } from "@/game-engine/high-score";
 import { GameSounds } from "@/game-engine/audio/game-sounds";
 import { getAllPartsPositions } from "@/game-engine/all-parts-positions/all-parts-positions";
 import { SoundSettings } from "@/game-engine/audio/sound-settings";
+import { getRequiredElement } from "@/game-engine/utils/dom";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
@@ -44,24 +45,18 @@ export async function bootstrapGame(): Promise<void> {
 		return;
 	}
 
-	pointsElement = document.querySelector("[data-game-points]") as HTMLElement;
-	highScoreElement = document.querySelector("[data-high-score]") as HTMLElement;
-	startButton = document.querySelector(
-		"[data-snake-game-start-button]",
-	) as HTMLButtonElement;
-	announcerElement = document.querySelector("#game-announcer") as HTMLElement;
-	soundToggleButton = document.querySelector(
-		"[data-sound-toggle]",
-	) as HTMLButtonElement;
-
-	if (
-		!pointsElement ||
-		!highScoreElement ||
-		!startButton ||
-		!announcerElement ||
-		!soundToggleButton
-	) {
-		console.error("Required DOM elements not found");
+	try {
+		pointsElement = getRequiredElement("[data-game-points]");
+		highScoreElement = getRequiredElement("[data-high-score]");
+		startButton = getRequiredElement<HTMLButtonElement>(
+			"[data-snake-game-start-button]",
+		);
+		announcerElement = getRequiredElement("#game-announcer");
+		soundToggleButton = getRequiredElement<HTMLButtonElement>(
+			"[data-sound-toggle]",
+		);
+	} catch (error) {
+		console.error("Required DOM elements not found:", error);
 		return;
 	}
 
