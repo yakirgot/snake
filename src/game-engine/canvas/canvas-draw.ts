@@ -97,5 +97,6 @@ export function erasePart(position: Position): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx } = gameSettings;
 
-	canvasContext.clearRect(position[0], position[1], partSizeInPx, partSizeInPx);
+	canvasContext.fillStyle = canvasColor;
+	canvasContext.fillRect(position[0], position[1], partSizeInPx, partSizeInPx);
 }
