@@ -2,6 +2,7 @@ import { SnakeDirection } from "@/types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "@/settings";
 import { GameState } from "@/game-engine/game-state";
+import { GAME_CONSTANTS, KEY_CODES } from "@/constants";
 
 let touchStartX = 0;
 let touchStartY = 0;
@@ -73,23 +74,23 @@ function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
 	let direction: SnakeDirection | undefined;
 
 	switch (keyboardEvent.code) {
-		case "ArrowUp":
-		case "KeyW": {
+		case KEY_CODES.ARROW_UP:
+		case KEY_CODES.W: {
 			direction = "up";
 			break;
 		}
-		case "ArrowDown":
-		case "KeyS": {
+		case KEY_CODES.ARROW_DOWN:
+		case KEY_CODES.S: {
 			direction = "down";
 			break;
 		}
-		case "ArrowLeft":
-		case "KeyA": {
+		case KEY_CODES.ARROW_LEFT:
+		case KEY_CODES.A: {
 			direction = "left";
 			break;
 		}
-		case "ArrowRight":
-		case "KeyD": {
+		case KEY_CODES.ARROW_RIGHT:
+		case KEY_CODES.D: {
 			direction = "right";
 			break;
 		}
@@ -129,7 +130,7 @@ function handleTouchEnd(event: TouchEvent): void {
 	const absDeltaY = Math.abs(deltaY);
 
 	// Ignore small movements
-	if (Math.max(absDeltaX, absDeltaY) < 30) {
+	if (Math.max(absDeltaX, absDeltaY) < GAME_CONSTANTS.TOUCH_THRESHOLD) {
 		return;
 	}
 

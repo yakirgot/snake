@@ -29,6 +29,7 @@ import { GameSounds } from "@/game-engine/audio/game-sounds";
 import { getAllPartsPositions } from "@/game-engine/all-parts-positions/all-parts-positions";
 import { SoundSettings } from "@/game-engine/audio/sound-settings";
 import { getRequiredElement } from "@/game-engine/utils/dom";
+import { DOM_SELECTORS } from "@/constants";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
@@ -46,14 +47,14 @@ export async function bootstrapGame(): Promise<void> {
 	}
 
 	try {
-		pointsElement = getRequiredElement("[data-game-points]");
-		highScoreElement = getRequiredElement("[data-high-score]");
+		pointsElement = getRequiredElement(DOM_SELECTORS.POINTS);
+		highScoreElement = getRequiredElement(DOM_SELECTORS.HIGH_SCORE);
 		startButton = getRequiredElement<HTMLButtonElement>(
-			"[data-snake-game-start-button]",
+			DOM_SELECTORS.START_BUTTON,
 		);
-		announcerElement = getRequiredElement("#game-announcer");
+		announcerElement = getRequiredElement(DOM_SELECTORS.ANNOUNCER);
 		soundToggleButton = getRequiredElement<HTMLButtonElement>(
-			"[data-sound-toggle]",
+			DOM_SELECTORS.SOUND_TOGGLE,
 		);
 	} catch (error) {
 		console.error("Required DOM elements not found:", error);
