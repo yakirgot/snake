@@ -82,9 +82,11 @@ function addAndDrawSnakePart(position: Position): void {
 
 function eraseSnakeTail(): void {
 	const gameState = container.resolve<GameState>("GameState");
-	const snakeTail = gameState.snakePositions.shift() as Position;
+	const snakeTail = gameState.snakePositions.shift();
 
-	erasePart(snakeTail);
+	if (snakeTail) {
+		erasePart(snakeTail);
+	}
 }
 
 function getSnakeStartingPoint(): Position {

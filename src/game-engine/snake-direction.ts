@@ -44,8 +44,7 @@ export function resetSnakeDirection(): void {
  */
 export function applyNextDirection(): void {
 	const gameState = container.resolve<GameState>("GameState");
-	const nextSnakeDirection =
-		gameState.snakeDirectionQueue.shift() as SnakeDirection;
+	const nextSnakeDirection = gameState.snakeDirectionQueue.shift();
 
 	if (!nextSnakeDirection) {
 		return;
