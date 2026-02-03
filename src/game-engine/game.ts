@@ -192,10 +192,9 @@ function endGame(): void {
 function startGameLoop(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 
-	moveSnakeIntervalId = globalThis.setInterval(
-		processGameTick,
-		gameSettings.snakeIntervalInMs,
-	);
+	moveSnakeIntervalId = globalThis.setInterval(() => {
+		globalThis.requestAnimationFrame(processGameTick);
+	}, gameSettings.snakeIntervalInMs);
 }
 
 function clearSnakeInterval(): void {
