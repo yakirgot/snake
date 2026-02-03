@@ -55,7 +55,7 @@ jobs:
           node-version: 22
           cache: "npm"
       - run: npm ci
-      - run: npm run test -- --run --reporter=default --reporter=github --coverage
+      - run: npm run test -- --run --reporter=default --reporter=github-actions --coverage
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
