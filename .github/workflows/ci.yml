@@ -3,8 +3,18 @@ name: CI/CD
 on:
   push:
     branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - "licence.txt"
+      - ".gitignore"
+      - "Dockerfile"
   pull_request:
     branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - "licence.txt"
+      - ".gitignore"
+      - "Dockerfile"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
