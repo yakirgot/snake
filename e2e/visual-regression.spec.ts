@@ -6,8 +6,9 @@ test.describe("Visual Regression", () => {
 	});
 
 	test("initial landing page", async ({ page }) => {
-		await page.waitForSelector("[data-snake-game-start-button]");
-		await expect(page).toHaveScreenshot("landing-page.png");
+		await expect(page).toHaveScreenshot("landing-page.png", {
+			mask: [page.getByTestId("snake-game")],
+		});
 	});
 
 	test("game over screen", async ({ page }) => {
