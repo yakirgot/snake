@@ -253,7 +253,6 @@ describe("snake direction", () => {
 
 		it("should ignore multi-touch start", () => {
 			initializeTouchInputListeners();
-			resetSnakeDirection(); // Ensure clean state
 
 			const startEvent = new CustomEvent("touchstart", {
 				bubbles: true,
