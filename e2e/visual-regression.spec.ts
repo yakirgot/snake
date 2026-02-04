@@ -2,10 +2,11 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Visual Regression", () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto("/");
+		await page.goto("/", { waitUntil: "networkidle" });
 	});
 
 	test("initial landing page", async ({ page }) => {
+		await page.waitForSelector("[data-snake-game-start-button]");
 		await expect(page).toHaveScreenshot("landing-page.png");
 	});
 
