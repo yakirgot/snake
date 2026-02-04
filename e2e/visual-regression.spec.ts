@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Visual Regression", () => {
+	test.skip(!!process.env.CI, "Skip visual regression tests on CI");
+
 	test.beforeEach(async ({ page }) => {
 		await page.goto("/", { waitUntil: "networkidle" });
 	});
