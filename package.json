@@ -15,7 +15,8 @@
 		"lint:styles": "npx stylelint \"src/**/*.css\"",
 		"run-all-checks": "npm run lint:scripts && npm run lint:styles && npm run type-check && vitest run && npm run test:e2e -- --reporter=dot",
 		"test:e2e": "playwright test",
-		"test:e2e:ui": "playwright test --ui"
+		"test:e2e:ui": "npm run test:e2e -- --ui",
+		"test:e2e:update": "npm run test:e2e -- --update-snapshots"
 	},
 	"dependencies": {
 		"core-js": "~3.47.0",
