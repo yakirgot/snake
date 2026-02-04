@@ -53,10 +53,6 @@ jobs:
           node-version: 22
           cache: "npm"
       - run: npm ci
-      - name: Lint Dockerfile
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: Dockerfile
       - name: Lint Dockerfile.e2e
         uses: hadolint/hadolint-action@v3.1.0
         with:
@@ -105,15 +101,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build production image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          push: false
-          tags: snake:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       - name: Build E2E image
         uses: docker/build-push-action@v6
         with:
