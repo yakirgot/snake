@@ -20,7 +20,7 @@ export function drawSnakeHeadPart(snakePosition: Position) {
 	drawEyes(snakePosition);
 }
 
-function drawEyes(snakePosition: Position): void {
+export function drawEyes(snakePosition: Position): void {
 	const gameState = container.resolve<GameState>("GameState");
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx } = gameSettings;

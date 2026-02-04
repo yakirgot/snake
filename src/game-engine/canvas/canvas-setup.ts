@@ -4,6 +4,7 @@ import { GameState } from "@/game-engine/game-state";
 import { canvasColor, snakeColor } from "@/game-engine/canvas/canvas-colors";
 import { getRequiredElement } from "@/game-engine/utils/dom";
 import { DOM_SELECTORS } from "@/constants";
+import { drawEyes } from "@/game-engine/canvas/canvas-draw";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;
@@ -60,6 +61,8 @@ export function renderGameOverSnapshot(): void {
 		canvasContext.closePath();
 		canvasContext.stroke();
 	}
+
+	drawEyes(gameState.currentSnakeHeadPosition);
 
 	canvasContext.shadowBlur = 0;
 }
