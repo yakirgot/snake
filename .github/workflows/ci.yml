@@ -128,3 +128,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - run: npx nx fix-ci
+      if: always()
