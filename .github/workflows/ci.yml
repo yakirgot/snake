@@ -130,4 +130,4 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - run: npx nx fix-ci
-      if: always()
+        if: always()
