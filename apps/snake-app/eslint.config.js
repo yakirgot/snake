@@ -9,6 +9,7 @@ export default [
 		rules: {
 			...vitest.configs.all.rules,
 			"vitest/prefer-expect-assertions": "off",
+			"vitest/require-mock-type-parameters": "off",
 			"vitest/consistent-test-filename": [
 				"error",
 				{ pattern: ".*\\.spec\\.ts$" },
