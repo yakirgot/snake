@@ -60,7 +60,7 @@
 		"vitest": "~4.0.16"
 	},
 	"engines": {
-		"node": ">=22"
+		"node": ">=24"
 	},
 	"workspaces": [
 		"apps/snake-app"

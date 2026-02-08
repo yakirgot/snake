@@ -32,7 +32,7 @@ jobs:
     outputs:
       snake-app-affected: ${{ steps.affected.outputs.snake-app }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           filter: tree:0
           fetch-depth: 0
@@ -44,9 +44,9 @@ jobs:
       - run: npx nx start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
 
       # Cache node_modules
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           cache: "npm"
 
       - run: npm ci
@@ -58,7 +58,7 @@ jobs:
         run: echo "version=$(npx playwright --version | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
 
       - name: Cache Playwright browsers
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
@@ -98,11 +98,11 @@ jobs:
     needs: [main]
     if: needs.main.outputs.snake-app-affected == 'true'
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js 22
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - name: Use Node.js 24
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           cache: "npm"
       - run: npm ci
       - run: npx nx run snake-app:build
