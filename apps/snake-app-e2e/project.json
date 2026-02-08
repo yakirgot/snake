@@ -1,0 +1,9 @@
+{
+	"name": "snake-app-e2e",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/snake-app-e2e/src",
+	"projectType": "application",
+	"tags": [],
+	"implicitDependencies": ["snake-app"],
+	"targets": {}
+}

@@ -1,27 +1,13 @@
 {
-	"compilerOptions": {
-		"target": "esnext",
-		"useDefineForClassFields": true,
-		"module": "esnext",
-		"lib": ["esnext", "dom"],
-		"moduleResolution": "node",
-		"strict": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"esModuleInterop": true,
-		"noEmit": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noImplicitReturns": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"allowSyntheticDefaultImports": true,
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["src/*"]
+	"extends": "./tsconfig.base.json",
+	"compileOnSave": false,
+	"files": [],
+	"references": [
+		{
+			"path": "./apps/snake-app-e2e"
+		},
+		{
+			"path": "./apps/snake-app"
 		}
-	},
-	"include": ["src/**/*"]
+	]
 }

@@ -1,0 +1,161 @@
+import { SnakeDirection } from "../types/snake-types";
+import { container } from "tsyringe";
+import { GameSettings } from "../settings";
+import { GameState } from "./game-state";
+import { GAME_CONSTANTS, KEY_CODES } from "../constants";
+
+let touchStartX = 0;
+let touchStartY = 0;
+let isTouchActive = false;
+
+/**
+ * Initializes listeners for keyboard events to control the snake.
+ */
+export function initializeKeyboardInputListeners(): void {
+	addEventListener("keydown", handleKeyboardInput);
+}
+
+/**
+ * Initializes listeners for touch events to control the snake via swipes.
+ */
+export function initializeTouchInputListeners(): void {
+	addEventListener("touchstart", handleTouchStart, { passive: false });
+	addEventListener("touchend", handleTouchEnd, { passive: false });
+}
+
+/**
+ * Resets the snake's direction to its initial state and clears the input queue.
+ * Also removes the keyboard and touch event listeners.
+ */
+export function resetSnakeDirection(): void {
+	const gameState = container.resolve<GameState>("GameState");
+	const gameSettings = container.resolve<GameSettings>("GameSettings");
+
+	gameState.currentSnakeDirection = gameSettings.snakeStartingDirection;
+	gameState.snakeDirectionQueue.length = 0;
+
+	removeEventListener("keydown", handleKeyboardInput);
+	removeEventListener("touchstart", handleTouchStart);
+	removeEventListener("touchend", handleTouchEnd);
+}
+
+/**
+ * Processes the next direction from the queue and updates the game state.
+ * Prevents the snake from turning 180 degrees directly.
+ */
+export function applyNextDirection(): void {
+	const gameState = container.resolve<GameState>("GameState");
+	const nextSnakeDirection = gameState.snakeDirectionQueue.shift();
+
+	if (!nextSnakeDirection) {
+		return;
+	}
+
+	const isOppositeDirection =
+		gameState.currentSnakeDirection === nextSnakeDirection ||
+		(gameState.currentSnakeDirection === "up" &&
+			nextSnakeDirection === "down") ||
+		(gameState.currentSnakeDirection === "down" &&
+			nextSnakeDirection === "up") ||
+		(gameState.currentSnakeDirection === "left" &&
+			nextSnakeDirection === "right") ||
+		(gameState.currentSnakeDirection === "right" &&
+			nextSnakeDirection === "left");
+
+	if (!isOppositeDirection) {
+		gameState.currentSnakeDirection = nextSnakeDirection;
+	}
+}
+
+/**
+ * Maps keyboard keys to snake directions and adds them to the processing queue.
+ */
+function handleKeyboardInput(keyboardEvent: KeyboardEvent): void {
+	let direction: SnakeDirection | undefined;
+
+	switch (keyboardEvent.code) {
+		case KEY_CODES.ARROW_UP:
+		case KEY_CODES.W: {
+			direction = "up";
+			break;
+		}
+		case KEY_CODES.ARROW_DOWN:
+		case KEY_CODES.S: {
+			direction = "down";
+			break;
+		}
+		case KEY_CODES.ARROW_LEFT:
+		case KEY_CODES.A: {
+			direction = "left";
+			break;
+		}
+		case KEY_CODES.ARROW_RIGHT:
+		case KEY_CODES.D: {
+			direction = "right";
+			break;
+		}
+	}
+
+	if (direction) {
+		keyboardEvent.preventDefault();
+		addSnakeDirectionToQueue(direction);
+	}
+}
+
+function handleTouchStart(event: TouchEvent): void {
+	event.preventDefault();
+
+	if (event.touches.length !== 1) {
+		isTouchActive = false;
+		return;
+	}
+	touchStartX = event.touches[0].clientX;
+	touchStartY = event.touches[0].clientY;
+	isTouchActive = true;
+}
+
+function handleTouchEnd(event: TouchEvent): void {
+	if (!isTouchActive || event.changedTouches.length !== 1) {
+		isTouchActive = false;
+		return;
+	}
+	isTouchActive = false;
+	const touchEndX = event.changedTouches[0].clientX;
+	const touchEndY = event.changedTouches[0].clientY;
+
+	const deltaX = touchEndX - touchStartX;
+	const deltaY = touchEndY - touchStartY;
+
+	const absDeltaX = Math.abs(deltaX);
+	const absDeltaY = Math.abs(deltaY);
+
+	// Ignore small movements
+	if (Math.max(absDeltaX, absDeltaY) < GAME_CONSTANTS.TOUCH_THRESHOLD) {
+		return;
+	}
+
+	let direction: SnakeDirection | undefined;
+
+	if (absDeltaX > absDeltaY) {
+		direction = deltaX > 0 ? "right" : "left";
+	} else {
+		direction = deltaY > 0 ? "down" : "up";
+	}
+
+	if (direction) {
+		addSnakeDirectionToQueue(direction);
+	}
+}
+
+/**
+ * we limit the queue size to 2 directions to allow the player to "pre-buffer"
+ * their next turn while still being able to change their mind about the second turn
+ */
+function addSnakeDirectionToQueue(snakeDirection: SnakeDirection): void {
+	const gameState = container.resolve<GameState>("GameState");
+	if (gameState.snakeDirectionQueue.length > 0) {
+		gameState.snakeDirectionQueue[1] = snakeDirection;
+	} else {
+		gameState.snakeDirectionQueue.push(snakeDirection);
+	}
+}

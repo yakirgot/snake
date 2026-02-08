@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';"
+		/>
+		<title>Snake Game</title>
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="/src/app/styles/styles.css" />
+		<script type="module" src="/src/main.ts"></script>
+	</head>
+	<body>
+		<main class="snake-game-container">
+			<h1 class="snake-game-title">
+				Snake Game -
+				<span
+					data-game-points
+					data-testid="game-points"
+					aria-live="polite"
+					aria-atomic="true"
+				>
+					0
+				</span>
+				Points (Best:
+				<span data-high-score data-testid="high-score"> 0 </span>)
+			</h1>
+
+			<div
+				id="game-announcer"
+				class="visually-hidden"
+				aria-live="assertive"
+				aria-atomic="true"
+			></div>
+
+			<canvas
+				data-snake-game
+				data-testid="snake-game"
+				class="snake-game-canvas"
+				role="img"
+				aria-label="Snake Game"
+			>
+				Your browser does not support the canvas element. This is a game of
+				Snake where you control a snake to eat food and grow.
+			</canvas>
+
+			<div class="snake-game-controls">
+				<div class="snake-game-start-button-container">
+					<button
+						class="snake-game-start-button"
+						data-snake-game-start-button
+						aria-label="Start a new snake game"
+					>
+						Start!
+					</button>
+				</div>
+
+				<div class="snake-game-sound-button-container">
+					<button
+						class="snake-game-sound-button"
+						data-sound-toggle
+						aria-label="Turn sound on"
+					>
+						🔇
+					</button>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
