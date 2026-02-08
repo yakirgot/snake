@@ -1,12 +1,13 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { getRequiredElement } from "./dom";
 
-describe(getRequiredElement, () => {
-	beforeEach(() => {
-		document.body.innerHTML = "";
-	});
+function setup() {
+	document.body.innerHTML = "";
+}
 
+describe(getRequiredElement, () => {
 	it("should return the element if it exists in the document", () => {
+		setup();
 		const div = document.createElement("div");
 		div.id = "test-id";
 		document.body.append(div);
@@ -17,6 +18,8 @@ describe(getRequiredElement, () => {
 	});
 
 	it("should throw an error if the element is not found", () => {
+		setup();
+
 		expect(() => {
 			getRequiredElement("#non-existent");
 		}).toThrowError('Element with selector "#non-existent" not found');

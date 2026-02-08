@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { container } from "tsyringe";
 import { GameState } from "./game-state";
 import { GameSettings } from "../settings";
@@ -9,20 +9,20 @@ import {
 	resetSnakeDirection,
 } from "./snake-direction";
 
+function setup() {
+	const gameSettings = new GameSettings();
+	container.registerInstance("GameSettings", gameSettings);
+
+	const gameState = container.resolve(GameState);
+	container.registerInstance("GameState", gameState);
+
+	return { gameState, gameSettings };
+}
+
 describe("snake direction", () => {
-	let gameState: GameState;
-	let gameSettings: GameSettings;
-
-	beforeEach(() => {
-		gameSettings = new GameSettings();
-		container.registerInstance("GameSettings", gameSettings);
-
-		gameState = container.resolve(GameState);
-		container.registerInstance("GameState", gameState);
-	});
-
 	describe(applyNextDirection, () => {
 		it("should change direction if valid", () => {
+			const { gameState } = setup();
 			gameState.currentSnakeDirection = "right";
 			gameState.snakeDirectionQueue.push("up");
 
@@ -32,6 +32,7 @@ describe("snake direction", () => {
 		});
 
 		it("should not change direction if it is the same", () => {
+			const { gameState } = setup();
 			gameState.currentSnakeDirection = "right";
 			gameState.snakeDirectionQueue.push("right");
 
@@ -41,6 +42,7 @@ describe("snake direction", () => {
 		});
 
 		it("should not change to opposite direction (right -> left)", () => {
+			const { gameState } = setup();
 			gameState.currentSnakeDirection = "right";
 			gameState.snakeDirectionQueue.push("left");
 
@@ -50,6 +52,7 @@ describe("snake direction", () => {
 		});
 
 		it("should not change to opposite direction (left -> right)", () => {
+			const { gameState } = setup();
 			gameState.currentSnakeDirection = "left";
 			gameState.snakeDirectionQueue.push("right");
 
@@ -59,6 +62,7 @@ describe("snake direction", () => {
 		});
 
 		it("should not change to opposite direction (up -> down)", () => {
+			const { gameState } = setup();
 			gameState.currentSnakeDirection = "up";
 			gameState.snakeDirectionQueue.push("down");
 
@@ -68,6 +72,7 @@ describe("snake direction", () => {
 		});
 
 		it("should not change to opposite direction (down -> up)", () => {
+			const { gameState } = setup();
 			gameState.currentSnakeDirection = "down";
 			gameState.snakeDirectionQueue.push("up");
 
@@ -77,6 +82,7 @@ describe("snake direction", () => {
 		});
 
 		it("should process the first direction in the queue and remove it", () => {
+			const { gameState } = setup();
 			gameState.currentSnakeDirection = "right";
 			gameState.snakeDirectionQueue.push("up", "left");
 
@@ -90,6 +96,7 @@ describe("snake direction", () => {
 		});
 
 		it("should not change direction if queue is empty", () => {
+			const { gameState } = setup();
 			gameState.currentSnakeDirection = "right";
 
 			applyNextDirection();
@@ -100,6 +107,7 @@ describe("snake direction", () => {
 
 	describe(resetSnakeDirection, () => {
 		it("should reset direction and clear queue", () => {
+			const { gameState, gameSettings } = setup();
 			gameSettings.snakeStartingDirection = "down";
 			gameState.currentSnakeDirection = "right";
 			gameState.snakeDirectionQueue.push("up");
@@ -113,6 +121,7 @@ describe("snake direction", () => {
 
 	describe("keyboard input", () => {
 		it("should add direction to queue on keydown", () => {
+			const { gameState } = setup();
 			initializeKeyboardInputListeners();
 
 			const event = new KeyboardEvent("keydown", { code: "ArrowUp" });
@@ -122,6 +131,7 @@ describe("snake direction", () => {
 		});
 
 		it("should limit queue size to 2", () => {
+			const { gameState } = setup();
 			initializeKeyboardInputListeners();
 
 			globalThis.dispatchEvent(
@@ -139,6 +149,7 @@ describe("snake direction", () => {
 		});
 
 		it("should support WASD keys", () => {
+			const { gameState } = setup();
 			initializeKeyboardInputListeners();
 
 			globalThis.dispatchEvent(new KeyboardEvent("keydown", { code: "KeyW" }));
@@ -162,6 +173,7 @@ describe("snake direction", () => {
 	/* eslint-disable @typescript-eslint/no-explicit-any */
 	describe("touch input", () => {
 		it("should detect swipe up", () => {
+			const { gameState } = setup();
 			initializeTouchInputListeners();
 
 			const startEvent = new CustomEvent("touchstart", {
@@ -180,6 +192,7 @@ describe("snake direction", () => {
 		});
 
 		it("should detect swipe down", () => {
+			const { gameState } = setup();
 			initializeTouchInputListeners();
 
 			const startEvent = new CustomEvent("touchstart", {
@@ -198,6 +211,7 @@ describe("snake direction", () => {
 		});
 
 		it("should detect swipe left", () => {
+			const { gameState } = setup();
 			initializeTouchInputListeners();
 
 			const startEvent = new CustomEvent("touchstart", {
@@ -216,6 +230,7 @@ describe("snake direction", () => {
 		});
 
 		it("should detect swipe right", () => {
+			const { gameState } = setup();
 			initializeTouchInputListeners();
 
 			const startEvent = new CustomEvent("touchstart", {
@@ -234,6 +249,7 @@ describe("snake direction", () => {
 		});
 
 		it("should ignore small movements", () => {
+			const { gameState } = setup();
 			initializeTouchInputListeners();
 
 			const startEvent = new CustomEvent("touchstart", {
@@ -252,6 +268,7 @@ describe("snake direction", () => {
 		});
 
 		it("should ignore multi-touch start", () => {
+			const { gameState } = setup();
 			initializeTouchInputListeners();
 
 			const startEvent = new CustomEvent("touchstart", {
@@ -277,6 +294,7 @@ describe("snake direction", () => {
 		});
 
 		it("should ignore multi-touch end", () => {
+			const { gameState } = setup();
 			initializeTouchInputListeners();
 
 			const startEvent = new CustomEvent("touchstart", {

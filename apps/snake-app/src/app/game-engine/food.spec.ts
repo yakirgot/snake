@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
 import { GameState } from "./game-state";
 import { GameSettings } from "../settings";
@@ -13,27 +13,27 @@ vi.mock(import("./canvas/canvas-draw"), () => ({
 	erasePart: vi.fn<() => void>(),
 }));
 
+function setup() {
+	const gameSettings = new GameSettings();
+	gameSettings.foodPartsOnCanvas = 2;
+	container.registerInstance("GameSettings", gameSettings);
+
+	const gameState = container.resolve(GameState);
+	gameState.canvasGridPositions = [
+		[0, 0],
+		[16, 0],
+		[0, 16],
+		[16, 16],
+	];
+	container.registerInstance("GameState", gameState);
+
+	return { gameState, gameSettings };
+}
+
 describe("food", () => {
-	let gameState: GameState;
-	let gameSettings: GameSettings;
-
-	beforeEach(() => {
-		gameSettings = new GameSettings();
-		gameSettings.foodPartsOnCanvas = 2;
-		container.registerInstance("GameSettings", gameSettings);
-
-		gameState = container.resolve(GameState);
-		gameState.canvasGridPositions = [
-			[0, 0],
-			[16, 0],
-			[0, 16],
-			[16, 16],
-		];
-		container.registerInstance("GameState", gameState);
-	});
-
 	describe(resetFood, () => {
 		it("should clear food positions", () => {
+			const { gameState } = setup();
 			gameState.foodPositions = [[0, 0]];
 
 			resetFood();
@@ -44,7 +44,10 @@ describe("food", () => {
 
 	describe(spawnInitialFood, () => {
 		it("should spawn correct amount of food", () => {
+			setup();
 			spawnInitialFood();
+
+			const gameState = container.resolve(GameState);
 
 			expect(gameState.foodPositions).toHaveLength(2);
 		});
@@ -52,6 +55,7 @@ describe("food", () => {
 
 	describe(replaceFoodPositionIfWasEaten, () => {
 		it("should return false if no food at position", () => {
+			const { gameState } = setup();
 			gameState.foodPositions = [[0, 0]];
 
 			const wasEaten = replaceFoodPositionIfWasEaten([16, 16]);
@@ -61,6 +65,7 @@ describe("food", () => {
 		});
 
 		it("should return true and replace food if eaten", () => {
+			const { gameState } = setup();
 			gameState.foodPositions = [[0, 0]];
 			// Only [16, 0], [0, 16], [16, 16] are free
 

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
 import { GameSounds } from "./audio/game-sounds";
 import { GameState } from "./game-state";
@@ -29,21 +29,21 @@ vi.stubGlobal(
 	}),
 );
 
+function setup() {
+	const gameSettings = new GameSettings();
+	container.registerInstance("GameSettings", gameSettings);
+
+	const gameState = container.resolve(GameState);
+	container.registerInstance("GameState", gameState);
+
+	const gameSounds = new GameSounds();
+
+	return { gameSounds, gameState };
+}
+
 describe(GameSounds, () => {
-	let gameSounds: GameSounds;
-	let gameState: GameState;
-
-	beforeEach(() => {
-		const gameSettings = new GameSettings();
-		container.registerInstance("GameSettings", gameSettings);
-
-		gameState = container.resolve(GameState);
-		container.registerInstance("GameState", gameState);
-
-		gameSounds = new GameSounds();
-	});
-
 	it("should play sound when audio are enabled", () => {
+		const { gameSounds, gameState } = setup();
 		gameState.soundsEnabled = true;
 
 		gameSounds.playEatSound();
@@ -52,6 +52,7 @@ describe(GameSounds, () => {
 	});
 
 	it("should NOT play sound when audio are disabled", () => {
+		const { gameSounds, gameState } = setup();
 		gameState.soundsEnabled = false;
 
 		gameSounds.playEatSound();

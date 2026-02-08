@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
 import { GameSettings } from "../settings";
 import { GameState } from "./game-state";
@@ -16,22 +16,22 @@ vi.mock(import("./canvas/canvas-draw"), () => ({
 	erasePart: vi.fn<() => void>(),
 }));
 
+function setup() {
+	const gameSettings = new GameSettings();
+	gameSettings.snakeGapInPx = 2;
+	gameSettings.partSizeInPx = 14;
+	container.registerInstance("GameSettings", gameSettings);
+
+	const gameState = container.resolve(GameState);
+	container.registerInstance("GameState", gameState);
+
+	return { gameState, gameSettings };
+}
+
 describe("snake movement", () => {
-	let gameState: GameState;
-	let gameSettings: GameSettings;
-
-	beforeEach(() => {
-		gameSettings = new GameSettings();
-		gameSettings.snakeGapInPx = 2;
-		gameSettings.partSizeInPx = 14;
-		container.registerInstance("GameSettings", gameSettings);
-
-		gameState = container.resolve(GameState);
-		container.registerInstance("GameState", gameState);
-	});
-
 	describe(getNextSnakeHeadPosition, () => {
 		it("should return next position to the right", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [[16, 16]];
 			gameState.currentSnakeDirection = "right";
 
@@ -41,6 +41,7 @@ describe("snake movement", () => {
 		});
 
 		it("should return next position to the left", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [[32, 16]];
 			gameState.currentSnakeDirection = "left";
 
@@ -50,6 +51,7 @@ describe("snake movement", () => {
 		});
 
 		it("should return next position upwards", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [[16, 32]];
 			gameState.currentSnakeDirection = "up";
 
@@ -59,6 +61,7 @@ describe("snake movement", () => {
 		});
 
 		it("should return next position downwards", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [[16, 16]];
 			gameState.currentSnakeDirection = "down";
 
@@ -68,6 +71,7 @@ describe("snake movement", () => {
 		});
 
 		it("should throw error if snake has no positions", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [];
 
 			expect(() => getNextSnakeHeadPosition()).toThrowError(
@@ -78,6 +82,7 @@ describe("snake movement", () => {
 
 	describe(moveSnake, () => {
 		it("should draw previous head as body and new head as head", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [[16, 16]];
 
 			moveSnake([32, 16]);
@@ -87,6 +92,7 @@ describe("snake movement", () => {
 		});
 
 		it("should move snake and erase tail when not growing", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [
 				[16, 16],
 				[32, 16],
@@ -104,6 +110,7 @@ describe("snake movement", () => {
 		});
 
 		it("should move snake and not erase tail when growing", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [
 				[16, 16],
 				[32, 16],
@@ -123,6 +130,7 @@ describe("snake movement", () => {
 		});
 
 		it("should decrease growth steps by 1 when moving and growing", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [[16, 16]];
 			gameState.pendingSnakeGrowthSteps = 3;
 
@@ -135,6 +143,7 @@ describe("snake movement", () => {
 
 	describe(initializeSnakePosition, () => {
 		it("should initialize snake with correct length and positions", () => {
+			const { gameSettings, gameState } = setup();
 			gameSettings.snakeInitialLength = 3;
 			gameSettings.canvasWidthInSnakeParts = 40;
 			gameSettings.canvasHeightInSnakeParts = 20;
@@ -149,6 +158,7 @@ describe("snake movement", () => {
 		});
 
 		it("should align snake perfectly even with odd canvas dimensions", () => {
+			const { gameSettings, gameState } = setup();
 			gameSettings.snakeInitialLength = 3;
 			gameSettings.canvasWidthInSnakeParts = 41; // Odd number
 			gameSettings.canvasHeightInSnakeParts = 21; // Odd number
@@ -172,6 +182,7 @@ describe("snake movement", () => {
 
 	describe(resetSnake, () => {
 		it("should clear snake positions and growth steps", () => {
+			const { gameState } = setup();
 			gameState.snakePositions = [
 				[16, 16],
 				[32, 16],
