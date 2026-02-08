@@ -29,6 +29,8 @@ concurrency:
 jobs:
   main:
     runs-on: ubuntu-latest
+    outputs:
+      snake-app-affected: ${{ steps.affected.outputs.snake-app }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -73,6 +75,15 @@ jobs:
         run: npx playwright install-deps
 
       - uses: nrwl/nx-set-shas@v4
+      - name: Check if snake-app is affected
+        id: affected
+        run: |
+          AFFECTED=$(npx nx show projects --affected --json)
+          if echo "$AFFECTED" | grep -q '"snake-app"'; then
+            echo "snake-app=true" >> $GITHUB_OUTPUT
+          else
+            echo "snake-app=false" >> $GITHUB_OUTPUT
+          fi
 
       # Prepend any command with "nx record --" to record its logs to Nx Cloud
       # - run: npx nx record -- echo Hello World
@@ -85,6 +96,7 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     needs: [main]
+    if: needs.main.outputs.snake-app-affected == 'true'
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 22
