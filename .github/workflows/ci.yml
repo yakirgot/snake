@@ -50,7 +50,28 @@ jobs:
       - run: npm ci
       - name: Security audit
         run: npm audit --audit-level=high
-      - run: npx playwright install --with-deps
+
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(npx playwright --version | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ steps.playwright-version.outputs.version }}-${{ runner.os }}
+          restore-keys: |
+            playwright-browsers-${{ steps.playwright-version.outputs.version }}-
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps
+
+      - name: Install Playwright dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps
+
       - uses: nrwl/nx-set-shas@v4
 
       # Prepend any command with "nx record --" to record its logs to Nx Cloud
