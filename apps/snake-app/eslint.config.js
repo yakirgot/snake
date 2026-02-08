@@ -6,8 +6,8 @@ export default [
 	{
 		files: ["src/**/*.spec.ts"],
 		plugins: { vitest },
-		...vitest.configs.all,
 		rules: {
+			...vitest.configs.all.rules,
 			"vitest/prefer-expect-assertions": "off",
 			"vitest/no-hooks": "off",
 			"vitest/consistent-test-filename": [
