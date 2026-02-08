@@ -47,7 +47,25 @@ test.describe("Snake Game", () => {
 		await expect(announcer).toHaveText("Sound disabled");
 	});
 
-	test("should end game when snake hits a wall", async ({ page }) => {
+	test("should end game when snake hits the right wall", async ({ page }) => {
+		await page.clock.install();
+		const startButton = page.locator("[data-snake-game-start-button]");
+		const announcer = page.locator("#game-announcer");
+
+		await startButton.click();
+		// Snake starts at x = 11, moving right.
+		// Width is 44. To hit right wall it needs to reach 44.
+		// 44 - 11 = 33 steps.
+		// But wait, the head is at 11 + (length-1) = 11 + 2 = 13.
+		// 44 - 13 = 31 steps.
+		// 31 * 150ms = 4650ms.
+		await page.clock.runFor(6000);
+
+		await expect(startButton).toBeEnabled();
+		await expect(announcer).toContainText("Game over");
+	});
+
+	test("should end game when snake hits the top wall", async ({ page }) => {
 		await page.clock.install();
 		const startButton = page.locator("[data-snake-game-start-button]");
 		const announcer = page.locator("#game-announcer");
@@ -71,5 +89,15 @@ test.describe("Snake Game", () => {
 
 		await startButton.click();
 		await expect(pointsDisplay).toHaveText("3");
+	});
+
+	test("should load high score from localStorage", async ({ page }) => {
+		await page.evaluate(() => {
+			localStorage.setItem("snake-high-score", "123");
+		});
+		await page.reload();
+
+		const highScore = page.getByTestId("high-score");
+		await expect(highScore).toHaveText("123");
 	});
 });
