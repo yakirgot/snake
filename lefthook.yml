@@ -6,4 +6,4 @@ commit-msg:
 pre-push:
   commands:
     "run all checks":
-      run: npm run run-all-checks
+      run: npx nx affected --parallel -t typecheck lint stylelint test test:e2e

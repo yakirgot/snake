@@ -9,10 +9,7 @@
 		"test:watch": "npm run test -- --watch",
 		"test:ui": "npm run test:watch -- --ui",
 		"test:e2e": "npx nx run snake-app-e2e:e2e",
-		"build": "npx nx run snake-app:build",
-		"lint:scripts": "nx run-many -t lint",
-		"lint:styles": "nx run-many -t stylelint",
-		"run-all-checks": "nx run-many --parallel -t typecheck lint stylelint test test:e2e"
+		"build": "npx nx run snake-app:build"
 	},
 	"dependencies": {
 		"core-js": "~3.47.0",
