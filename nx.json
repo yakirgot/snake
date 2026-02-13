@@ -96,9 +96,9 @@
 			"e2eTestRunner": "playwright"
 		}
 	},
-	"nxCloudId": "6985272696603bdf264631e9",
 	"namedInputs": {
 		"sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"],
-		"default": ["sharedGlobals"]
-	}
+		"default": ["{projectRoot}/**/*", "sharedGlobals"]
+	},
+	"nxCloudId": "6985272696603bdf264631e9"
 }
