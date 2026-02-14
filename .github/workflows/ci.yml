@@ -53,11 +53,29 @@ jobs:
       - name: Security audit
         run: npm audit --audit-level=high
 
+      - uses: nrwl/nx-set-shas@v4
+      - name: Check if projects are affected
+        id: affected
+        run: |
+          AFFECTED=$(npx nx show projects --affected --json)
+          if echo "$AFFECTED" | grep -q '"snake-app"'; then
+            echo "snake-app=true" >> $GITHUB_OUTPUT
+          else
+            echo "snake-app=false" >> $GITHUB_OUTPUT
+          fi
+          if echo "$AFFECTED" | grep -q '"snake-app-e2e"'; then
+            echo "e2e=true" >> $GITHUB_OUTPUT
+          else
+            echo "e2e=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Get Playwright version
+        if: steps.affected.outputs.e2e == 'true'
         id: playwright-version
         run: echo "version=$(npx playwright --version | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
 
       - name: Cache Playwright browsers
+        if: steps.affected.outputs.e2e == 'true'
         uses: actions/cache@v5
         id: playwright-cache
         with:
@@ -67,23 +85,12 @@ jobs:
             playwright-browsers-${{ steps.playwright-version.outputs.version }}-
 
       - name: Install Playwright browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: steps.affected.outputs.e2e == 'true' && steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
 
       - name: Install Playwright dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        if: steps.affected.outputs.e2e == 'true' && steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps
-
-      - uses: nrwl/nx-set-shas@v4
-      - name: Check if snake-app is affected
-        id: affected
-        run: |
-          AFFECTED=$(npx nx show projects --affected --json)
-          if echo "$AFFECTED" | grep -q '"snake-app"'; then
-            echo "snake-app=true" >> $GITHUB_OUTPUT
-          else
-            echo "snake-app=false" >> $GITHUB_OUTPUT
-          fi
 
       # Prepend any command with "nx record --" to record its logs to Nx Cloud
       # - run: npx nx record -- echo Hello World
