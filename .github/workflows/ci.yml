@@ -31,6 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       snake-app-affected: ${{ steps.affected.outputs.snake-app }}
+      e2e-affected: ${{ steps.affected.outputs.e2e }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -58,12 +59,12 @@ jobs:
         id: affected
         run: |
           AFFECTED=$(npx nx show projects --affected --json)
-          if echo "$AFFECTED" | grep -q '"snake-app"'; then
+          if echo "$AFFECTED" | jq -e '. | any(. == "snake-app")' > /dev/null 2>&1; then
             echo "snake-app=true" >> $GITHUB_OUTPUT
           else
             echo "snake-app=false" >> $GITHUB_OUTPUT
           fi
-          if echo "$AFFECTED" | grep -q '"snake-app-e2e"'; then
+          if echo "$AFFECTED" | jq -e '. | any(. == "snake-app-e2e")' > /dev/null 2>&1; then
             echo "e2e=true" >> $GITHUB_OUTPUT
           else
             echo "e2e=false" >> $GITHUB_OUTPUT
