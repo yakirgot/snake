@@ -190,7 +190,7 @@ jobs:
       - name: Run E2E tests on production
         env:
           BASE_URL: ${{ needs.deploy.outputs.page_url }}
-        run: npx nx run snake-app-e2e:e2e-ci
+        run: npx nx run snake-app-e2e:e2e
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v6
