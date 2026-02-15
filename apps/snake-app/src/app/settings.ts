@@ -26,5 +26,3 @@ export class GameSettings {
 		return this.canvasHeightInSnakeParts * this.snakeSizeWithGap;
 	}
 }
-
-console.log("GameSettings initialized");
