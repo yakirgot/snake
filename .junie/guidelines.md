@@ -23,7 +23,7 @@
 - **Run E2E Tests**: `npx nx run snake-app-e2e:e2e` (or `npx nx affected --target=e2e`)
 - **Build Project**: `npx nx run snake-app:build` (or `npx nx affected --target=build`)
 - **Type Checking**: `npx nx run snake-app:typecheck` (or `npx nx affected --target=typecheck`)
-- **Linting**: `npx nx affected --target=lint` (or `npx eslint .` / `npx stylelint "**/*.css"`)
+- **Linting**: `npx nx affected --target=lint` (or `npx stylelint "**/*.css"` for style linting)
 - **Run All Checks (Lefthook)**: `npx lefthook run pre-push --force`
 
 ## Project Structure
