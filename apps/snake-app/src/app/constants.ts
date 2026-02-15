@@ -28,4 +28,6 @@ export const CSS_VARS = Object.freeze({
 	DARK_SLATE_GRAY_LIGHT: "--color-dark-slate-gray-light",
 	DARK_SLATE_GRAY_DARK: "--color-dark-slate-gray-dark",
 	TEAL_BLUE: "--color-teal-blue",
+	TEAL_BLUE_LIGHT: "--color-teal-blue-light",
+	TEAL_BLUE_DARK: "--color-teal-blue-dark",
 } as const);

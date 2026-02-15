@@ -19,3 +19,11 @@ export const snakeColorDark = globalThis
 export const foodColor = globalThis
 	.getComputedStyle(document.documentElement)
 	.getPropertyValue(CSS_VARS.TEAL_BLUE);
+
+export const foodColorLight = globalThis
+	.getComputedStyle(document.documentElement)
+	.getPropertyValue(CSS_VARS.TEAL_BLUE_LIGHT);
+
+export const foodColorDark = globalThis
+	.getComputedStyle(document.documentElement)
+	.getPropertyValue(CSS_VARS.TEAL_BLUE_DARK);
