@@ -4,7 +4,18 @@ import { workspaceRoot } from "@nx/devkit";
 import { fileURLToPath } from "node:url";
 
 // For CI, you may want to set BASE_URL to the deployed application.
-const baseURL = process.env["BASE_URL"] || "http://localhost:4300";
+function getBaseUrl(): string {
+	const environmentBaseUrl = process.env["BASE_URL"];
+	if (!environmentBaseUrl) {
+		return "http://localhost:4300/";
+	}
+
+	return environmentBaseUrl.endsWith("/")
+		? environmentBaseUrl
+		: `${environmentBaseUrl}/`;
+}
+
+const baseURL = getBaseUrl();
 
 /**
  * Read environment variables from a file.
@@ -37,7 +48,7 @@ export default defineConfig({
 		? undefined
 		: {
 				command: "npx nx run snake-app:preview",
-				url: "http://localhost:4300",
+				url: "http://localhost:4300/snake/",
 				reuseExistingServer: !process.env.CI,
 				cwd: workspaceRoot,
 			},
