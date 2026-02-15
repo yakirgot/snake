@@ -4,6 +4,8 @@ import { GameSettings } from "../../settings";
 import {
 	canvasColor,
 	foodColor,
+	foodColorDark,
+	foodColorLight,
 	snakeColor,
 	snakeColorDark,
 	snakeColorLight,
@@ -98,7 +100,17 @@ export function drawFoodPart(foodPosition: Position): void {
 	const [x, y] = foodPosition;
 	const radii = Math.round(partSizeInPx / 3);
 
-	canvasContext.fillStyle = foodColor;
+	const gradient = canvasContext.createLinearGradient(
+		x,
+		y,
+		x + partSizeInPx,
+		y + partSizeInPx,
+	);
+	gradient.addColorStop(0, foodColorLight);
+	gradient.addColorStop(0.5, foodColor);
+	gradient.addColorStop(1, foodColorDark);
+
+	canvasContext.fillStyle = gradient;
 	canvasContext.beginPath();
 	canvasContext.roundRect(x, y, partSizeInPx, partSizeInPx, [radii]);
 	canvasContext.fill();
