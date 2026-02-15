@@ -3,7 +3,7 @@ import {
 	drawSnakePart,
 	erasePart,
 } from "./canvas/canvas-draw";
-import { Position } from "../types/snake-types";
+import { Position, XCoordinate, YCoordinate } from "../types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "../settings";
 import { GameState } from "./game-state";
@@ -34,19 +34,19 @@ export function getNextSnakeHeadPosition(): Position {
 
 	switch (gameState.currentSnakeDirection) {
 		case "right": {
-			nextPosition[0] += snakeSizeWithGap;
+			nextPosition[0] = (nextPosition[0] + snakeSizeWithGap) as XCoordinate;
 			break;
 		}
 		case "left": {
-			nextPosition[0] -= snakeSizeWithGap;
+			nextPosition[0] = (nextPosition[0] - snakeSizeWithGap) as XCoordinate;
 			break;
 		}
 		case "up": {
-			nextPosition[1] -= snakeSizeWithGap;
+			nextPosition[1] = (nextPosition[1] - snakeSizeWithGap) as YCoordinate;
 			break;
 		}
 		case "down": {
-			nextPosition[1] += snakeSizeWithGap;
+			nextPosition[1] = (nextPosition[1] + snakeSizeWithGap) as YCoordinate;
 			break;
 		}
 	}
@@ -61,7 +61,8 @@ export function initializeSnakePosition(): void {
 
 	for (let index = 0; index < snakeInitialLength; index++) {
 		const xPositionCompensation = index * snakeSizeWithGap;
-		const snakeXPosition = xStartingPosition + xPositionCompensation;
+		const snakeXPosition = (xStartingPosition +
+			xPositionCompensation) as XCoordinate;
 		const snakePosition: Position = [snakeXPosition, yStartingPosition];
 
 		addAndDrawSnakePart(snakePosition);
@@ -101,8 +102,8 @@ function getSnakeStartingPoint(): Position {
 	const yGridCoordinate = Math.floor(canvasHeightInSnakeParts / 2);
 
 	const snakeStartingPosition: Position = [
-		xGridCoordinate * snakeSizeWithGap,
-		yGridCoordinate * snakeSizeWithGap,
+		(xGridCoordinate * snakeSizeWithGap) as XCoordinate,
+		(yGridCoordinate * snakeSizeWithGap) as YCoordinate,
 	];
 
 	return snakeStartingPosition;

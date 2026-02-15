@@ -1,6 +1,10 @@
-/**
- * xCoordinate: number, yCoordinate: number
- */
-export type Position = [number, number];
+declare const brand: unique symbol;
+
+export type Brand<T, TBrand> = T & { [brand]: TBrand };
+
+export type XCoordinate = Brand<number, "XCoordinate">;
+export type YCoordinate = Brand<number, "YCoordinate">;
+
+export type Position = [XCoordinate, YCoordinate];
 
 export type SnakeDirection = "up" | "down" | "left" | "right";

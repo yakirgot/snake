@@ -1,4 +1,4 @@
-import { Position } from "../../types/snake-types";
+import { Position, XCoordinate, YCoordinate } from "../../types/snake-types";
 import { GameSettings } from "../../settings";
 
 addEventListener(
@@ -14,7 +14,7 @@ addEventListener(
 			height += snakeSizeWithGap
 		) {
 			for (let width = 0; width < canvasWidthInPx; width += snakeSizeWithGap) {
-				positions.push([width, height]);
+				positions.push([width as XCoordinate, height as YCoordinate]);
 			}
 		}
 
