@@ -23,6 +23,7 @@ export default defineConfig(() => ({
 		outDir: "../../dist/apps/snake-app",
 		emptyOutDir: true,
 		reportCompressedSize: true,
+		sourcemap: true,
 		commonjsOptions: {
 			transformMixedEsModules: true,
 		},

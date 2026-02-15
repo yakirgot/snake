@@ -5,7 +5,8 @@
 		"types": ["vitest/importMeta", "vite/client", "node", "vitest"],
 		"lib": ["esnext", "dom"],
 		"module": "esnext",
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"sourceMap": true
 	},
 	"include": [
 		"vite.config.ts",
