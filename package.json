@@ -8,8 +8,7 @@
 		"test": "nx run snake-app:test",
 		"test:watch": "npm run test -- --watch",
 		"test:ui": "npm run test:watch -- --ui",
-		"test:e2e": "npx nx run snake-app-e2e:e2e",
-		"build": "npx nx run snake-app:build"
+		"test:e2e": "npx nx run snake-app-e2e:e2e"
 	},
 	"dependencies": {
 		"core-js": "~3.47.0",
