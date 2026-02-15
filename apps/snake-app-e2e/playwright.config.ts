@@ -37,7 +37,7 @@ export default defineConfig({
 		? undefined
 		: {
 				command: "npx nx run snake-app:preview",
-				url: "http://localhost:4300",
+				url: "http://localhost:4300/snake",
 				reuseExistingServer: !process.env.CI,
 				cwd: workspaceRoot,
 			},
