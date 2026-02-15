@@ -21,7 +21,6 @@ export function replaceFoodPositionIfWasEaten(position: Position): boolean {
 	const hasEaten = isFoodPosition(position);
 
 	if (!hasEaten) {
-		console.log("eaten");
 		return false;
 	}
 

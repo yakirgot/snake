@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env["BASE_URL"] || "http://localhost:4300";
-console.log(baseURL);
+
 /**
  * Read environment variables from a file.
  * https://github.com/motdotla/dotenv
