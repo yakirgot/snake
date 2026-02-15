@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const baseURL = process.env["BASE_URL"] || "http://localhost:4300";
 
 /**
- * Read environment variables from file.
+ * Read environment variables from a file.
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config();
@@ -23,6 +23,8 @@ export default defineConfig({
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: "on-first-retry",
 	},
+	/* Configure snapshots naming */
+	snapshotPathTemplate: "{testDir}/__snapshots__/{testFilePath}/{arg}{ext}",
 	/* Run your local dev server before starting the tests */
 	webServer: {
 		command: "npx nx run snake-app:preview",
