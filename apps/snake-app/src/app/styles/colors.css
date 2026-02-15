@@ -1,6 +1,8 @@
 @layer theme {
 	:root {
 		--color-dark-slate-gray: hsl(178deg 41% 25%);
+		--color-dark-slate-gray-light: hsl(178deg 41% 35%);
+		--color-dark-slate-gray-dark: hsl(178deg 41% 15%);
 		--color-teal-blue: hsl(196deg 36% 35%);
 		--color-eggshell: hsl(53deg 44% 88%);
 		--color-metallic-sunburst: hsl(35deg 60% 35%);
