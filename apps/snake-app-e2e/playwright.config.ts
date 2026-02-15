@@ -8,7 +8,7 @@ const baseURL = (process.env["BASE_URL"] || "http://localhost:4300").replace(
 	/\/snake\/?$/,
 	"",
 );
-
+console.log("baseURL: " + baseURL);
 /**
  * Read environment variables from a file.
  * https://github.com/motdotla/dotenv
