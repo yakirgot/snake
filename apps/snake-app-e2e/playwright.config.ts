@@ -24,7 +24,14 @@ export default defineConfig({
 		trace: "on-first-retry",
 	},
 	/* Configure snapshots naming */
-	snapshotPathTemplate: "{testDir}/__snapshots__/{testFilePath}/{arg}{ext}",
+	snapshotPathTemplate:
+		"{testDir}/__snapshots__/{testFilePath}/{arg}-{projectName}{ext}",
+	expect: {
+		toHaveScreenshot: {
+			maxDiffPixelRatio: 0.05,
+			threshold: 0.2,
+		},
+	},
 	/* Run your local dev server before starting the tests */
 	webServer: {
 		command: "npx nx run snake-app:preview",
