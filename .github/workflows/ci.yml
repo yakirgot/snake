@@ -187,7 +187,7 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps
 
-      - name: Run E2E tests on production - test
+      - name: Run E2E tests on production
         env:
           BASE_URL: ${{ needs.deploy.outputs.page_url }}
         run: npx nx run snake-app-e2e:e2e
