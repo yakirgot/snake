@@ -1,14 +1,38 @@
 import { Position } from "../../types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "../../settings";
-import { canvasColor, foodColor, snakeColor } from "./canvas-colors";
+import {
+	canvasColor,
+	foodColor,
+	snakeColor,
+	snakeColorDark,
+	snakeColorLight,
+} from "./canvas-colors";
 import { canvasContext } from "./canvas-setup";
 import { GameState } from "../game-state";
 
 export function drawSnakePart(snakePosition: Position) {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
+	const { partSizeInPx, snakePartRadiiInPx } = gameSettings;
 
-	drawPart(snakePosition, snakeColor, gameSettings.snakePartRadiiInPx);
+	const [x, y] = snakePosition;
+
+	const gradient = canvasContext.createLinearGradient(
+		x,
+		y,
+		x + partSizeInPx,
+		y + partSizeInPx,
+	);
+	gradient.addColorStop(0, snakeColorLight);
+	gradient.addColorStop(0.5, snakeColor);
+	gradient.addColorStop(1, snakeColorDark);
+
+	canvasContext.fillStyle = gradient;
+	canvasContext.beginPath();
+	canvasContext.roundRect(x, y, partSizeInPx, partSizeInPx, [
+		snakePartRadiiInPx,
+	]);
+	canvasContext.fill();
 }
 
 export function drawSnakeHeadPart(snakePosition: Position) {
@@ -69,23 +93,14 @@ function drawEye(position: [number, number], radius: number): void {
 
 export function drawFoodPart(foodPosition: Position): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
-	drawPart(foodPosition, foodColor, Math.round(gameSettings.partSizeInPx / 3));
-}
-
-function drawPart(snakePosition: Position, color: string, radii = 0): void {
-	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx } = gameSettings;
 
-	canvasContext.fillStyle = color;
+	const [x, y] = foodPosition;
+	const radii = Math.round(partSizeInPx / 3);
 
+	canvasContext.fillStyle = foodColor;
 	canvasContext.beginPath();
-	canvasContext.roundRect(
-		snakePosition[0],
-		snakePosition[1],
-		partSizeInPx,
-		partSizeInPx,
-		[radii],
-	);
+	canvasContext.roundRect(x, y, partSizeInPx, partSizeInPx, [radii]);
 	canvasContext.fill();
 }
 
