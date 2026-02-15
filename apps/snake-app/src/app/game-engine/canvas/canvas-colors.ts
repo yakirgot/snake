@@ -19,6 +19,9 @@ const colorMap: Record<GameColor, string> = {
 	foodColorDark: CSS_VARS.TEAL_BLUE_DARK,
 };
 
+/**
+ * this function was introduced to solve a race condition in WebKit
+ */
 export function getColor(colorName: GameColor): string {
 	return globalThis
 		.getComputedStyle(document.documentElement)
