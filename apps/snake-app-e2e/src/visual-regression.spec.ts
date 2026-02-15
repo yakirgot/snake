@@ -20,7 +20,11 @@ test.describe("Visual Regression", () => {
 		await page.clock.runFor(150);
 
 		await expect(page).toHaveScreenshot("game-started.png", {
-			mask: [page.getByTestId("game-points"), page.getByTestId("high-score")],
+			mask: [
+				page.getByTestId("game-points"),
+				page.getByTestId("high-score"),
+				page.getByTestId("snake-game"),
+			],
 		});
 	});
 });
