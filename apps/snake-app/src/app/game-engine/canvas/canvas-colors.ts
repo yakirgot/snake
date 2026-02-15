@@ -1,29 +1,27 @@
 import { CSS_VARS } from "../../constants";
 
-export const canvasColor = globalThis
-	.getComputedStyle(document.documentElement)
-	.getPropertyValue(CSS_VARS.MAIZE_CRAYOLA);
+export type GameColor =
+	| "canvasColor"
+	| "snakeColor"
+	| "snakeColorLight"
+	| "snakeColorDark"
+	| "foodColor"
+	| "foodColorLight"
+	| "foodColorDark";
 
-export const snakeColor = globalThis
-	.getComputedStyle(document.documentElement)
-	.getPropertyValue(CSS_VARS.DARK_SLATE_GRAY);
+const colorMap: Record<GameColor, string> = {
+	canvasColor: CSS_VARS.MAIZE_CRAYOLA,
+	snakeColor: CSS_VARS.DARK_SLATE_GRAY,
+	snakeColorLight: CSS_VARS.DARK_SLATE_GRAY_LIGHT,
+	snakeColorDark: CSS_VARS.DARK_SLATE_GRAY_DARK,
+	foodColor: CSS_VARS.TEAL_BLUE,
+	foodColorLight: CSS_VARS.TEAL_BLUE_LIGHT,
+	foodColorDark: CSS_VARS.TEAL_BLUE_DARK,
+};
 
-export const snakeColorLight = globalThis
-	.getComputedStyle(document.documentElement)
-	.getPropertyValue(CSS_VARS.DARK_SLATE_GRAY_LIGHT);
-
-export const snakeColorDark = globalThis
-	.getComputedStyle(document.documentElement)
-	.getPropertyValue(CSS_VARS.DARK_SLATE_GRAY_DARK);
-
-export const foodColor = globalThis
-	.getComputedStyle(document.documentElement)
-	.getPropertyValue(CSS_VARS.TEAL_BLUE);
-
-export const foodColorLight = globalThis
-	.getComputedStyle(document.documentElement)
-	.getPropertyValue(CSS_VARS.TEAL_BLUE_LIGHT);
-
-export const foodColorDark = globalThis
-	.getComputedStyle(document.documentElement)
-	.getPropertyValue(CSS_VARS.TEAL_BLUE_DARK);
+export function getColor(colorName: GameColor): string {
+	return globalThis
+		.getComputedStyle(document.documentElement)
+		.getPropertyValue(colorMap[colorName])
+		.trim();
+}

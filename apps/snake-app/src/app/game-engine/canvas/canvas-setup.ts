@@ -1,10 +1,10 @@
 import { container } from "tsyringe";
 import { GameSettings } from "../../settings";
 import { GameState } from "../game-state";
-import { canvasColor, snakeColor } from "./canvas-colors";
 import { getRequiredElement } from "../utils/dom";
 import { DOM_SELECTORS } from "../../constants";
 import { drawEyes } from "./canvas-draw";
+import { getColor } from "./canvas-colors";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;
@@ -19,8 +19,6 @@ export function setupCanvas(): void {
 	canvasContext = context;
 
 	setCanvasSize();
-
-	clearCanvas();
 }
 
 function setCanvasSize(): void {
@@ -35,7 +33,7 @@ export function clearCanvas(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { canvasWidthInPx, canvasHeightInPx } = gameSettings;
 
-	canvasContext.fillStyle = canvasColor;
+	canvasContext.fillStyle = getColor("canvasColor");
 	canvasContext.fillRect(0, 0, canvasWidthInPx, canvasHeightInPx);
 }
 
@@ -43,8 +41,8 @@ export function renderGameOverSnapshot(): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx, snakePartRadiiInPx } = gameSettings;
 
-	canvasContext.strokeStyle = snakeColor;
-	canvasContext.shadowColor = snakeColor;
+	canvasContext.strokeStyle = getColor("snakeColor");
+	canvasContext.shadowColor = getColor("snakeColor");
 	canvasContext.shadowBlur = Math.round(partSizeInPx / 3);
 
 	const gameState = container.resolve<GameState>("GameState");

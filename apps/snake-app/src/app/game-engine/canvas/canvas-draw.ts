@@ -1,17 +1,9 @@
 import { Position } from "../../types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "../../settings";
-import {
-	canvasColor,
-	foodColor,
-	foodColorDark,
-	foodColorLight,
-	snakeColor,
-	snakeColorDark,
-	snakeColorLight,
-} from "./canvas-colors";
 import { canvasContext } from "./canvas-setup";
 import { GameState } from "../game-state";
+import { getColor } from "./canvas-colors";
 
 export function drawSnakePart(snakePosition: Position) {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
@@ -25,9 +17,9 @@ export function drawSnakePart(snakePosition: Position) {
 		x + partSizeInPx,
 		y + partSizeInPx,
 	);
-	gradient.addColorStop(0, snakeColorLight);
-	gradient.addColorStop(0.5, snakeColor);
-	gradient.addColorStop(1, snakeColorDark);
+	gradient.addColorStop(0, getColor("snakeColorLight"));
+	gradient.addColorStop(0.5, getColor("snakeColor"));
+	gradient.addColorStop(1, getColor("snakeColorDark"));
 
 	canvasContext.fillStyle = gradient;
 	canvasContext.beginPath();
@@ -47,7 +39,7 @@ export function drawEyes(snakePosition: Position): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx } = gameSettings;
 
-	const eyeColor = canvasColor;
+	const eyeColor = getColor("canvasColor");
 	const eyeRadius = partSizeInPx / 8;
 	const eyeOffset = partSizeInPx / 4;
 
@@ -106,9 +98,9 @@ export function drawFoodPart(foodPosition: Position): void {
 		x + partSizeInPx,
 		y + partSizeInPx,
 	);
-	gradient.addColorStop(0, foodColorLight);
-	gradient.addColorStop(0.5, foodColor);
-	gradient.addColorStop(1, foodColorDark);
+	gradient.addColorStop(0, getColor("foodColorLight"));
+	gradient.addColorStop(0.5, getColor("foodColor"));
+	gradient.addColorStop(1, getColor("foodColorDark"));
 
 	canvasContext.fillStyle = gradient;
 	canvasContext.beginPath();
@@ -120,6 +112,6 @@ export function erasePart(position: Position): void {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");
 	const { partSizeInPx } = gameSettings;
 
-	canvasContext.fillStyle = canvasColor;
+	canvasContext.fillStyle = getColor("canvasColor");
 	canvasContext.fillRect(position[0], position[1], partSizeInPx, partSizeInPx);
 }
