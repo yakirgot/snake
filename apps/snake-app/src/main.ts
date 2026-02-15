@@ -2,6 +2,13 @@ import "core-js/full/reflect/index.js";
 import { registerProviders } from "./app/game-engine/providers";
 import { bootstrapGame } from "./app/game-engine/game";
 
-registerProviders();
+function init() {
+	registerProviders();
+	bootstrapGame();
+}
 
-bootstrapGame();
+if (document.readyState === "loading") {
+	document.addEventListener("DOMContentLoaded", init);
+} else {
+	init();
+}
