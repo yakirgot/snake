@@ -26,9 +26,10 @@ describe("snake direction", () => {
 			gameState.currentSnakeDirection = "right";
 			gameState.snakeDirectionQueue.push("up");
 
-			applyNextDirection();
+			const result = applyNextDirection();
 
 			expect(gameState.currentSnakeDirection).toBe("up");
+			expect(result).toBe(true);
 		});
 
 		it("should not change direction if it is the same", () => {
@@ -36,9 +37,10 @@ describe("snake direction", () => {
 			gameState.currentSnakeDirection = "right";
 			gameState.snakeDirectionQueue.push("right");
 
-			applyNextDirection();
+			const result = applyNextDirection();
 
 			expect(gameState.currentSnakeDirection).toBe("right");
+			expect(result).toBe(false);
 		});
 
 		it("should not change to opposite direction (right -> left)", () => {
@@ -46,9 +48,10 @@ describe("snake direction", () => {
 			gameState.currentSnakeDirection = "right";
 			gameState.snakeDirectionQueue.push("left");
 
-			applyNextDirection();
+			const result = applyNextDirection();
 
 			expect(gameState.currentSnakeDirection).toBe("right");
+			expect(result).toBe(false);
 		});
 
 		it("should not change to opposite direction (left -> right)", () => {

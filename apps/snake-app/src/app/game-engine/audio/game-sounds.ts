@@ -60,6 +60,10 @@ export class GameSounds {
 		this.#playTone(660, 0.1); // E5
 	}
 
+	playChangeDirectionSound(): void {
+		this.#playTone(330, 0.2); // E4
+	}
+
 	playGameOverSound(): void {
 		this.#playTone(220, 0.5, "sawtooth"); // A3
 	}

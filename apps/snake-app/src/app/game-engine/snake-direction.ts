@@ -42,13 +42,14 @@ export function resetSnakeDirection(): void {
 /**
  * Processes the next direction from the queue and updates the game state.
  * Prevents the snake from turning 180 degrees directly.
+ * @returns true if the direction was changed, false otherwise.
  */
-export function applyNextDirection(): void {
+export function applyNextDirection(): boolean {
 	const gameState = container.resolve<GameState>("GameState");
 	const nextSnakeDirection = gameState.snakeDirectionQueue.shift();
 
 	if (!nextSnakeDirection) {
-		return;
+		return false;
 	}
 
 	const isOppositeDirection =
@@ -64,7 +65,10 @@ export function applyNextDirection(): void {
 
 	if (!isOppositeDirection) {
 		gameState.currentSnakeDirection = nextSnakeDirection;
+		return true;
 	}
+
+	return false;
 }
 
 /**

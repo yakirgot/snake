@@ -121,7 +121,11 @@ function announce(message: string): void {
 function processGameTick(): void {
 	const gameState = container.resolve<GameState>("GameState");
 	if (gameState.snakeDirectionQueue.length > 0) {
-		applyNextDirection();
+		const directionChanged = applyNextDirection();
+		if (directionChanged) {
+			const audioService = container.resolve<GameSounds>("GameSounds");
+			audioService.playChangeDirectionSound();
+		}
 	}
 
 	const nextHeadPosition = getNextSnakeHeadPosition();
