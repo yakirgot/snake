@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
 import { GameSettings } from "../settings";
 import { GameState } from "./game-state";
-import { XCoordinate, YCoordinate } from "../types/snake-types";
+import { Position } from "../types/snake-types";
 import {
 	getNextSnakeHeadPosition,
 	initializeSnakePosition,
@@ -33,54 +33,42 @@ describe("snake movement", () => {
 	describe(getNextSnakeHeadPosition, () => {
 		it("should return next position to the right", () => {
 			const { gameState } = setup();
-			gameState.snakePositions = [[16 as XCoordinate, 16 as YCoordinate]];
+			gameState.snakePositions = [[16, 16] as Position];
 			gameState.currentSnakeDirection = "right";
 
 			const nextPosition = getNextSnakeHeadPosition();
 
-			expect(nextPosition).toStrictEqual([
-				32 as XCoordinate,
-				16 as YCoordinate,
-			]);
+			expect(nextPosition).toStrictEqual([32, 16] as Position);
 		});
 
 		it("should return next position to the left", () => {
 			const { gameState } = setup();
-			gameState.snakePositions = [[32 as XCoordinate, 16 as YCoordinate]];
+			gameState.snakePositions = [[32, 16] as Position];
 			gameState.currentSnakeDirection = "left";
 
 			const nextPosition = getNextSnakeHeadPosition();
 
-			expect(nextPosition).toStrictEqual([
-				16 as XCoordinate,
-				16 as YCoordinate,
-			]);
+			expect(nextPosition).toStrictEqual([16, 16] as Position);
 		});
 
 		it("should return next position upwards", () => {
 			const { gameState } = setup();
-			gameState.snakePositions = [[16 as XCoordinate, 32 as YCoordinate]];
+			gameState.snakePositions = [[16, 32] as Position];
 			gameState.currentSnakeDirection = "up";
 
 			const nextPosition = getNextSnakeHeadPosition();
 
-			expect(nextPosition).toStrictEqual([
-				16 as XCoordinate,
-				16 as YCoordinate,
-			]);
+			expect(nextPosition).toStrictEqual([16, 16] as Position);
 		});
 
 		it("should return next position downwards", () => {
 			const { gameState } = setup();
-			gameState.snakePositions = [[16 as XCoordinate, 16 as YCoordinate]];
+			gameState.snakePositions = [[16, 16] as Position];
 			gameState.currentSnakeDirection = "down";
 
 			const nextPosition = getNextSnakeHeadPosition();
 
-			expect(nextPosition).toStrictEqual([
-				16 as XCoordinate,
-				32 as YCoordinate,
-			]);
+			expect(nextPosition).toStrictEqual([16, 32] as Position);
 		});
 
 		it("should throw error if snake has no positions", () => {
@@ -96,34 +84,28 @@ describe("snake movement", () => {
 	describe(moveSnake, () => {
 		it("should draw previous head as body and new head as head", () => {
 			const { gameState } = setup();
-			gameState.snakePositions = [[16 as XCoordinate, 16 as YCoordinate]];
+			gameState.snakePositions = [[16, 16] as Position];
 
-			moveSnake([32 as XCoordinate, 16 as YCoordinate]);
+			moveSnake([32, 16] as Position);
 
-			expect(drawSnakePart).toHaveBeenCalledWith([
-				16 as XCoordinate,
-				16 as YCoordinate,
-			]);
-			expect(drawSnakeHeadPart).toHaveBeenCalledWith([
-				32 as XCoordinate,
-				16 as YCoordinate,
-			]);
+			expect(drawSnakePart).toHaveBeenCalledWith([16, 16] as Position);
+			expect(drawSnakeHeadPart).toHaveBeenCalledWith([32, 16] as Position);
 		});
 
 		it("should move snake and erase tail when not growing", () => {
 			const { gameState } = setup();
 			gameState.snakePositions = [
-				[16 as XCoordinate, 16 as YCoordinate],
-				[32 as XCoordinate, 16 as YCoordinate],
-				[48 as XCoordinate, 16 as YCoordinate],
+				[16, 16] as Position,
+				[32, 16] as Position,
+				[48, 16] as Position,
 			];
 
-			moveSnake([64 as XCoordinate, 16 as YCoordinate]);
+			moveSnake([64, 16] as Position);
 
 			expect(gameState.snakePositions).toStrictEqual([
-				[32 as XCoordinate, 16 as YCoordinate],
-				[48 as XCoordinate, 16 as YCoordinate],
-				[64 as XCoordinate, 16 as YCoordinate],
+				[32, 16] as Position,
+				[48, 16] as Position,
+				[64, 16] as Position,
 			]);
 			expect(gameState.pendingSnakeGrowthSteps).toBe(0);
 		});
@@ -131,29 +113,29 @@ describe("snake movement", () => {
 		it("should move snake and not erase tail when growing", () => {
 			const { gameState } = setup();
 			gameState.snakePositions = [
-				[16 as XCoordinate, 16 as YCoordinate],
-				[32 as XCoordinate, 16 as YCoordinate],
-				[48 as XCoordinate, 16 as YCoordinate],
+				[16, 16] as Position,
+				[32, 16] as Position,
+				[48, 16] as Position,
 			];
 			gameState.pendingSnakeGrowthSteps = 1;
 
-			moveSnake([64 as XCoordinate, 16 as YCoordinate]);
+			moveSnake([64, 16] as Position);
 
 			expect(gameState.snakePositions).toStrictEqual([
-				[16 as XCoordinate, 16 as YCoordinate],
-				[32 as XCoordinate, 16 as YCoordinate],
-				[48 as XCoordinate, 16 as YCoordinate],
-				[64 as XCoordinate, 16 as YCoordinate],
+				[16, 16] as Position,
+				[32, 16] as Position,
+				[48, 16] as Position,
+				[64, 16] as Position,
 			]);
 			expect(gameState.pendingSnakeGrowthSteps).toBe(0);
 		});
 
 		it("should decrease growth steps by 1 when moving and growing", () => {
 			const { gameState } = setup();
-			gameState.snakePositions = [[16 as XCoordinate, 16 as YCoordinate]];
+			gameState.snakePositions = [[16, 16] as Position];
 			gameState.pendingSnakeGrowthSteps = 3;
 
-			moveSnake([32 as XCoordinate, 16 as YCoordinate]);
+			moveSnake([32, 16] as Position);
 
 			expect(gameState.pendingSnakeGrowthSteps).toBe(2);
 			expect(gameState.snakePositions).toHaveLength(2);
@@ -203,8 +185,8 @@ describe("snake movement", () => {
 		it("should clear snake positions and growth steps", () => {
 			const { gameState } = setup();
 			gameState.snakePositions = [
-				[16 as XCoordinate, 16 as YCoordinate],
-				[32 as XCoordinate, 16 as YCoordinate],
+				[16, 16] as Position,
+				[32, 16] as Position,
 			];
 			gameState.pendingSnakeGrowthSteps = 3;
 
