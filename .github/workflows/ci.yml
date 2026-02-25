@@ -192,7 +192,6 @@ jobs:
         env:
           BASE_URL: ${{ needs.deploy.outputs.page_url }}
         run: npx nx run snake-app-e2e:e2e
-        continue-on-error: true
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v6

@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Visual Regression", () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto("/");
+		await page.goto("");
 	});
 
 	test("initial landing page should match snapshot", async ({ page }) => {
