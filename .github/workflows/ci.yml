@@ -56,7 +56,6 @@ jobs:
       - run: npm ci
       - name: Security audit
         run: npm audit --audit-level=high
-        continue-on-error: true
 
       - uses: nrwl/nx-set-shas@v4
       - name: Check if projects are affected
