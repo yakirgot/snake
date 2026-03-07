@@ -1,10 +1,12 @@
 import json from "@eslint/json";
 import markdown from "@eslint/markdown";
+import js from "@eslint/js";
 import nx from "@nx/eslint-plugin";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import { defineConfig } from "eslint/config";
 
 /** @type {import('typescript-eslint').Config} */
-export default [
+export default defineConfig([
 	...nx.configs["flat/base"],
 	...nx.configs["flat/typescript"],
 	...nx.configs["flat/javascript"],
@@ -34,6 +36,11 @@ export default [
 		...eslintPluginUnicorn.configs.recommended,
 	},
 	{
+		files: ["**/*.js"],
+		plugins: { js },
+		extends: ["js/recommended"],
+	},
+	{
 		files: ["**/*.json"],
 		plugins: { json },
 		ignores: ["package-lock.json"],
@@ -46,4 +53,4 @@ export default [
 		language: "markdown/commonmark",
 		...markdown.configs.recommended,
 	},
-];
+]);
