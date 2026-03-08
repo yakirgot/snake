@@ -3,7 +3,7 @@
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "apps/snake-app-e2e/src",
 	"projectType": "application",
-	"tags": [],
+	"tags": ["type:e2e", "scope:client"],
 	"implicitDependencies": ["snake-app"],
 	"targets": {}
 }
