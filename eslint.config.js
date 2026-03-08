@@ -23,8 +23,24 @@ export default defineConfig([
 					allow: ["^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$"],
 					depConstraints: [
 						{
-							sourceTag: "*",
-							onlyDependOnLibsWithTags: ["*"],
+							sourceTag: "type:app",
+							onlyDependOnLibsWithTags: ["type:lib"],
+						},
+						{
+							sourceTag: "type:e2e",
+							onlyDependOnLibsWithTags: ["type:app", "type:lib"],
+						},
+						{
+							sourceTag: "type:lib",
+							onlyDependOnLibsWithTags: ["type:lib"],
+						},
+						{
+							sourceTag: "scope:client",
+							onlyDependOnLibsWithTags: ["scope:client", "scope:shared"],
+						},
+						{
+							sourceTag: "scope:shared",
+							onlyDependOnLibsWithTags: ["scope:shared"],
 						},
 					],
 				},
@@ -38,7 +54,7 @@ export default defineConfig([
 	{
 		files: ["**/*.js"],
 		plugins: { js },
-		extends: ["js/recommended"],
+		...js.configs.recommended,
 	},
 	{
 		files: ["**/*.json"],
