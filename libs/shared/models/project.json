@@ -3,5 +3,5 @@
 	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "libs/shared/models/src",
 	"projectType": "library",
-	"tags": ["type:lib", "scope:shared"]
+	"tags": ["type:util", "scope:shared"]
 }

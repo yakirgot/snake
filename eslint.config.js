@@ -24,15 +24,42 @@ export default defineConfig([
 					depConstraints: [
 						{
 							sourceTag: "type:app",
-							onlyDependOnLibsWithTags: ["type:lib"],
+							onlyDependOnLibsWithTags: [
+								"type:feature",
+								"type:ui",
+								"type:util",
+								"type:data-access",
+							],
 						},
 						{
 							sourceTag: "type:e2e",
-							onlyDependOnLibsWithTags: ["type:app", "type:lib"],
+							onlyDependOnLibsWithTags: [
+								"type:app",
+								"type:feature",
+								"type:ui",
+								"type:util",
+								"type:data-access",
+							],
 						},
 						{
-							sourceTag: "type:lib",
-							onlyDependOnLibsWithTags: ["type:lib"],
+							sourceTag: "type:feature",
+							onlyDependOnLibsWithTags: [
+								"type:ui",
+								"type:util",
+								"type:data-access",
+							],
+						},
+						{
+							sourceTag: "type:ui",
+							onlyDependOnLibsWithTags: ["type:util"],
+						},
+						{
+							sourceTag: "type:data-access",
+							onlyDependOnLibsWithTags: ["type:util"],
+						},
+						{
+							sourceTag: "type:util",
+							onlyDependOnLibsWithTags: ["type:util"],
 						},
 						{
 							sourceTag: "scope:client",
