@@ -3,7 +3,7 @@ import { arePositionsEqual, checkSnakeCollision } from "./collision-detection";
 import { container } from "tsyringe";
 import { GameSettings } from "../settings";
 import { GameState } from "./game-state";
-import { Position } from "../types/snake-types";
+import { Position } from "@yakirgot/models";
 
 function setup() {
 	const gameSettings = new GameSettings();
@@ -23,51 +23,30 @@ function setup() {
 describe("collision detection", () => {
 	describe(arePositionsEqual, () => {
 		it("should detect a collision", () => {
-			expect(
-				arePositionsEqual(
-					[1, 1] as Position,
-					[1, 1] as Position,
-				),
-			).toBe(true);
-			expect(
-				arePositionsEqual(
-					[2, 2] as Position,
-					[2, 2] as Position,
-				),
-			).toBe(true);
+			expect(arePositionsEqual([1, 1] as Position, [1, 1] as Position)).toBe(
+				true,
+			);
+			expect(arePositionsEqual([2, 2] as Position, [2, 2] as Position)).toBe(
+				true,
+			);
 		});
 
 		it("should not detect a collision when there is none", () => {
-			expect(
-				arePositionsEqual(
-					[2, 1] as Position,
-					[1, 1] as Position,
-				),
-			).toBe(false);
-			expect(
-				arePositionsEqual(
-					[1, 2] as Position,
-					[1, 1] as Position,
-				),
-			).toBe(false);
-			expect(
-				arePositionsEqual(
-					[1, 1] as Position,
-					[2, 1] as Position,
-				),
-			).toBe(false);
-			expect(
-				arePositionsEqual(
-					[1, 1] as Position,
-					[1, 2] as Position,
-				),
-			).toBe(false);
-			expect(
-				arePositionsEqual(
-					[2, 1] as Position,
-					[1, 2] as Position,
-				),
-			).toBe(false);
+			expect(arePositionsEqual([2, 1] as Position, [1, 1] as Position)).toBe(
+				false,
+			);
+			expect(arePositionsEqual([1, 2] as Position, [1, 1] as Position)).toBe(
+				false,
+			);
+			expect(arePositionsEqual([1, 1] as Position, [2, 1] as Position)).toBe(
+				false,
+			);
+			expect(arePositionsEqual([1, 1] as Position, [1, 2] as Position)).toBe(
+				false,
+			);
+			expect(arePositionsEqual([2, 1] as Position, [1, 2] as Position)).toBe(
+				false,
+			);
 		});
 	});
 

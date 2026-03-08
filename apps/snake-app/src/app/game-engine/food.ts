@@ -1,4 +1,4 @@
-import { Position } from "../types/snake-types";
+import { Position } from "@yakirgot/models";
 import { drawFoodPart } from "./canvas/canvas-draw";
 import { arePositionsEqual } from "./collision-detection";
 import { container } from "tsyringe";

@@ -1,5 +1,5 @@
 import { singleton } from "tsyringe";
-import { SnakeDirection } from "./types/snake-types";
+import { SnakeDirection } from "@yakirgot/models";
 
 @singleton()
 export class GameSettings {

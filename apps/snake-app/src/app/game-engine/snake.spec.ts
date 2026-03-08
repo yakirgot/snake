@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
 import { GameSettings } from "../settings";
 import { GameState } from "./game-state";
-import { Position } from "../types/snake-types";
+import { Position } from "@yakirgot/models";
 import {
 	getNextSnakeHeadPosition,
 	initializeSnakePosition,
@@ -184,10 +184,7 @@ describe("snake movement", () => {
 	describe(resetSnake, () => {
 		it("should clear snake positions and growth steps", () => {
 			const { gameState } = setup();
-			gameState.snakePositions = [
-				[16, 16] as Position,
-				[32, 16] as Position,
-			];
+			gameState.snakePositions = [[16, 16] as Position, [32, 16] as Position];
 			gameState.pendingSnakeGrowthSteps = 3;
 
 			resetSnake();

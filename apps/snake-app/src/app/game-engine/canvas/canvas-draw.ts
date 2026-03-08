@@ -1,4 +1,4 @@
-import { Position } from "../../types/snake-types";
+import { Position } from "@yakirgot/models";
 import { container } from "tsyringe";
 import { GameSettings } from "../../settings";
 import { canvasContext } from "./canvas-setup";
@@ -49,8 +49,8 @@ export function drawEyes(snakePosition: Position): void {
 	const centerX = x + partSizeInPx / 2;
 	const centerY = y + partSizeInPx / 2;
 
-	let eye1: [number, number];
-	let eye2: [number, number];
+	let eye1: [number, number] = [0, 0];
+	let eye2: [number, number] = [0, 0];
 
 	switch (gameState.currentSnakeDirection) {
 		case "right": {

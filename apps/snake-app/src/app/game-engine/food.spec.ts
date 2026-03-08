@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
 import { GameState } from "./game-state";
 import { GameSettings } from "../settings";
-import { Position } from "../types/snake-types";
+import { Position } from "@yakirgot/models";
 import {
 	replaceFoodPositionIfWasEaten,
 	resetFood,
@@ -62,9 +62,7 @@ describe("food", () => {
 			const wasEaten = replaceFoodPositionIfWasEaten([16, 16] as Position);
 
 			expect(wasEaten).toBe(false);
-			expect(gameState.foodPositions).toStrictEqual([
-				[0, 0] as Position,
-			]);
+			expect(gameState.foodPositions).toStrictEqual([[0, 0] as Position]);
 		});
 
 		it("should return true and replace food if eaten", () => {
@@ -81,9 +79,7 @@ describe("food", () => {
 			const wasEaten = replaceFoodPositionIfWasEaten([0, 0] as Position);
 
 			expect(wasEaten).toBe(true);
-			expect(gameState.foodPositions).toStrictEqual([
-				[16, 0] as Position,
-			]);
+			expect(gameState.foodPositions).toStrictEqual([[16, 0] as Position]);
 		});
 	});
 });

@@ -1,4 +1,4 @@
-import { Position, SnakeDirection } from "../types/snake-types";
+import { Position, SnakeDirection } from "@yakirgot/models";
 import { container, singleton } from "tsyringe";
 import { GameSettings } from "../settings";
 import { SoundSettings } from "./audio/sound-settings";
