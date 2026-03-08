@@ -7,11 +7,10 @@ export class HighScore {
 
 	getHighScore(): number {
 		const savedHighScore = this.#storage.getItem(this.#storageKey);
-		if (savedHighScore) {
-			return Number.parseInt(savedHighScore, 10) || 0;
-		}
 
-		return 0;
+		if (!savedHighScore) return 0;
+
+		return Number.parseInt(savedHighScore, 10) || 0;
 	}
 
 	saveHighScore(score: number): void {
