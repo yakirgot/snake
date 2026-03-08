@@ -29,7 +29,7 @@ import { GameSounds } from "./audio/game-sounds";
 import { getAllPartsPositions } from "./all-parts-positions/all-parts-positions";
 import { SoundSettings } from "./audio/sound-settings";
 import { getRequiredElement } from "./utils/dom";
-import { DOM_SELECTORS } from "../constants";
+import { DOM_SELECTORS } from "@yakirgot/models";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;

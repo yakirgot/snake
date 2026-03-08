@@ -26,16 +26,9 @@
 - **Linting**: `npx nx affected --target=lint` (or `npx stylelint "**/*.css"` for style linting)
 - **Run All Checks (Lefthook)**: `npx lefthook run pre-push --force`
 
-## Project Structure
-
-- `apps/snake-app`: Main application source code.
-  - `src/app/game-engine`: Core game logic.
-  - `src/app/game-engine/providers.ts`: DI registration.
-- `apps/snake-app-e2e`: Playwright E2E tests.
-
 ## Development Patterns
 
 - **Dependency Injection**: Services and state (like `GameState`, `GameSettings`) are managed via `tsyringe`. Always check `providers.ts` for registrations.
 - **Game State**: Centralized in `GameState` singleton.
 - **Testing**: Unit tests are located next to the source files (`*.spec.ts`). Mocking is done via `vitest`.
-- **DOM Access**: Use `getRequiredElement` from `utils/dom.ts` with `DOM_SELECTORS` from `constants.ts`.
+- **DOM Access**: Use `getRequiredElement` from `utils/dom.ts` with `DOM_SELECTORS` from `@yakirgot/models`.

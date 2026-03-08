@@ -2,7 +2,7 @@ import { container } from "tsyringe";
 import { GameSettings } from "../../settings";
 import { GameState } from "../game-state";
 import { getRequiredElement } from "../utils/dom";
-import { DOM_SELECTORS } from "../../constants";
+import { DOM_SELECTORS } from "@yakirgot/models";
 import { drawEyes } from "./canvas-draw";
 import { getColor } from "./canvas-colors";
 

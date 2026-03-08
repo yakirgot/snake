@@ -2,7 +2,7 @@ import { SnakeDirection } from "../types/snake-types";
 import { container } from "tsyringe";
 import { GameSettings } from "../settings";
 import { GameState } from "./game-state";
-import { GAME_CONSTANTS, KEY_CODES } from "../constants";
+import { GAME_CONSTANTS, KEY_CODES } from "@yakirgot/models";
 
 let touchStartX = 0;
 let touchStartY = 0;
