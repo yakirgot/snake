@@ -15,6 +15,7 @@ export default defineConfig(() => ({
 		outDir: "./dist",
 		emptyOutDir: true,
 		reportCompressedSize: true,
+		sourcemap: true,
 		commonjsOptions: {
 			transformMixedEsModules: true,
 		},
@@ -23,9 +24,6 @@ export default defineConfig(() => ({
 			name: "@yakirgot/models",
 			fileName: "index",
 			formats: ["es" as const],
-		},
-		rollupOptions: {
-			external: [],
 		},
 	},
 }));
