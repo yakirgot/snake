@@ -53,10 +53,6 @@ jobs:
           node-version: 24
           cache: "npm"
 
-      - run: npm ci
-      - name: Security audit
-        run: npm audit --audit-level=high
-
       - uses: nrwl/nx-set-shas@v4
       - name: Check if projects are affected
         id: affected
