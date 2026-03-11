@@ -3,5 +3,14 @@
 	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "libs/ui/styles/src",
 	"projectType": "library",
-	"tags": ["type:ui", "scope:client"]
+	"tags": ["type:ui", "scope:client"],
+	"targets": {
+		"stylelint": {
+			"executor": "nx-stylelint:lint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["libs/ui/styles/**/*.css"]
+			}
+		}
+	}
 }
