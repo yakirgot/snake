@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "./libs/shared/models"
+		},
+		{
+			"path": "./libs/ui/styles"
 		}
 	]
 }

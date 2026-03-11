@@ -1,5 +1,7 @@
 @layer reset ,theme, base;
 
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap")
+layer(base);
 @import url("the-new-css-reset/css/reset.css") layer(reset);
 @import url("colors.css") layer(theme);
 

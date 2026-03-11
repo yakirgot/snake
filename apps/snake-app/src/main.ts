@@ -1,4 +1,5 @@
 import "core-js/full/reflect/index.js";
+import "@yakirgot/styles";
 import { registerProviders } from "./app/game-engine/providers";
 import { bootstrapGame } from "./app/game-engine/game";
 
