@@ -1,15 +1,5 @@
 import "core-js/full/reflect/index.js";
 import "@yakirgot/styles";
-import { registerProviders } from "./app/game-engine/providers";
-import { bootstrapGame } from "./app/game-engine/game";
+import { bootstrapGame } from "@yakirgot/game-engine";
 
-function init() {
-	registerProviders();
-	bootstrapGame();
-}
-
-if (document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", init);
-} else {
-	init();
-}
+void bootstrapGame();

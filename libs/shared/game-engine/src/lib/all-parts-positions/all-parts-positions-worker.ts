@@ -1,5 +1,5 @@
 import { Position } from "@yakirgot/models";
-import { GameSettings } from "../../settings";
+import { GameSettings } from "../settings.js";
 
 addEventListener(
 	"message",

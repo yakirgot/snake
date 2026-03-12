@@ -33,6 +33,7 @@ export default defineConfig(() => ({
 		watch: false,
 		environment: "jsdom",
 		include: ["src/**/*.spec.ts"],
-		setupFiles: ["@vitest/web-worker", "./src/test-setup.ts"],
+		setupFiles: ["@vitest/web-worker"],
+		passWithNoTests: true,
 	},
 }));

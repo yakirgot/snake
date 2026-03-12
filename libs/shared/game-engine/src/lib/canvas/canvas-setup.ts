@@ -1,10 +1,10 @@
 import { container } from "tsyringe";
-import { GameSettings } from "../../settings";
-import { GameState } from "../game-state";
-import { getRequiredElement } from "../utils/dom";
+import { GameSettings } from "../settings.js";
+import { GameState } from "../game-state.js";
+import { getRequiredElement } from "../utils/dom.js";
 import { DOM_SELECTORS } from "@yakirgot/models";
-import { drawEyes } from "./canvas-draw";
-import { getColor } from "./canvas-colors";
+import { drawEyes } from "./canvas-draw.js";
+import { getColor } from "./canvas-colors.js";
 
 export let canvasElement: HTMLCanvasElement;
 export let canvasContext: CanvasRenderingContext2D;

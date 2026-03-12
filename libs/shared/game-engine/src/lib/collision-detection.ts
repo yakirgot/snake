@@ -1,7 +1,7 @@
 import { Position } from "@yakirgot/models";
-import { GameSettings } from "../settings";
+import { GameSettings } from "./settings.js";
 import { container } from "tsyringe";
-import { GameState } from "./game-state";
+import { GameState } from "./game-state.js";
 
 export function arePositionsEqual(
 	positionA: Position,
@@ -22,7 +22,7 @@ export function checkSnakeCollision(snakePosition: Position): boolean {
 
 export function detectSnakeSelfCollision(position: Position): boolean {
 	const gameState = container.resolve<GameState>("GameState");
-	const isCollision = gameState.snakePositions.some((snakePosition) =>
+	const isCollision = gameState.snakePositions.some((snakePosition: Position) =>
 		arePositionsEqual(position, snakePosition),
 	);
 

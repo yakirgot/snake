@@ -1,17 +1,17 @@
 import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
-import { GameSettings } from "../settings";
-import { GameState } from "./game-state";
+import { GameSettings } from "./settings.js";
+import { GameState } from "./game-state.js";
 import { Position } from "@yakirgot/models";
 import {
 	getNextSnakeHeadPosition,
 	initializeSnakePosition,
 	moveSnake,
 	resetSnake,
-} from "./snake";
-import { drawSnakeHeadPart, drawSnakePart } from "./canvas/canvas-draw";
+} from "./snake.js";
+import { drawSnakeHeadPart, drawSnakePart } from "./canvas/canvas-draw.js";
 
-vi.mock(import("./canvas/canvas-draw"), () => ({
+vi.mock(import("./canvas/canvas-draw.js"), () => ({
 	drawSnakePart: vi.fn<() => void>(),
 	drawSnakeHeadPart: vi.fn<() => void>(),
 	erasePart: vi.fn<() => void>(),

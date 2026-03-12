@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { container } from "tsyringe";
-import { GameState } from "./game-state";
-import { GameSettings } from "../settings";
+import { GameState } from "./game-state.js";
+import { GameSettings } from "./settings.js";
 import {
 	applyNextDirection,
 	initializeKeyboardInputListeners,
 	initializeTouchInputListeners,
 	resetSnakeDirection,
-} from "./snake-direction";
+} from "./snake-direction.js";
 
 function setup() {
 	const gameSettings = new GameSettings();

@@ -1,9 +1,9 @@
 import { Position } from "@yakirgot/models";
-import { drawFoodPart } from "./canvas/canvas-draw";
-import { arePositionsEqual } from "./collision-detection";
+import { drawFoodPart } from "./canvas/canvas-draw.js";
+import { arePositionsEqual } from "./collision-detection.js";
 import { container } from "tsyringe";
-import { GameSettings } from "../settings";
-import { GameState } from "./game-state";
+import { GameSettings } from "./settings.js";
+import { GameState } from "./game-state.js";
 
 export function resetFood(): void {
 	const gameState = container.resolve<GameState>("GameState");
@@ -32,7 +32,7 @@ export function replaceFoodPositionIfWasEaten(position: Position): boolean {
 
 function isFoodPosition(position: Position): boolean {
 	const gameState = container.resolve<GameState>("GameState");
-	const isPosition = gameState.foodPositions.some((foodPosition) =>
+	const isPosition = gameState.foodPositions.some((foodPosition: Position) =>
 		arePositionsEqual(position, foodPosition),
 	);
 
@@ -41,7 +41,7 @@ function isFoodPosition(position: Position): boolean {
 
 function removeFoodPart(position: Position): void {
 	const gameState = container.resolve<GameState>("GameState");
-	const index = gameState.foodPositions.findIndex((foodPosition) =>
+	const index = gameState.foodPositions.findIndex((foodPosition: Position) =>
 		arePositionsEqual(position, foodPosition),
 	);
 
@@ -58,7 +58,8 @@ function placeNewFood(): void {
 	);
 
 	const freePositions = gameState.canvasGridPositions.filter(
-		(position) => !occupiedPositions.has(`${position[0]},${position[1]}`),
+		(position: Position) =>
+			!occupiedPositions.has(`${position[0]},${position[1]}`),
 	);
 
 	if (freePositions.length === 0) {

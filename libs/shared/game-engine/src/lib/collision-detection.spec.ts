@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { arePositionsEqual, checkSnakeCollision } from "./collision-detection";
+import {
+	arePositionsEqual,
+	checkSnakeCollision,
+} from "./collision-detection.js";
 import { container } from "tsyringe";
-import { GameSettings } from "../settings";
-import { GameState } from "./game-state";
+import { GameSettings } from "./settings.js";
+import { GameState } from "./game-state.js";
 import { Position } from "@yakirgot/models";
 
 function setup() {

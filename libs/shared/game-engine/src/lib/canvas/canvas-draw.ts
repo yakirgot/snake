@@ -1,9 +1,9 @@
 import { Position } from "@yakirgot/models";
 import { container } from "tsyringe";
-import { GameSettings } from "../../settings";
-import { canvasContext } from "./canvas-setup";
-import { GameState } from "../game-state";
-import { getColor } from "./canvas-colors";
+import { GameSettings } from "../settings.js";
+import { canvasContext } from "./canvas-setup.js";
+import { GameState } from "../game-state.js";
+import { getColor } from "./canvas-colors.js";
 
 export function drawSnakePart(snakePosition: Position) {
 	const gameSettings = container.resolve<GameSettings>("GameSettings");

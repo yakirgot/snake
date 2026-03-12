@@ -1,7 +1,7 @@
 import { GAME_CONSTANTS, KEY_CODES, SnakeDirection } from "@yakirgot/models";
 import { container } from "tsyringe";
-import { GameSettings } from "../settings";
-import { GameState } from "./game-state";
+import { GameSettings } from "./settings.js";
+import { GameState } from "./game-state.js";
 
 let touchStartX = 0;
 let touchStartY = 0;

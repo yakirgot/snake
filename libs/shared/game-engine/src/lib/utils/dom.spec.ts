@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getRequiredElement } from "./dom";
+import { getRequiredElement } from "./dom.js";
 
 function setup() {
 	document.body.innerHTML = "";

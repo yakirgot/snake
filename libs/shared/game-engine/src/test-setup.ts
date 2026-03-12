@@ -1,7 +1,7 @@
 import "core-js/full/reflect/index.js";
 import { container } from "tsyringe";
 import { beforeEach, vi } from "vitest";
-import { SoundSettings } from "./app/game-engine/audio/sound-settings";
+import { SoundSettings } from "./lib/audio/sound-settings.js";
 
 beforeEach(() => {
 	vi.clearAllMocks();

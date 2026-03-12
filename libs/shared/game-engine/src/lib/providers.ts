@@ -1,9 +1,9 @@
 import { container } from "tsyringe";
-import { GameSettings } from "../settings";
-import { GameState } from "./game-state";
-import { HighScore } from "./high-score";
-import { GameSounds } from "./audio/game-sounds";
-import { SoundSettings } from "./audio/sound-settings";
+import { GameSettings } from "./settings.js";
+import { GameState } from "./game-state.js";
+import { HighScore } from "./high-score.js";
+import { GameSounds } from "./audio/game-sounds.js";
+import { SoundSettings } from "./audio/sound-settings.js";
 
 export function registerProviders(): void {
 	container.registerSingleton("GameSettings", GameSettings);

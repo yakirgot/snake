@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
-import { GameState } from "./game-state";
-import { GameSettings } from "../settings";
+import { GameState } from "./game-state.js";
+import { GameSettings } from "./settings.js";
 import { Position } from "@yakirgot/models";
 import {
 	replaceFoodPositionIfWasEaten,
 	resetFood,
 	spawnInitialFood,
-} from "./food";
+} from "./food.js";
 
-vi.mock(import("./canvas/canvas-draw"), () => ({
+vi.mock(import("./canvas/canvas-draw.js"), () => ({
 	drawFoodPart: vi.fn<() => void>(),
 	erasePart: vi.fn<() => void>(),
 }));

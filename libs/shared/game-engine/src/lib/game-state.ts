@@ -1,7 +1,7 @@
 import { Position, SnakeDirection } from "@yakirgot/models";
 import { container, singleton } from "tsyringe";
-import { GameSettings } from "../settings";
-import { SoundSettings } from "./audio/sound-settings";
+import { GameSettings } from "./settings.js";
+import { SoundSettings } from "./audio/sound-settings.js";
 
 @singleton()
 export class GameState {
@@ -23,9 +23,8 @@ export class GameState {
 
 	get currentSnakeHeadPosition(): Position {
 		const head = this.snakePositions.at(-1);
-		if (!head) {
-			throw new Error("Snake has no positions");
-		}
+		if (!head) throw new Error("Snake has no positions");
+
 		return head;
 	}
 }

@@ -14,6 +14,9 @@
 		},
 		{
 			"path": "./libs/ui/styles"
+		},
+		{
+			"path": "./libs/shared/game-engine"
 		}
 	]
 }

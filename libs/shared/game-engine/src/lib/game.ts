@@ -2,34 +2,35 @@ import {
 	clearCanvas,
 	renderGameOverSnapshot,
 	setupCanvas,
-} from "./canvas/canvas-setup";
+} from "./canvas/canvas-setup.js";
 import {
 	getNextSnakeHeadPosition,
 	initializeSnakePosition,
 	moveSnake,
 	resetSnake,
-} from "./snake";
+} from "./snake.js";
 import {
 	replaceFoodPositionIfWasEaten,
 	resetFood,
 	spawnInitialFood,
-} from "./food";
+} from "./food.js";
 import {
 	applyNextDirection,
 	initializeKeyboardInputListeners,
 	initializeTouchInputListeners,
 	resetSnakeDirection,
-} from "./snake-direction";
-import { checkSnakeCollision } from "./collision-detection";
+} from "./snake-direction.js";
+import { checkSnakeCollision } from "./collision-detection.js";
 import { container } from "tsyringe";
-import { GameSettings } from "../settings";
-import { GameState } from "./game-state";
-import { HighScore } from "./high-score";
-import { GameSounds } from "./audio/game-sounds";
-import { getAllPartsPositions } from "./all-parts-positions/all-parts-positions";
-import { SoundSettings } from "./audio/sound-settings";
-import { getRequiredElement } from "./utils/dom";
+import { GameSettings } from "./settings.js";
+import { GameState } from "./game-state.js";
+import { HighScore } from "./high-score.js";
+import { GameSounds } from "./audio/game-sounds.js";
+import { getAllPartsPositions } from "./all-parts-positions/all-parts-positions.js";
+import { SoundSettings } from "./audio/sound-settings.js";
+import { getRequiredElement } from "./utils/dom.js";
 import { DOM_SELECTORS } from "@yakirgot/models";
+import { registerProviders } from "./providers.js";
 
 let startButton: HTMLButtonElement;
 let pointsElement: HTMLElement;
@@ -39,6 +40,15 @@ let soundToggleButton: HTMLButtonElement;
 let moveSnakeIntervalId: ReturnType<typeof setTimeout> | undefined;
 
 export async function bootstrapGame(): Promise<void> {
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", () => {
+			void bootstrapGame();
+		});
+		return;
+	}
+
+	registerProviders();
+
 	try {
 		setupCanvas();
 	} catch (error) {
@@ -47,32 +57,44 @@ export async function bootstrapGame(): Promise<void> {
 	}
 
 	try {
-		pointsElement = getRequiredElement(DOM_SELECTORS.POINTS);
-		highScoreElement = getRequiredElement(DOM_SELECTORS.HIGH_SCORE);
-		startButton = getRequiredElement<HTMLButtonElement>(
-			DOM_SELECTORS.START_BUTTON,
-		);
-		announcerElement = getRequiredElement(DOM_SELECTORS.ANNOUNCER);
-		soundToggleButton = getRequiredElement<HTMLButtonElement>(
-			DOM_SELECTORS.SOUND_TOGGLE,
-		);
+		initializeDomElements();
 	} catch (error) {
 		console.error("Required DOM elements not found:", error);
 		return;
 	}
 
 	try {
-		const gameState = container.resolve<GameState>("GameState");
-		const highScore = container.resolve<HighScore>("HighScore");
-
-		gameState.canvasGridPositions = await getAllPartsPositions();
-		gameState.highScore = highScore.getHighScore();
-		updateHighScoreDisplay();
+		await initializeGameState();
 	} catch (error) {
 		console.error("Failed to initialize game positions:", error);
 		return;
 	}
 
+	setupEventListeners();
+}
+
+function initializeDomElements(): void {
+	pointsElement = getRequiredElement(DOM_SELECTORS.POINTS);
+	highScoreElement = getRequiredElement(DOM_SELECTORS.HIGH_SCORE);
+	startButton = getRequiredElement<HTMLButtonElement>(
+		DOM_SELECTORS.START_BUTTON,
+	);
+	announcerElement = getRequiredElement(DOM_SELECTORS.ANNOUNCER);
+	soundToggleButton = getRequiredElement<HTMLButtonElement>(
+		DOM_SELECTORS.SOUND_TOGGLE,
+	);
+}
+
+async function initializeGameState(): Promise<void> {
+	const gameState = container.resolve<GameState>("GameState");
+	const highScore = container.resolve<HighScore>("HighScore");
+
+	gameState.canvasGridPositions = await getAllPartsPositions();
+	gameState.highScore = highScore.getHighScore();
+	updateHighScoreDisplay();
+}
+
+function setupEventListeners(): void {
 	const gameState = container.resolve<GameState>("GameState");
 	const soundSettings = container.resolve<SoundSettings>("SoundSettings");
 

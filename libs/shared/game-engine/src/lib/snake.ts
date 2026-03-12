@@ -2,11 +2,11 @@ import {
 	drawSnakeHeadPart,
 	drawSnakePart,
 	erasePart,
-} from "./canvas/canvas-draw";
+} from "./canvas/canvas-draw.js";
 import { Position, XCoordinate, YCoordinate } from "@yakirgot/models";
 import { container } from "tsyringe";
-import { GameSettings } from "../settings";
-import { GameState } from "./game-state";
+import { GameSettings } from "./settings.js";
+import { GameState } from "./game-state.js";
 
 export function moveSnake(headPosition: Position): void {
 	addAndDrawSnakePart(headPosition);
@@ -30,7 +30,10 @@ export function getNextSnakeHeadPosition(): Position {
 	const { snakeSizeWithGap } = gameSettings;
 
 	const gameState = container.resolve<GameState>("GameState");
-	const nextPosition: Position = [...gameState.currentSnakeHeadPosition];
+	const nextPosition: Position = [
+		gameState.currentSnakeHeadPosition[0],
+		gameState.currentSnakeHeadPosition[1],
+	];
 
 	switch (gameState.currentSnakeDirection) {
 		case "right": {
