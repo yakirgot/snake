@@ -17,6 +17,9 @@
 		},
 		{
 			"path": "./libs/shared/game-engine"
+		},
+		{
+			"path": "./libs/ui/ui-manager"
 		}
 	]
 }

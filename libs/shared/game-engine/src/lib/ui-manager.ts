@@ -1,5 +1,5 @@
 import { container, singleton } from "tsyringe";
-import { getRequiredElement } from "./utils/dom.js";
+import { getRequiredElement } from "@yakirgot/ui-manager";
 import { DOM_SELECTORS } from "@yakirgot/models";
 import { GameState } from "./game-state.js";
 

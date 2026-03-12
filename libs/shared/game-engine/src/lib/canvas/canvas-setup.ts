@@ -1,7 +1,7 @@
 import { container } from "tsyringe";
 import { GameSettings } from "../settings.js";
 import { GameState } from "../game-state.js";
-import { getRequiredElement } from "../utils/dom.js";
+import { getRequiredElement } from "@yakirgot/ui-manager";
 import { DOM_SELECTORS } from "@yakirgot/models";
 import { drawEyes } from "./canvas-draw.js";
 import { getColor } from "./canvas-colors.js";
