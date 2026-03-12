@@ -3,23 +3,17 @@
 ## Core Principles
 
 - **TDD First**: Always write or update a reproduction test before adding or editing behaviors.
+- **Consider E2E Tests**: Testing the DOM should be done via E2E tests. Try to avoid duplicate tests.
 - **Small Steps**: Make incremental changes and verify frequently.
-- **Verification**: Run tests and linters after completing any task. It is highly recommended to run `npx lefthook run pre-push --force` (or `npx lefthook run pre-push -f`) to validate all checks before submitting.
+- **Verification**: Run typechecks, linters, and tests after completing a task (whichever is relevant). It is recommended to run `npx lefthook run pre-push --force` (or `npx lefthook run pre-push -f`) to validate all checks before submitting.
 
-## Technical Stack
+## Coding Standards
 
-- **Monorepo Management**: Nx
-- **Build Tool**: Vite
-- **Language**: TypeScript
-- **State Management**: `tsyringe` (Dependency Injection)
-- **Unit Testing**: Vitest
-- **E2E Testing**: Playwright
-- **Styles**: CSS (using `the-new-css-reset`)
+- **Private Fields**: Use JavaScript private class fields (`#field`) for internal state within classes.
 
 ## Common Commands
 
 - **Run Unit Tests**: `npx nx run snake-app:test` (or `npx nx affected --target=test`)
-- **Run Unit Tests (Watch Mode)**: `npm run test:watch`
 - **Run E2E Tests**: `npx nx run snake-app-e2e:e2e` (or `npx nx affected --target=e2e`)
 - **Build Project**: `npx nx run snake-app:build` (or `npx nx affected --target=build`)
 - **Type Checking**: `npx nx run snake-app:typecheck` (or `npx nx affected --target=typecheck`)
