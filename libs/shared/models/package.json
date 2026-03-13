@@ -1,5 +1,5 @@
 {
-	"name": "@yakirgot/models",
+	"name": "@snake/models",
 	"version": "0.0.1",
 	"private": true,
 	"type": "module",
@@ -9,7 +9,6 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"@yakirgot/snake": "./src/index.ts",
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js",
 			"default": "./dist/index.js"

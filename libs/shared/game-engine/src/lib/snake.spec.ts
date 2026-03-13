@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
 import { GameSettings } from "./settings.js";
 import { GameState } from "./game-state.js";
-import { Position } from "@yakirgot/models";
+import { Position } from "@snake/models";
 import {
 	getNextSnakeHeadPosition,
 	initializeSnakePosition,

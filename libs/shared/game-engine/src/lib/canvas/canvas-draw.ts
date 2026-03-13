@@ -1,4 +1,4 @@
-import { Position } from "@yakirgot/models";
+import { Position } from "@snake/models";
 import { container } from "tsyringe";
 import { GameSettings } from "../settings.js";
 import { canvasContext } from "./canvas-setup.js";

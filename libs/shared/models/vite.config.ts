@@ -21,7 +21,7 @@ export default defineConfig(() => ({
 		},
 		lib: {
 			entry: "src/index.ts",
-			name: "@yakirgot/models",
+			name: "@snake/models",
 			fileName: "index",
 			formats: ["es" as const],
 		},

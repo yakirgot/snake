@@ -1,5 +1,5 @@
 import "core-js/full/reflect/index.js";
-import "@yakirgot/styles";
-import { bootstrapGame } from "@yakirgot/game-engine";
+import "@snake/styles";
+import { bootstrapGame } from "@snake/game-engine";
 
 void bootstrapGame();

@@ -3,7 +3,7 @@ import {
 	drawSnakePart,
 	erasePart,
 } from "./canvas/canvas-draw.js";
-import { Position, XCoordinate, YCoordinate } from "@yakirgot/models";
+import { Position, XCoordinate, YCoordinate } from "@snake/models";
 import { container } from "tsyringe";
 import { GameSettings } from "./settings.js";
 import { GameState } from "./game-state.js";

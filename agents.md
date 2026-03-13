@@ -25,4 +25,4 @@
 - **Dependency Injection**: Services and state (like `GameState`, `GameSettings`) are managed via `tsyringe`. Always check `providers.ts` for registrations.
 - **Game State**: Centralized in `GameState` singleton.
 - **Testing**: Unit tests are located next to the source files (`*.spec.ts`). Mocking is done via `vitest`.
-- **DOM Access**: Use `getRequiredElement` from `utils/dom.ts` with `DOM_SELECTORS` from `@yakirgot/models`.
+- **DOM Access**: Use `getRequiredElement` from `utils/dom.ts` with `DOM_SELECTORS` from `@snake/models`

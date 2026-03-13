@@ -21,7 +21,7 @@ export default defineConfig(() => ({
 		},
 		lib: {
 			entry: "src/index.ts",
-			name: "@yakirgot/ui-manager",
+			name: "@snake/ui-manager",
 			fileName: "index",
 			formats: ["es" as const],
 		},
@@ -30,7 +30,7 @@ export default defineConfig(() => ({
 		},
 	},
 	test: {
-		name: "@yakirgot/ui-manager",
+		name: "@snake/ui-manager",
 		watch: false,
 		globals: true,
 		environment: "jsdom",

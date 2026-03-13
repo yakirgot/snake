@@ -1,4 +1,4 @@
-import { GAME_CONSTANTS, KEY_CODES, SnakeDirection } from "@yakirgot/models";
+import { GAME_CONSTANTS, KEY_CODES, SnakeDirection } from "@snake/models";
 import { container } from "tsyringe";
 import { GameSettings } from "./settings.js";
 import { GameState } from "./game-state.js";

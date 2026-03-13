@@ -1,4 +1,4 @@
-import { CSS_VARS } from "@yakirgot/models";
+import { CSS_VARS } from "@snake/models";
 
 export type GameColor =
 	| "canvasColor"

@@ -22,16 +22,16 @@ export default defineConfig(() => ({
 		},
 		lib: {
 			entry: "src/index.ts",
-			name: "@yakirgot/game-engine",
+			name: "@snake/game-engine",
 			fileName: "index",
 			formats: ["es" as const],
 		},
 		rollupOptions: {
-			external: ["tsyringe", "@yakirgot/models"],
+			external: ["tsyringe", "@snake/models"],
 		},
 	},
 	test: {
-		name: "@yakirgot/game-engine",
+		name: "@snake/game-engine",
 		watch: false,
 		environment: "jsdom",
 		include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
