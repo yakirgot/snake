@@ -2,7 +2,7 @@ import { Position } from "@snake/models";
 import { drawFoodPart } from "./canvas/canvas-draw.js";
 import { arePositionsEqual } from "./collision-detection.js";
 import { container } from "tsyringe";
-import { GameSettings } from "./settings.js";
+import { GameSettings } from "@snake/ui-data-access";
 import { GameState } from "./game-state.js";
 
 export function resetFood(): void {

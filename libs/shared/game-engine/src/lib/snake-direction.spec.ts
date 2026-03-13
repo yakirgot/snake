@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { container } from "tsyringe";
 import { GameState } from "./game-state.js";
-import { GameSettings } from "./settings.js";
+import { GameSettings } from "@snake/ui-data-access";
 import {
 	applyNextDirection,
 	initializeKeyboardInputListeners,

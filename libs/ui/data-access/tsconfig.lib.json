@@ -8,23 +8,17 @@
 		"emitDeclarationOnly": true,
 		"forceConsistentCasingInFileNames": true,
 		"types": ["node", "vite/client"],
-		"lib": ["esnext", "dom"]
+		"lib": ["dom", "esnext"]
 	},
 	"include": ["src/**/*.ts"],
 	"references": [
-		{
-			"path": "../../ui/ui-manager/tsconfig.lib.json"
-		},
-		{
-			"path": "../../ui/data-access/tsconfig.lib.json"
-		},
-		{
-			"path": "../models/tsconfig.lib.json"
-		}
-	],
+    {
+      "path": "../../shared/models/tsconfig.lib.json"
+    }
+  ],
 	"exclude": [
 		"vite.config.ts",
-		"vite.config.mts",
+		"vite.config.ts",
 		"vitest.config.ts",
 		"vitest.config.mts",
 		"src/**/*.test.ts",

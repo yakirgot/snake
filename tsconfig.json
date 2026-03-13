@@ -20,6 +20,9 @@
 		},
 		{
 			"path": "./libs/ui/ui-manager"
+		},
+		{
+			"path": "./libs/ui/data-access"
 		}
 	]
 }

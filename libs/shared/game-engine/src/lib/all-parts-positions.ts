@@ -1,6 +1,6 @@
 import { Position } from "@snake/models";
 import { container } from "tsyringe";
-import { GameSettings } from "./settings.js";
+import { GameSettings } from "@snake/ui-data-access";
 
 const partsWorker = new Worker(
 	new URL("all-parts-positions-worker.ts", import.meta.url),

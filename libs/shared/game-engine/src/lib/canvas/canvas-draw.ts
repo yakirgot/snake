@@ -1,6 +1,6 @@
 import { Position } from "@snake/models";
 import { container } from "tsyringe";
-import { GameSettings } from "../settings.js";
+import { GameSettings } from "@snake/ui-data-access";
 import { canvasContext } from "./canvas-setup.js";
 import { GameState } from "../game-state.js";
 import { getColor } from "./canvas-colors.js";

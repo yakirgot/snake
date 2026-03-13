@@ -5,7 +5,7 @@ import * as path from "path";
 
 export default defineConfig(() => ({
 	root: import.meta.dirname,
-	cacheDir: "../../../node_modules/.vite/libs/ui/ui-manager",
+	cacheDir: "../../../node_modules/.vite/libs/ui/ui-data-access",
 	plugins: [
 		dts({
 			entryRoot: "src",
@@ -21,7 +21,7 @@ export default defineConfig(() => ({
 		},
 		lib: {
 			entry: "src/index.ts",
-			name: "@snake/ui-manager",
+			name: "@snake/ui-data-access",
 			fileName: "index",
 			formats: ["es" as const],
 		},
@@ -30,7 +30,7 @@ export default defineConfig(() => ({
 		},
 	},
 	test: {
-		name: "@snake/ui-manager",
+		name: "@snake/ui-data-access",
 		watch: false,
 		environment: "jsdom",
 		include: ["{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
@@ -39,5 +39,6 @@ export default defineConfig(() => ({
 			reportsDirectory: "./test-output/vitest/coverage",
 			provider: "v8" as const,
 		},
+		passWithNoTests: true,
 	},
 }));

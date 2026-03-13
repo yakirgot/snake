@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
-import { GameSettings } from "./settings.js";
+import { GameSettings } from "@snake/ui-data-access";
 import { GameState } from "./game-state.js";
 import { Position } from "@snake/models";
 import {

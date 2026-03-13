@@ -1,5 +1,5 @@
 import { container } from "tsyringe";
-import { GameSettings } from "./settings.js";
+import { GameSettings } from "@snake/ui-data-access";
 import { GameState } from "./game-state.js";
 import { HighScore } from "./high-score.js";
 import { GameSounds } from "./audio/game-sounds.js";
