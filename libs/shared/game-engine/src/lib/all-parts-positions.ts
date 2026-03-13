@@ -1,6 +1,6 @@
 import { Position } from "@yakirgot/models";
 import { container } from "tsyringe";
-import { GameSettings } from "../settings.js";
+import { GameSettings } from "./settings.js";
 
 const partsWorker = new Worker(
 	new URL("all-parts-positions-worker.ts", import.meta.url),
