@@ -1,13 +1,12 @@
 import { container, singleton } from "tsyringe";
 import { GameState } from "./game-state.js";
-import { GameSettings } from "@snake/ui-data-access";
+import { GameSettings, HighScore } from "@snake/ui-data-access";
 import { applyNextDirection, resetSnakeDirection } from "./snake-direction.js";
 import { GameSounds } from "./audio/game-sounds.js";
 import { getNextSnakeHeadPosition, moveSnake, resetSnake } from "./snake.js";
 import { checkSnakeCollision } from "./collision-detection.js";
 import { replaceFoodPositionIfWasEaten, resetFood } from "./food.js";
 import { UIManager } from "./ui-manager.js";
-import { HighScore } from "./high-score.js";
 import { clearCanvas, renderGameOverSnapshot } from "./canvas/canvas-setup.js";
 
 @singleton()
