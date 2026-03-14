@@ -1,5 +1,5 @@
 import { container } from "tsyringe";
-import { GameState } from "../game-state.js";
+import { GameState } from "./game-state.js";
 
 export class GameSounds {
 	#audioContext: AudioContext | undefined;

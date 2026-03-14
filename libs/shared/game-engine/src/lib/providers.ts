@@ -1,7 +1,7 @@
 import { container } from "tsyringe";
 import { GameSettings, HighScore, SoundSettings } from "@snake/ui-data-access";
 import { GameState } from "./game-state.js";
-import { GameSounds } from "./audio/game-sounds.js";
+import { GameSounds } from "./game-sounds.js";
 import { UIManager } from "./ui-manager.js";
 import { GameLoop } from "./game-loop.js";
 
