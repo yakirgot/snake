@@ -1,7 +1,6 @@
 import { Position, SnakeDirection } from "@snake/models";
 import { container, singleton } from "tsyringe";
-import { GameSettings } from "@snake/ui-data-access";
-import { SoundSettings } from "./audio/sound-settings.js";
+import { GameSettings, SoundSettings } from "@snake/ui-data-access";
 
 @singleton()
 export class GameState {

@@ -7,10 +7,9 @@ import {
 } from "./snake-direction.js";
 import { container } from "tsyringe";
 import { GameState } from "./game-state.js";
-import { HighScore } from "@snake/ui-data-access";
+import { HighScore, SoundSettings } from "@snake/ui-data-access";
 import { GameSounds } from "./audio/game-sounds.js";
 import { getAllPartsPositions } from "./all-parts-positions.js";
-import { SoundSettings } from "./audio/sound-settings.js";
 import { registerProviders } from "./providers.js";
 import { UIManager } from "./ui-manager.js";
 import { GameLoop } from "./game-loop.js";
