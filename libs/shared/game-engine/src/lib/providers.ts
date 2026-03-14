@@ -6,7 +6,7 @@ import {
 	SoundSettings,
 } from "@snake/ui-data-access";
 import { GameSounds } from "./game-sounds.js";
-import { UIManager } from "./ui-manager.js";
+import { UIManager } from "@snake/ui-manager";
 import { GameLoop } from "./game-loop.js";
 
 export function registerProviders(): void {

@@ -1,4 +1,4 @@
-import { clearCanvas, setupCanvas } from "@snake/ui-manager";
+import { clearCanvas, setupCanvas, UIManager } from "@snake/ui-manager";
 import { initializeSnakePosition } from "./snake.js";
 import { spawnInitialFood } from "./food.js";
 import {
@@ -10,7 +10,6 @@ import { GameState, HighScore, SoundSettings } from "@snake/ui-data-access";
 import { GameSounds } from "./game-sounds.js";
 import { getAllPartsPositions } from "./all-parts-positions.js";
 import { registerProviders } from "./providers.js";
-import { UIManager } from "./ui-manager.js";
 import { GameLoop } from "./game-loop.js";
 
 export async function bootstrapGame(): Promise<void> {
