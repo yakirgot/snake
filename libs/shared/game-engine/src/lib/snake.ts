@@ -5,8 +5,7 @@ import {
 } from "./canvas/canvas-draw.js";
 import { Position, XCoordinate, YCoordinate } from "@snake/models";
 import { container } from "tsyringe";
-import { GameSettings } from "@snake/ui-data-access";
-import { GameState } from "./game-state.js";
+import { GameSettings, GameState } from "@snake/ui-data-access";
 
 export function moveSnake(headPosition: Position): void {
 	addAndDrawSnakePart(headPosition);

@@ -1,7 +1,7 @@
 import { container, singleton } from "tsyringe";
 import { getRequiredElement } from "@snake/ui-manager";
 import { DOM_SELECTORS } from "@snake/models";
-import { GameState } from "./game-state.js";
+import { GameState } from "@snake/ui-data-access";
 
 @singleton()
 export class UIManager {

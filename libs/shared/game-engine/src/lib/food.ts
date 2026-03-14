@@ -2,8 +2,7 @@ import { Position } from "@snake/models";
 import { drawFoodPart } from "./canvas/canvas-draw.js";
 import { arePositionsEqual } from "./collision-detection.js";
 import { container } from "tsyringe";
-import { GameSettings } from "@snake/ui-data-access";
-import { GameState } from "./game-state.js";
+import { GameSettings, GameState } from "@snake/ui-data-access";
 
 export function resetFood(): void {
 	const gameState = container.resolve<GameState>("GameState");

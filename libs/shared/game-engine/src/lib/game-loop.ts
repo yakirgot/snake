@@ -1,6 +1,5 @@
 import { container, singleton } from "tsyringe";
-import { GameState } from "./game-state.js";
-import { GameSettings, HighScore } from "@snake/ui-data-access";
+import { GameSettings, GameState, HighScore } from "@snake/ui-data-access";
 import { applyNextDirection, resetSnakeDirection } from "./snake-direction.js";
 import { GameSounds } from "./game-sounds.js";
 import { getNextSnakeHeadPosition, moveSnake, resetSnake } from "./snake.js";

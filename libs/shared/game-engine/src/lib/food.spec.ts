@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
-import { GameState } from "./game-state.js";
-import { GameSettings } from "@snake/ui-data-access";
+import { GameSettings, GameState } from "@snake/ui-data-access";
 import { Position } from "@snake/models";
 import {
 	replaceFoodPositionIfWasEaten,

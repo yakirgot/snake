@@ -1,5 +1,5 @@
 import { container } from "tsyringe";
-import { GameState } from "./game-state.js";
+import { GameState } from "@snake/ui-data-access";
 
 export class GameSounds {
 	#audioContext: AudioContext | undefined;

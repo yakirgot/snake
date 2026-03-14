@@ -6,8 +6,7 @@ import {
 	initializeTouchInputListeners,
 } from "./snake-direction.js";
 import { container } from "tsyringe";
-import { GameState } from "./game-state.js";
-import { HighScore, SoundSettings } from "@snake/ui-data-access";
+import { GameState, HighScore, SoundSettings } from "@snake/ui-data-access";
 import { GameSounds } from "./game-sounds.js";
 import { getAllPartsPositions } from "./all-parts-positions.js";
 import { registerProviders } from "./providers.js";
