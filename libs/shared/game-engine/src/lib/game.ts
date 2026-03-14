@@ -1,4 +1,4 @@
-import { clearCanvas, setupCanvas } from "./canvas/canvas-setup.js";
+import { clearCanvas, setupCanvas } from "@snake/ui-manager";
 import { initializeSnakePosition } from "./snake.js";
 import { spawnInitialFood } from "./food.js";
 import {

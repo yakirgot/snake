@@ -8,9 +8,9 @@ import {
 	moveSnake,
 	resetSnake,
 } from "./snake.js";
-import { drawSnakeHeadPart, drawSnakePart } from "./canvas/canvas-draw.js";
+import { drawSnakeHeadPart, drawSnakePart } from "@snake/ui-manager";
 
-vi.mock(import("./canvas/canvas-draw.js"), () => ({
+vi.mock(import("@snake/ui-manager"), () => ({
 	drawSnakePart: vi.fn<() => void>(),
 	drawSnakeHeadPart: vi.fn<() => void>(),
 	erasePart: vi.fn<() => void>(),

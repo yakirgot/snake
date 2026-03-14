@@ -1,5 +1,5 @@
 import { Position } from "@snake/models";
-import { drawFoodPart } from "./canvas/canvas-draw.js";
+import { drawFoodPart } from "@snake/ui-manager";
 import { arePositionsEqual } from "./collision-detection.js";
 import { container } from "tsyringe";
 import { GameSettings, GameState } from "@snake/ui-data-access";

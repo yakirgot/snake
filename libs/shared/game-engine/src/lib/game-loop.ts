@@ -6,7 +6,7 @@ import { getNextSnakeHeadPosition, moveSnake, resetSnake } from "./snake.js";
 import { checkSnakeCollision } from "./collision-detection.js";
 import { replaceFoodPositionIfWasEaten, resetFood } from "./food.js";
 import { UIManager } from "./ui-manager.js";
-import { clearCanvas, renderGameOverSnapshot } from "./canvas/canvas-setup.js";
+import { clearCanvas, renderGameOverSnapshot } from "@snake/ui-manager";
 
 @singleton()
 export class GameLoop {

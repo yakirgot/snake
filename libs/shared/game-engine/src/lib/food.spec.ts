@@ -8,7 +8,7 @@ import {
 	spawnInitialFood,
 } from "./food.js";
 
-vi.mock(import("./canvas/canvas-draw.js"), () => ({
+vi.mock(import("@snake/ui-manager"), () => ({
 	drawFoodPart: vi.fn<() => void>(),
 	erasePart: vi.fn<() => void>(),
 }));

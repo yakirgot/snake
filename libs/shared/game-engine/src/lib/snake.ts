@@ -1,8 +1,4 @@
-import {
-	drawSnakeHeadPart,
-	drawSnakePart,
-	erasePart,
-} from "./canvas/canvas-draw.js";
+import { drawSnakeHeadPart, drawSnakePart, erasePart } from "@snake/ui-manager";
 import { Position, XCoordinate, YCoordinate } from "@snake/models";
 import { container } from "tsyringe";
 import { GameSettings, GameState } from "@snake/ui-data-access";
