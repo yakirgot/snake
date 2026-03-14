@@ -26,7 +26,7 @@ export default defineConfig(() => ({
 			formats: ["es" as const],
 		},
 		rollupOptions: {
-			external: [],
+			external: ["tsyringe", "@snake/models"],
 		},
 	},
 	test: {
