@@ -1,8 +1,19 @@
 import { expect, test } from "@playwright/test";
+import { AxeBuilder } from "@axe-core/playwright";
 
 test.describe("Snake Game", () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto("");
+	});
+
+	test("should not have any automatically detectable accessibility issues", async ({
+		page,
+	}) => {
+		await expect(page.locator("[data-snake-game-start-button]")).toBeVisible();
+
+		const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+		console.log(accessibilityScanResults.violations);
+		expect(accessibilityScanResults.violations).toEqual([]);
 	});
 
 	test("initial state should be correct", async ({ page }) => {
@@ -54,7 +65,7 @@ test.describe("Snake Game", () => {
 
 		await startButton.click();
 		// Snake starts at x = 11, moving right.
-		// Width is 44. To hit right wall it needs to reach 44.
+		// Width is 44. To hit the right wall, it needs to reach 44.
 		// 44 - 11 = 33 steps.
 		// But wait, the head is at 11 + (length-1) = 11 + 2 = 13.
 		// 44 - 13 = 31 steps.
