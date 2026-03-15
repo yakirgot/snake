@@ -19,6 +19,6 @@ export default [
 		},
 	},
 	{
-		ignores: ["**/out-tsc"],
+		ignores: ["**/dist", "**/out-tsc"],
 	},
 ];
