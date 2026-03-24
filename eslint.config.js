@@ -44,6 +44,7 @@ export default defineConfig([
 						{
 							sourceTag: "type:feature",
 							onlyDependOnLibsWithTags: [
+								"type:feature",
 								"type:ui",
 								"type:util",
 								"type:data-access",
@@ -51,11 +52,15 @@ export default defineConfig([
 						},
 						{
 							sourceTag: "type:ui",
-							onlyDependOnLibsWithTags: ["type:util"],
+							onlyDependOnLibsWithTags: [
+								"type:ui",
+								"type:util",
+								"type:data-access",
+							],
 						},
 						{
 							sourceTag: "type:data-access",
-							onlyDependOnLibsWithTags: ["type:util"],
+							onlyDependOnLibsWithTags: ["type:data-access", "type:util"],
 						},
 						{
 							sourceTag: "type:util",
