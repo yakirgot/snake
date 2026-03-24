@@ -283,3 +283,7 @@ test-output/
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
 out-tsc/
+
+.nx/polygraph
+.claude/worktrees
+.claude/settings.local.json
