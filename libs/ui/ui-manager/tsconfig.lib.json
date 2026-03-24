@@ -1,7 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
 	"compilerOptions": {
-		"baseUrl": ".",
 		"rootDir": "src",
 		"outDir": "dist",
 		"tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
@@ -12,13 +11,13 @@
 	},
 	"include": ["src/**/*.ts"],
 	"references": [
-    {
-      "path": "../data-access/tsconfig.lib.json"
-    },
-    {
-      "path": "../../shared/models/tsconfig.lib.json"
-    }
-  ],
+		{
+			"path": "../data-access/tsconfig.lib.json"
+		},
+		{
+			"path": "../../shared/models/tsconfig.lib.json"
+		}
+	],
 	"exclude": [
 		"vite.config.ts",
 		"vite.config.ts",

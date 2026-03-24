@@ -17,6 +17,12 @@
 		"noUnusedLocals": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"target": "esnext"
+		"target": "esnext",
+		"baseUrl": ".",
+		"paths": {
+			"@snake/ui-data-access": ["libs/ui/data-access/src/index.ts"],
+			"@snake/shared-models": ["libs/shared/models/src/index.ts"],
+			"@snake/game-engine": ["libs/shared/game-engine/src/index.ts"]
+		}
 	}
 }
