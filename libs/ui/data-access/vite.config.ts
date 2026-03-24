@@ -5,7 +5,7 @@ import * as path from "path";
 
 export default defineConfig(() => ({
 	root: import.meta.dirname,
-	cacheDir: "../../../node_modules/.vite/libs/ui/ui-data-access",
+	cacheDir: "../../../node_modules/.vite/libs/ui/data-access",
 	plugins: [
 		dts({
 			entryRoot: "src",
