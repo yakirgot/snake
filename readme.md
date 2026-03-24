@@ -15,7 +15,7 @@ npm ci
 ### Run development environment
 
 ```bash
-npm run dev
+npm run serve
 ```
 
 ### Run tests
