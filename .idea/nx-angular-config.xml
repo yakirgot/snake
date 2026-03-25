@@ -2,12 +2,12 @@
 <project version="4">
   <component name="NxAngularConfigService" workspaceLocation="file://$PROJECT_DIR$/nx.json">
     <projects>
+      <project name="domain" file="file://$PROJECT_DIR$/libs/ui/domain/project.json" />
+      <project name="rendering" file="file://$PROJECT_DIR$/libs/ui/rendering/project.json" />
       <project name="shared-game-engine" file="file://$PROJECT_DIR$/libs/shared/game-engine/project.json" />
       <project name="shared-models" file="file://$PROJECT_DIR$/libs/shared/models/project.json" />
       <project name="snake-app" file="file://$PROJECT_DIR$/apps/snake-app/project.json" />
       <project name="snake-app-e2e" file="file://$PROJECT_DIR$/apps/snake-app-e2e/project.json" />
-      <project name="ui-data-access" file="file://$PROJECT_DIR$/libs/ui/data-access/project.json" />
-      <project name="ui-manager" file="file://$PROJECT_DIR$/libs/ui/ui-manager/project.json" />
       <project name="ui-styles" file="file://$PROJECT_DIR$/libs/ui/styles/project.json" />
     </projects>
   </component>
