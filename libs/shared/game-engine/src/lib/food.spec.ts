@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
-import { GameSettings, GameState } from "@snake/ui-data-access";
+import { GameSettings, GameState } from "@snake/domain";
 import { Position } from "@snake/models";
 import {
 	replaceFoodPositionIfWasEaten,
@@ -8,7 +8,7 @@ import {
 	spawnInitialFood,
 } from "./food.js";
 
-vi.mock(import("@snake/ui-manager"), () => ({
+vi.mock(import("@snake/rendering"), () => ({
 	drawFoodPart: vi.fn<() => void>(),
 	erasePart: vi.fn<() => void>(),
 }));

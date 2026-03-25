@@ -1,5 +1,5 @@
 import { Position } from "@snake/models";
-import { GameSettings } from "@snake/ui-data-access";
+import { GameSettings } from "@snake/domain";
 
 addEventListener(
 	"message",

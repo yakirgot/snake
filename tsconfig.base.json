@@ -20,8 +20,9 @@
 		"target": "esnext",
 		"baseUrl": ".",
 		"paths": {
-			"@snake/ui-data-access": ["libs/ui/data-access/src/index.ts"],
-			"@snake/shared-models": ["libs/shared/models/src/index.ts"],
+			"@snake/domain": ["libs/ui/domain/src/index.ts"],
+			"@snake/rendering": ["libs/ui/rendering/src/index.ts"],
+			"@snake/models": ["libs/shared/models/src/index.ts"],
 			"@snake/game-engine": ["libs/shared/game-engine/src/index.ts"]
 		}
 	}

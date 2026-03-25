@@ -19,10 +19,10 @@
 			"path": "./libs/shared/game-engine"
 		},
 		{
-			"path": "./libs/ui/ui-manager"
+			"path": "./libs/ui/rendering"
 		},
 		{
-			"path": "./libs/ui/data-access"
+			"path": "./libs/ui/domain"
 		}
 	]
 }

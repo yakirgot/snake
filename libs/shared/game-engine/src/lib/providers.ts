@@ -4,9 +4,9 @@ import {
 	GameState,
 	HighScore,
 	SoundSettings,
-} from "@snake/ui-data-access";
+} from "@snake/domain";
 import { GameSounds } from "./game-sounds.js";
-import { UIManager } from "@snake/ui-manager";
+import { UIManager } from "@snake/rendering";
 import { GameLoop } from "./game-loop.js";
 
 export function registerProviders(): void {

@@ -1,8 +1,27 @@
 import { container } from "tsyringe";
-import { GameState } from "@snake/ui-data-access";
+import { GameState } from "@snake/domain";
 
 export class GameSounds {
 	#audioContext: AudioContext | undefined;
+
+	playStartSound(): void {
+		this.#playTone(440, 0.2); // A4
+		setTimeout(() => {
+			this.#playTone(880, 0.2); // A5
+		}, 100);
+	}
+
+	playEatSound(): void {
+		this.#playTone(660, 0.1); // E5
+	}
+
+	playChangeDirectionSound(): void {
+		this.#playTone(330, 0.2); // E4
+	}
+
+	playGameOverSound(): void {
+		this.#playTone(220, 0.5, "sawtooth"); // A3
+	}
 
 	#getAudioContext(): AudioContext {
 		if (!this.#audioContext) {
@@ -47,24 +66,5 @@ export class GameSounds {
 		} catch (error) {
 			console.warn("Failed to play sound:", error);
 		}
-	}
-
-	playStartSound(): void {
-		this.#playTone(440, 0.2); // A4
-		setTimeout(() => {
-			this.#playTone(880, 0.2); // A5
-		}, 100);
-	}
-
-	playEatSound(): void {
-		this.#playTone(660, 0.1); // E5
-	}
-
-	playChangeDirectionSound(): void {
-		this.#playTone(330, 0.2); // E4
-	}
-
-	playGameOverSound(): void {
-		this.#playTone(220, 0.5, "sawtooth"); // A3
 	}
 }

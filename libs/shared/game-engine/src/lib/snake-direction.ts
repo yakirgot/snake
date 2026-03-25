@@ -1,6 +1,6 @@
 import { GAME_CONSTANTS, KEY_CODES, SnakeDirection } from "@snake/models";
 import { container } from "tsyringe";
-import { GameSettings, GameState } from "@snake/ui-data-access";
+import { GameSettings, GameState } from "@snake/domain";
 
 let touchStartX = 0;
 let touchStartY = 0;

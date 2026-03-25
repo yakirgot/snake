@@ -1,11 +1,25 @@
 /// <reference types='vitest' />
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import * as path from "path";
+import path from "node:path";
 
 export default defineConfig(() => ({
 	root: import.meta.dirname,
-	cacheDir: "../../../node_modules/.vite/libs/ui/ui-manager",
+	cacheDir: "../../../node_modules/.vite/libs/ui/rendering",
+	resolve: {
+		alias: {
+			"@snake/domain": path.resolve(__dirname, "../domain/src/index.ts"),
+			"@snake/rendering": path.resolve(__dirname, "./src/index.ts"),
+			"@snake/models": path.resolve(
+				__dirname,
+				"../../shared/models/src/index.ts",
+			),
+			"@snake/game-engine": path.resolve(
+				__dirname,
+				"../../shared/game-engine/src/index.ts",
+			),
+		},
+	},
 	plugins: [
 		dts({
 			entryRoot: "src",
@@ -21,16 +35,16 @@ export default defineConfig(() => ({
 		},
 		lib: {
 			entry: "src/index.ts",
-			name: "@snake/ui-manager",
+			name: "@snake/rendering",
 			fileName: "index",
 			formats: ["es" as const],
 		},
 		rollupOptions: {
-			external: ["tsyringe"],
+			external: ["tsyringe", "@snake/domain", "@snake/models"],
 		},
 	},
 	test: {
-		name: "@snake/ui-manager",
+		name: "@snake/rendering",
 		watch: false,
 		environment: "jsdom",
 		include: ["{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],

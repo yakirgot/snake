@@ -1,5 +1,5 @@
 import { container, singleton } from "tsyringe";
-import { GameSettings, GameState, HighScore } from "@snake/ui-data-access";
+import { GameSettings, GameState, HighScore } from "@snake/domain";
 import { applyNextDirection, resetSnakeDirection } from "./snake-direction.js";
 import { GameSounds } from "./game-sounds.js";
 import { getNextSnakeHeadPosition, moveSnake, resetSnake } from "./snake.js";
@@ -9,7 +9,7 @@ import {
 	clearCanvas,
 	renderGameOverSnapshot,
 	UIManager,
-} from "@snake/ui-manager";
+} from "@snake/rendering";
 
 @singleton()
 export class GameLoop {
@@ -30,6 +30,32 @@ export class GameLoop {
 	stopGameLoop(): void {
 		globalThis.clearInterval(this.#moveSnakeIntervalId);
 		this.#moveSnakeIntervalId = undefined;
+	}
+
+	endGame(): void {
+		this.#audioService.playGameOverSound();
+
+		this.stopGameLoop();
+
+		this.#uiManager.setStartButtonDisabled(false);
+
+		if (this.#gameState.snakePartsCount > this.#gameState.highScore) {
+			this.#gameState.highScore = this.#gameState.snakePartsCount;
+			this.#highScore.saveHighScore(this.#gameState.highScore);
+			this.#uiManager.updateHighScoreDisplay();
+		}
+
+		this.#uiManager.announce(
+			`Game over. Final score: ${
+				this.#gameState.snakePartsCount
+			} points. Press start to play again.`,
+		);
+
+		clearCanvas();
+		renderGameOverSnapshot();
+		resetSnake();
+		resetSnakeDirection();
+		resetFood();
 	}
 
 	#processGameTick(): void {
@@ -72,31 +98,5 @@ export class GameLoop {
 		if (snakeWasGrowing) {
 			this.#uiManager.updateGamePointsBySnakeParts();
 		}
-	}
-
-	endGame(): void {
-		this.#audioService.playGameOverSound();
-
-		this.stopGameLoop();
-
-		this.#uiManager.setStartButtonDisabled(false);
-
-		if (this.#gameState.snakePartsCount > this.#gameState.highScore) {
-			this.#gameState.highScore = this.#gameState.snakePartsCount;
-			this.#highScore.saveHighScore(this.#gameState.highScore);
-			this.#uiManager.updateHighScoreDisplay();
-		}
-
-		this.#uiManager.announce(
-			`Game over. Final score: ${
-				this.#gameState.snakePartsCount
-			} points. Press start to play again.`,
-		);
-
-		clearCanvas();
-		renderGameOverSnapshot();
-		resetSnake();
-		resetSnakeDirection();
-		resetFood();
 	}
 }

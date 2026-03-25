@@ -5,16 +5,17 @@ import { SoundSettings } from "./sound-settings.js";
 
 @singleton()
 export class GameState {
-	readonly #gameSettings = container.resolve<GameSettings>("GameSettings");
-	readonly #soundSettings = container.resolve<SoundSettings>("SoundSettings");
-
 	canvasGridPositions: Position[] = [];
 	snakePositions: Position[] = [];
 	foodPositions: Position[] = [];
 	pendingSnakeGrowthSteps = 0;
-	currentSnakeDirection = this.#gameSettings.snakeStartingDirection;
 	snakeDirectionQueue: SnakeDirection[] = [];
 	highScore = 0;
+
+	readonly #gameSettings = container.resolve<GameSettings>("GameSettings");
+	currentSnakeDirection = this.#gameSettings.snakeStartingDirection;
+
+	readonly #soundSettings = container.resolve<SoundSettings>("SoundSettings");
 	soundsEnabled = this.#soundSettings.isSoundEnabled();
 
 	get snakePartsCount(): number {

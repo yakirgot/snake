@@ -4,7 +4,7 @@ import {
 	checkSnakeCollision,
 } from "./collision-detection.js";
 import { container } from "tsyringe";
-import { GameSettings, GameState } from "@snake/ui-data-access";
+import { GameSettings, GameState } from "@snake/domain";
 import { Position } from "@snake/models";
 
 function setup() {

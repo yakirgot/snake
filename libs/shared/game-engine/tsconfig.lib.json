@@ -12,10 +12,10 @@
 	"include": ["src/**/*.ts"],
 	"references": [
 		{
-			"path": "../../ui/ui-manager/tsconfig.lib.json"
+			"path": "../../ui/rendering/tsconfig.lib.json"
 		},
 		{
-			"path": "../../ui/data-access/tsconfig.lib.json"
+			"path": "../../ui/domain/tsconfig.lib.json"
 		},
 		{
 			"path": "../models/tsconfig.lib.json"

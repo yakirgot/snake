@@ -6,6 +6,17 @@ import path from "node:path";
 export default defineConfig(() => ({
 	root: import.meta.dirname,
 	cacheDir: "../../../node_modules/.vite/libs/shared/game-engine",
+	resolve: {
+		alias: {
+			"@snake/domain": path.resolve(__dirname, "../../ui/domain/src/index.ts"),
+			"@snake/rendering": path.resolve(
+				__dirname,
+				"../../ui/rendering/src/index.ts",
+			),
+			"@snake/models": path.resolve(__dirname, "../models/src/index.ts"),
+			"@snake/game-engine": path.resolve(__dirname, "./src/index.ts"),
+		},
+	},
 	plugins: [
 		dts({
 			entryRoot: "src",
@@ -27,7 +38,12 @@ export default defineConfig(() => ({
 			formats: ["es" as const],
 		},
 		rollupOptions: {
-			external: ["tsyringe"],
+			external: [
+				"tsyringe",
+				"@snake/rendering",
+				"@snake/domain",
+				"@snake/models",
+			],
 		},
 	},
 	test: {

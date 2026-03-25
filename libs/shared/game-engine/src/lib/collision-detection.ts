@@ -1,5 +1,5 @@
 import { Position } from "@snake/models";
-import { GameSettings, GameState } from "@snake/ui-data-access";
+import { GameSettings, GameState } from "@snake/domain";
 import { container } from "tsyringe";
 
 export function arePositionsEqual(

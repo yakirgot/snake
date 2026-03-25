@@ -21,13 +21,3 @@ export const KEY_CODES = Object.freeze({
 export const GAME_CONSTANTS = Object.freeze({
 	TOUCH_THRESHOLD: 30,
 });
-
-export const CSS_VARS = Object.freeze({
-	MAIZE_CRAYOLA: "--color-maize-crayola",
-	DARK_SLATE_GRAY: "--color-dark-slate-gray",
-	DARK_SLATE_GRAY_LIGHT: "--color-dark-slate-gray-light",
-	DARK_SLATE_GRAY_DARK: "--color-dark-slate-gray-dark",
-	TEAL_BLUE: "--color-teal-blue",
-	TEAL_BLUE_LIGHT: "--color-teal-blue-light",
-	TEAL_BLUE_DARK: "--color-teal-blue-dark",
-} as const);

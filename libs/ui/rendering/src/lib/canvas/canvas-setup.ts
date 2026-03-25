@@ -1,5 +1,5 @@
 import { container } from "tsyringe";
-import { GameSettings, GameState } from "@snake/ui-data-access";
+import { GameSettings, GameState } from "@snake/domain";
 import { getRequiredElement } from "../dom.js";
 import { DOM_SELECTORS } from "@snake/models";
 import { drawEyes } from "./canvas-draw.js";

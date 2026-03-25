@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
-import { GameSettings, GameState } from "@snake/ui-data-access";
+import { GameSettings, GameState } from "@snake/domain";
 import { Position } from "@snake/models";
 import {
 	getNextSnakeHeadPosition,
@@ -8,9 +8,9 @@ import {
 	moveSnake,
 	resetSnake,
 } from "./snake.js";
-import { drawSnakeHeadPart, drawSnakePart } from "@snake/ui-manager";
+import { drawSnakeHeadPart, drawSnakePart } from "@snake/rendering";
 
-vi.mock(import("@snake/ui-manager"), () => ({
+vi.mock(import("@snake/rendering"), () => ({
 	drawSnakePart: vi.fn<() => void>(),
 	drawSnakeHeadPart: vi.fn<() => void>(),
 	erasePart: vi.fn<() => void>(),

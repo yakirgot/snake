@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { container } from "tsyringe";
 import { GameSounds } from "./game-sounds.js";
-import { GameSettings, GameState } from "@snake/ui-data-access";
+import { GameSettings, GameState } from "@snake/domain";
 
 const mockCreateOscillator = vi.fn().mockReturnValue({
 	connect: vi.fn(),

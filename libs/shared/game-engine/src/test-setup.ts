@@ -1,7 +1,7 @@
 import "core-js/full/reflect/index.js";
 import { container } from "tsyringe";
 import { beforeEach, vi } from "vitest";
-import { SoundSettings } from "@snake/ui-data-access";
+import { SoundSettings } from "@snake/domain";
 
 beforeEach(() => {
 	vi.clearAllMocks();

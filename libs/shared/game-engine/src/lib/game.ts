@@ -1,4 +1,4 @@
-import { clearCanvas, setupCanvas, UIManager } from "@snake/ui-manager";
+import { clearCanvas, setupCanvas, UIManager } from "@snake/rendering";
 import { initializeSnakePosition } from "./snake.js";
 import { spawnInitialFood } from "./food.js";
 import {
@@ -6,7 +6,7 @@ import {
 	initializeTouchInputListeners,
 } from "./snake-direction.js";
 import { container } from "tsyringe";
-import { GameState, HighScore, SoundSettings } from "@snake/ui-data-access";
+import { GameState, HighScore, SoundSettings } from "@snake/domain";
 import { GameSounds } from "./game-sounds.js";
 import { getAllPartsPositions } from "./all-parts-positions.js";
 import { registerProviders } from "./providers.js";

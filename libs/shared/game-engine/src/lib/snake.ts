@@ -1,7 +1,7 @@
-import { drawSnakeHeadPart, drawSnakePart, erasePart } from "@snake/ui-manager";
+import { drawSnakeHeadPart, drawSnakePart, erasePart } from "@snake/rendering";
 import { Position, XCoordinate, YCoordinate } from "@snake/models";
 import { container } from "tsyringe";
-import { GameSettings, GameState } from "@snake/ui-data-access";
+import { GameSettings, GameState } from "@snake/domain";
 
 export function moveSnake(headPosition: Position): void {
 	addAndDrawSnakePart(headPosition);
