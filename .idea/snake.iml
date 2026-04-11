@@ -5,6 +5,14 @@
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/snake-app-e2e/out-tsc" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/snake-app-e2e/test-output" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/snake-app/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/snake-app/out-tsc" />
+      <excludeFolder url="file://$MODULE_DIR$/libs/shared/game-engine/out-tsc" />
+      <excludeFolder url="file://$MODULE_DIR$/libs/shared/models/out-tsc" />
+      <excludeFolder url="file://$MODULE_DIR$/libs/ui/domain/out-tsc" />
+      <excludeFolder url="file://$MODULE_DIR$/libs/ui/rendering/out-tsc" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
