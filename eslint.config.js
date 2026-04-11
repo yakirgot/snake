@@ -1,12 +1,12 @@
+import * as jsoncParser from "jsonc-eslint-parser";
 import json from "@eslint/json";
 import markdown from "@eslint/markdown";
 import js from "@eslint/js";
 import nx from "@nx/eslint-plugin";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
-import { defineConfig } from "eslint/config";
 
 /** @type {import('typescript-eslint').Config} */
-export default defineConfig([
+export default [
 	...nx.configs["flat/base"],
 	...nx.configs["flat/typescript"],
 	...nx.configs["flat/javascript"],
@@ -14,7 +14,7 @@ export default defineConfig([
 		ignores: ["**/dist", "**/out-tsc", "**/test-output"],
 	},
 	{
-		files: ["**/*.ts", "**/*.js"],
+		files: ["**/*.js", "**/*.ts", "**/*.json"],
 		rules: {
 			"@nx/enforce-module-boundaries": [
 				"error",
@@ -91,9 +91,18 @@ export default defineConfig([
 	{
 		files: ["**/*.json"],
 		plugins: { json },
-		ignores: ["package-lock.json"],
-		language: "json/json",
 		...json.configs.recommended,
+	},
+	{
+		files: ["**/*.json"],
+		ignores: ["**/package.json", "**/project.json"],
+		language: "json/json",
+	},
+	{
+		files: ["**/package.json", "**/project.json"],
+		languageOptions: {
+			parser: jsoncParser,
+		},
 	},
 	{
 		files: ["**/*.md"],
@@ -101,4 +110,4 @@ export default defineConfig([
 		language: "markdown/commonmark",
 		...markdown.configs.recommended,
 	},
-]);
+];

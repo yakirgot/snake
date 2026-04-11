@@ -17,6 +17,9 @@ export default [
 				},
 			],
 		},
+		languageOptions: {
+			parser: await import("jsonc-eslint-parser"),
+		},
 	},
 	{
 		ignores: ["**/dist", "**/out-tsc"],

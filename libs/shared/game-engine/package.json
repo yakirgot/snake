@@ -9,5 +9,12 @@
 	"exports": {
 		".": "./src/index.ts"
 	},
-	"dependencies": {}
+	"dependencies": {
+    "@snake/models": "0.0.1",
+    "@snake/domain": "0.0.1",
+    "tsyringe": "4.10.0",
+    "vitest": "4.1.4",
+    "@snake/rendering": "0.0.1",
+    "core-js": "3.48.0"
+  }
 }
