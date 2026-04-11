@@ -7,6 +7,6 @@ lefthook.yml
 .editorconfig
 eslint.config.js
 .gitignore
-stylelint.config.js
+stylelint.config.ts
 tsconfig.json
 vitest.config.ts
