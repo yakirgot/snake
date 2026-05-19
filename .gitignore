@@ -287,3 +287,4 @@ out-tsc/
 .nx/polygraph
 .claude/worktrees
 .claude/settings.local.json
+.nx/self-healing
