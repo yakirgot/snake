@@ -90,12 +90,8 @@ export default [
 	},
 	{
 		files: ["**/*.json"],
-		plugins: { json },
+		ignores: ["**/package.json", "**/project.json", "**/package-lock.json"],
 		...json.configs.recommended,
-	},
-	{
-		files: ["**/*.json"],
-		ignores: ["**/package.json", "**/project.json"],
 		language: "json/json",
 	},
 	{
@@ -104,10 +100,5 @@ export default [
 			parser: jsoncParser,
 		},
 	},
-	{
-		files: ["**/*.md"],
-		plugins: { markdown },
-		language: "markdown/commonmark",
-		...markdown.configs.recommended,
-	},
+	...markdown.configs.recommended,
 ];

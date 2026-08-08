@@ -17,13 +17,19 @@ const baseURL = process.env["BASE_URL"] || "http://localhost:4300";
  */
 export default defineConfig({
 	...nxE2EPreset(fileURLToPath(import.meta.url), { testDir: "./src" }),
-	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+	/*
+	Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions.
+	*/
 	use: {
 		baseURL,
-		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+		/*
+		Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer
+		*/
 		trace: "on-first-retry",
 	},
-	/* Configure snapshots naming */
+	/*
+	Configure snapshot naming
+	*/
 	snapshotPathTemplate:
 		"{testDir}/__snapshots__/{testFilePath}/{arg}-{projectName}{ext}",
 	expect: {
@@ -32,7 +38,9 @@ export default defineConfig({
 			threshold: 0.2,
 		},
 	},
-	/* Run your local dev server before starting the tests */
+	/*
+	Run your local dev server before starting the tests
+	*/
 	webServer: process.env["BASE_URL"]
 		? undefined
 		: {
