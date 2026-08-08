@@ -4,7 +4,9 @@
 		"outDir": "./out-tsc/vitest",
 		"types": ["vitest/importMeta", "vite/client", "node", "vitest"],
 		"lib": ["esnext", "dom"],
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"ignoreDeprecations": "6.0",
+		"rootDir": "."
 	},
 	"include": [
 		"vite.config.ts",

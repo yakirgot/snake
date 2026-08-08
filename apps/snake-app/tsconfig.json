@@ -3,7 +3,8 @@
 	"files": [],
 	"include": [],
 	"compilerOptions": {
-		"lib": ["esnext", "dom"]
+		"lib": ["esnext", "dom"],
+		"ignoreDeprecations": "6.0"
 	},
 	"references": [
 		{
