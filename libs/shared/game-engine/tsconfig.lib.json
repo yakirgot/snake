@@ -7,7 +7,8 @@
 		"emitDeclarationOnly": true,
 		"forceConsistentCasingInFileNames": true,
 		"types": ["node", "vite/client"],
-		"lib": ["esnext", "dom"]
+		"lib": ["esnext", "dom"],
+		"ignoreDeprecations": "6.0"
 	},
 	"include": ["src/**/*.ts"],
 	"references": [

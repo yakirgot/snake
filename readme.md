@@ -1,38 +1,35 @@
 # Snake Game
 
-Just a simple snake game. Enjoy!
+A classic Snake game!
 
-Feel free to give a feedback or submit a PR
+Feel free to give feedback or open a pull request.
 
-## Development
+## Getting started
 
-### Install dependencies
+Install dependencies:
 
 ```bash
 npm ci
 ```
 
-### Run development environment
+Start the development server:
 
 ```bash
 npm run serve
 ```
 
-### Run tests
+## Scripts
 
-```bash
-npm run test
-```
+| Command                             | Description                             |
+| ----------------------------------- | --------------------------------------- |
+| `npm run serve`                     | Start the snake app in development mode |
+| `npm run test`                      | Run unit tests for the snake app        |
+| `npm run test:watch`                | Run unit tests in watch mode            |
+| `npm run test:e2e`                  | Run Playwright end-to-end tests         |
+| `npx nx affected -t lint`           | Lint affected projects                  |
+| `npx stylelint "**/*.css"`          | Lint CSS styles                         |
+| `npx lefthook run pre-push --force` | Run the full pre-push check suite       |
 
-### Run linters
+## License
 
-```bash
-npm run lint:scripts
-npm run lint:styles
-```
-
-### Run E2E tests
-
-```bash
-npm run test:e2e
-```
+MIT — see [licence.txt](licence.txt).

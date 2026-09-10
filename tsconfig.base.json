@@ -17,6 +17,10 @@
 		"noUnusedLocals": true,
 		"skipLibCheck": true,
 		"strict": true,
+		"noUncheckedSideEffectImports": false,
+		"types": ["*"],
+		"esModuleInterop": false,
+		"ignoreDeprecations": "6.0",
 		"target": "esnext",
 		"baseUrl": ".",
 		"paths": {

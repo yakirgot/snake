@@ -8,7 +8,8 @@
 		"module": "esnext",
 		"moduleResolution": "bundler",
 		"tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
-		"sourceMap": true
+		"sourceMap": true,
+		"ignoreDeprecations": "6.0"
 	},
 	"exclude": [
 		"out-tsc",

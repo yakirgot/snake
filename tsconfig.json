@@ -24,5 +24,8 @@
 		{
 			"path": "./libs/ui/domain"
 		}
-	]
+	],
+	"compilerOptions": {
+		"ignoreDeprecations": "6.0"
+	}
 }

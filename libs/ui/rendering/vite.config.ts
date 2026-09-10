@@ -39,7 +39,7 @@ export default defineConfig(() => ({
 			fileName: "index",
 			formats: ["es" as const],
 		},
-		rollupOptions: {
+		rolldownOptions: {
 			external: ["tsyringe", "@snake/domain", "@snake/models"],
 		},
 	},

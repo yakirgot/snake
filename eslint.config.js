@@ -90,13 +90,17 @@ export default [
 	},
 	{
 		files: ["**/*.json"],
-		plugins: { json },
-		...json.configs.recommended,
-	},
-	{
-		files: ["**/*.json"],
-		ignores: ["**/package.json", "**/project.json"],
+		ignores: ["**/package.json", "**/project.json", "**/package-lock.json"],
+		plugins: {
+			json,
+			unicorn: eslintPluginUnicorn,
+		},
 		language: "json/json",
+		rules: {
+			...json.configs.recommended.rules,
+			"unicorn/no-empty-file": "error",
+			"unicorn/prefer-https": "error",
+		},
 	},
 	{
 		files: ["**/package.json", "**/project.json"],
@@ -104,10 +108,16 @@ export default [
 			parser: jsoncParser,
 		},
 	},
+	...markdown.configs.recommended,
 	{
 		files: ["**/*.md"],
-		plugins: { markdown },
-		language: "markdown/commonmark",
-		...markdown.configs.recommended,
+		plugins: {
+			unicorn: eslintPluginUnicorn,
+		},
+		rules: {
+			"unicorn/expiring-todo-comments": "error",
+			"unicorn/prefer-https": "error",
+		},
 	},
 ];
+
